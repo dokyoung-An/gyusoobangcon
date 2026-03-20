@@ -29,7 +29,7 @@ export default function SplashPage() {
       />
       <div className="absolute inset-0 flex items-center justify-center px-6">
         <h1 className="font-serif text-4xl font-semibold tracking-[0.2em] text-white drop-shadow-lg md:text-6xl lg:text-7xl">
-          Comming Soon
+          Coming Soon
         </h1>
       </div>
     </div>

@@ -20,7 +20,7 @@ export function Footer() {
               연락처
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>TEL {company.tel}</li>
+              <li>대표문의전화 {company.tel}</li>
               <li>FAX {company.fax}</li>
               <li>
                 <a
@@ -39,7 +39,8 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm">
               <li>{company.name}</li>
               <li>사업자등록번호 {company.bizNo}</li>
-              <li className="leading-relaxed">{company.address}</li>
+              <li className="leading-relaxed">현장 주소: {company.address}</li>
+              <li className="leading-relaxed">홍보관 주소: {company.address}</li>
             </ul>
           </div>
         </div>

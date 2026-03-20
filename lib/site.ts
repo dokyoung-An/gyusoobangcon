@@ -1,15 +1,15 @@
 export const siteConfig = {
   name: "규수방 건설",
-  projectName: "도심 속 숲 고급 타운하우스",
+  projectName: "아크로 드림힐",
   description:
-    "도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스. 규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.",
+    "도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 아크로 드림힐. 규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.",
   url: "https://gyusoobang.example.com",
   company: {
     name: "규수방 건설 주식회사",
     ceo: "대표이사 홍길동",
     bizNo: "123-45-67890",
-    address: "서울특별시 강남구 테헤란로 000",
-    tel: "02-0000-0000",
+    address: "경기도 수지구 동천동 438-8외",
+    tel: "1551-8959",
     fax: "02-0000-0001",
     email: "info@gyusoobang.co.kr",
   },
