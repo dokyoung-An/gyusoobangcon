@@ -26,8 +26,7 @@ export default function ModelhousePage() {
         </FadeIn>
         <FadeIn delay={0.08} className="mt-6 space-y-4 text-sm leading-relaxed text-neutral-700 md:text-base">
           <p>
-            세대 내부와 단지 외부를 VR로 둘러보실 수 있습니다. 아래에서 보고
-            싶은 구역을 선택해 주세요.
+           
           </p>
         </FadeIn>
         <FadeIn delay={0.12}>

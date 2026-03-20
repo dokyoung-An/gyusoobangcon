@@ -4,7 +4,7 @@ import { Manrope } from "next/font/google";
 import { preload } from "react-dom";
 import { siteConfig } from "@/lib/site";
 
-const SPLASH_HERO = "/main/main.jpg";
+const SPLASH_HERO = "/main/main.png";
 
 const manrope = Manrope({
   subsets: ["latin"],
