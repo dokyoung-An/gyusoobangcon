@@ -33,6 +33,7 @@ export default function SplashPage() {
         fill
         priority
         fetchPriority="high"
+        unoptimized
         className="object-cover"
         sizes="100vw"
       />
