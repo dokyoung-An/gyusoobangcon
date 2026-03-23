@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
-import { heroImage } from "@/lib/images";
+import { openGraphImage } from "@/lib/images";
 
 const notoSerif = Noto_Serif_KR({
   weight: ["400", "600", "700"],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: heroImage,
+        url: openGraphImage,
         width: 1200,
         height: 630,
         alt: siteConfig.projectName,
@@ -53,6 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.projectName} | ${siteConfig.name}`,
     description: siteConfig.description,
+    images: [openGraphImage],
   },
   robots: { index: true, follow: true },
 };

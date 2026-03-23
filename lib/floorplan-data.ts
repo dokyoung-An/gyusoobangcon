@@ -7,6 +7,12 @@ export type FloorFileCode = "1B" | "1F" | "2F" | "3F";
 
 export type UnitPlanRow = { label: string; value: string };
 
+/** Unit Plan 표: 좌측에 rowspan으로 묶이는 그룹(건축·토지 등) */
+export type UnitPlanSection = {
+  category: string;
+  rows: readonly UnitPlanRow[];
+};
+
 /**
  * 층별 이미지
  * - 필드 생략: 아래 규칙의 기본 경로 사용
@@ -27,7 +33,8 @@ export type FloorPlanTypeConfig = {
   unitCode: string;
   households: string;
   keyMapSlot: number;
-  unitPlan: readonly UnitPlanRow[];
+  /** 건축·토지 등 그룹별 행 — 평면안내 Unit Plan 표에 그대로 반영 */
+  unitPlan: readonly UnitPlanSection[];
   images?: FloorImages;
 };
 
@@ -85,12 +92,23 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     households: "8세대",
     keyMapSlot: 0,
     unitPlan: [
-      { label: "전용면적", value: "84.12㎡" },
-      { label: "공용면적", value: "35.45㎡" },
-      { label: "연면적", value: "119.57㎡" },
-      { label: "테라스", value: "12.30㎡" },
-      { label: "대지지분", value: "142.5㎡" },
-      { label: "주차", value: "2대" },
+      {
+        category: "건축",
+        rows: [
+          { label: "전용면적", value: "125.75㎡" },
+          { label: "2층면적", value: "28㎡" },
+          { label: "3층면적", value: "28㎡" },
+          { label: "분양면적", value: "153.75㎡" },
+        ],
+      },
+      {
+        category: "토지",
+        rows: [
+          { label: "전용면적", value: "252㎡~" },
+          { label: "공용면적", value: "75㎡~" },
+          { label: "분양면적", value: "327㎡~" },
+        ],
+      },
     ],
   },
   {
@@ -100,12 +118,23 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     households: "6세대",
     keyMapSlot: 1,
     unitPlan: [
-      { label: "전용면적", value: "91.48㎡" },
-      { label: "공용면적", value: "38.20㎡" },
-      { label: "연면적", value: "129.68㎡" },
-      { label: "테라스", value: "14.05㎡" },
-      { label: "대지지분", value: "155.2㎡" },
-      { label: "주차", value: "2대" },
+      {
+        category: "건축",
+        rows: [
+          { label: "전용면적", value: "125.75㎡" },
+          { label: "2층면적", value: "28㎡" },
+          { label: "3층면적", value: "28㎡" },
+          { label: "분양면적", value: "153.75㎡" },
+        ],
+      },
+      {
+        category: "토지",
+        rows: [
+          { label: "전용면적", value: "252㎡~" },
+          { label: "공용면적", value: "75㎡~" },
+          { label: "분양면적", value: "327㎡~" },
+        ],
+      },
     ],
   },
   {
@@ -115,12 +144,23 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     households: "10세대",
     keyMapSlot: 2,
     unitPlan: [
-      { label: "전용면적", value: "76.33㎡" },
-      { label: "공용면적", value: "32.10㎡" },
-      { label: "연면적", value: "108.43㎡" },
-      { label: "테라스", value: "9.85㎡" },
-      { label: "대지지분", value: "128.0㎡" },
-      { label: "주차", value: "1대" },
+      {
+        category: "건축",
+        rows: [
+          { label: "전용면적", value: "125.75㎡" },
+          { label: "2층면적", value: "28㎡" },
+          { label: "3층면적", value: "28㎡" },
+          { label: "분양면적", value: "153.75㎡" },
+        ],
+      },
+      {
+        category: "토지",
+        rows: [
+          { label: "전용면적", value: "108㎡~" },
+          { label: "공용면적", value: "32㎡~" },
+          { label: "분양면적", value: "140㎡~" },
+        ],
+      },
     ],
   },
   {
@@ -130,12 +170,23 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     households: "4세대",
     keyMapSlot: 3,
     unitPlan: [
-      { label: "전용면적", value: "102.05㎡" },
-      { label: "공용면적", value: "41.88㎡" },
-      { label: "연면적", value: "143.93㎡" },
-      { label: "테라스", value: "18.20㎡" },
-      { label: "대지지분", value: "172.4㎡" },
-      { label: "주차", value: "2대" },
+      {
+        category: "건축",
+        rows: [
+          { label: "전용면적", value: "125.75㎡" },
+          { label: "2층면적", value: "28㎡" },
+          { label: "3층면적", value: "28㎡" },
+          { label: "분양면적", value: "153.75㎡" },
+        ],
+      },
+      {
+        category: "토지",
+        rows: [
+          { label: "전용면적", value: "252㎡~" },
+          { label: "공용면적", value: "75㎡~" },
+          { label: "분양면적", value: "327㎡~" },
+        ],
+      },
     ],
   },
   {
@@ -145,12 +196,23 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     households: "4세대",
     keyMapSlot: 4,
     unitPlan: [
-      { label: "전용면적", value: "88.76㎡" },
-      { label: "공용면적", value: "36.52㎡" },
-      { label: "연면적", value: "125.28㎡" },
-      { label: "테라스", value: "11.40㎡" },
-      { label: "대지지분", value: "148.9㎡" },
-      { label: "주차", value: "2대" },
+      {
+        category: "건축",
+        rows: [
+          { label: "전용면적", value: "125.75㎡" },
+          { label: "2층면적", value: "28㎡" },
+          { label: "3층면적", value: "28㎡" },
+          { label: "분양면적", value: "153.75㎡" },
+        ],
+      },
+      {
+        category: "토지",
+        rows: [
+          { label: "전용면적", value: "252㎡~" },
+          { label: "공용면적", value: "75㎡~" },
+          { label: "분양면적", value: "327㎡~" },
+        ],
+      },
     ],
   },
 ] as const;

@@ -9,8 +9,9 @@ import {
   resolvePlan2dSrc,
   type FloorPlanTypeId,
 } from "@/lib/floorplan-data";
-import { KeyMapSvg } from "@/components/floorplan/KeyMapSvg";
 import { FadeInUp } from "@/components/ui/FadeInUp";
+
+const KEY_MAP_IMAGE = "/main/keymap.png";
 
 function FloorImageCard({
   label,
@@ -136,29 +137,57 @@ export function FloorPlanGuide() {
               <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">
                 Unit Plan
               </h2>
-              <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-neutral-200/80 bg-neutral-200/80">
-                {current.unitPlan.map((row) => (
-                  <div
-                    key={row.label}
-                    className="flex flex-col gap-0.5 bg-white/95 px-3 py-2.5 sm:px-4 sm:py-3"
-                  >
-                    <span className="text-[11px] font-medium text-neutral-500">
-                      {row.label}
-                    </span>
-                    <span className="text-sm font-semibold tabular-nums text-[#1a3329]">
-                      {row.value}
-                    </span>
-                  </div>
-                ))}
+              <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200/80">
+                <table className="w-full border-collapse text-left text-sm">
+                  <tbody className="divide-y divide-neutral-200/90">
+                    {current.unitPlan.map((section) =>
+                      section.rows.map((row, rowIndex) => (
+                        <tr key={`${section.category}-${row.label}`}>
+                          {rowIndex === 0 ? (
+                            <th
+                              rowSpan={section.rows.length}
+                              scope="row"
+                              className="w-[4.5rem] align-middle border-r border-neutral-200/80 bg-[#f0ebe2]/90 px-2 py-2.5 text-center text-xs font-bold text-[#1a3329] sm:w-[5.25rem] sm:px-3 sm:text-sm"
+                            >
+                              {section.category}
+                            </th>
+                          ) : null}
+                          <td className="bg-white/95 px-3 py-2.5 text-[11px] font-medium text-neutral-600 sm:px-4 sm:text-xs">
+                            {row.label}
+                          </td>
+                          <td className="bg-white/95 px-3 py-2.5 text-right text-sm font-semibold tabular-nums text-[#1a3329] sm:px-4">
+                            {row.value}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
 
             <div className="flex flex-col rounded-2xl border border-neutral-200/90 bg-neutral-100/70 p-5 shadow-sm md:p-6">
-              <h2 className="sr-only">Key Map</h2>
-              <KeyMapSvg
-                activeSlot={current.keyMapSlot}
-                className="mx-auto h-auto w-full max-w-[280px] flex-1"
-              />
+              <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">
+                Key Map
+              </h2>
+              <div className="mt-4 flex min-h-[70px] flex-1 flex-col sm:min-h-[90px]">
+                <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-xl p-1.5 sm:p-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={KEY_MAP_IMAGE}
+                    alt={`${current.tabLabel} 단지 배치 KEY MAP`}
+                    className="max-h-full w-full object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-center text-[11px] text-neutral-600">
+                선택 타입:{" "}
+                <span className="font-semibold text-[#1a3329]">
+                  {current.tabLabel}
+                </span>
+              </p>
             </div>
           </div>
 

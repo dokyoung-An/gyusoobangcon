@@ -4,70 +4,35 @@ import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
 import { projectDisplayName } from "@/lib/site";
-
-const VR_URLS = {
-  in: "https://ttdesign-jk.synology.me/VR/20260307GSB/in/index.html",
-  ex: "https://ttdesign-jk.synology.me/VR/20260307GSB/ex/index.html",
-} as const;
-
-type VrKey = keyof typeof VR_URLS;
+import {
+  openVrPopup,
+  VR_MODELHOUSE_URLS,
+  VR_WINDOW_NAMES,
+  type VrModelhouseKey,
+} from "@/lib/vr-modelhouse";
 
 const items: {
-  key: VrKey;
+  key: VrModelhouseKey;
   label: string;
   description: string;
-  windowName: string;
   thumbnail: string;
 }[] = [
   {
     key: "in",
     label: "세대 VR",
     description: "세대 내부 공간을 360°로 둘러봅니다.",
-    windowName: "acro_dream_hill_vr_interior",
     thumbnail: "/main/main.jpg",
   },
   {
     key: "ex",
     label: "외부 VR",
     description: "단지 외부·조경을 360°로 둘러봅니다.",
-    windowName: "acro_dream_hill_vr_exterior",
     thumbnail: "/main/main.jpg",
   },
 ];
 
-function openVrWindow(url: string, windowName: string) {
-  const width = Math.min(1280, Math.max(960, window.innerWidth - 80));
-  const height = Math.min(860, Math.max(700, window.innerHeight - 80));
-  const left = window.screenX + Math.max(0, Math.floor((window.outerWidth - width) / 2));
-  const top = window.screenY + Math.max(0, Math.floor((window.outerHeight - height) / 2));
-
-  const features = [
-    "popup=yes",
-    `width=${width}`,
-    `height=${height}`,
-    `left=${left}`,
-    `top=${top}`,
-    "scrollbars=yes",
-    "resizable=yes",
-    "noopener",
-    "noreferrer",
-  ].join(",");
-
-  const win = window.open(url, windowName, features);
-  if (win) {
-    try {
-      win.focus();
-    } catch {
-      /* ignore */
-    }
-    return;
-  }
-
-  window.open(url, "_blank", "noopener,noreferrer");
-}
-
 export function ModelHouseVr() {
-  const [selected, setSelected] = useState<VrKey>("in");
+  const [selected, setSelected] = useState<VrModelhouseKey>("in");
   const current = useMemo(
     () => items.find((item) => item.key === selected) ?? items[0],
     [selected]
@@ -101,7 +66,13 @@ export function ModelHouseVr() {
 
       <button
         type="button"
-        onClick={() => openVrWindow(VR_URLS[current.key], current.windowName)}
+        onClick={() =>
+          openVrPopup(
+            VR_MODELHOUSE_URLS[current.key],
+            VR_WINDOW_NAMES[current.key],
+            "default"
+          )
+        }
         className="group flex w-full flex-col items-start rounded-2xl border border-[#1a3329]/15 bg-white/90 p-6 text-left shadow-sm transition-all hover:border-[#1a3329]/35 hover:shadow-md active:scale-[0.99]"
       >
         <span className="flex w-full items-center justify-between gap-3">

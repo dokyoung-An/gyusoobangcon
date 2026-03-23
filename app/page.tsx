@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Manrope } from "next/font/google";
 import { preload } from "react-dom";
 import { siteConfig } from "@/lib/site";
+import { SplashVrButtons } from "@/components/splash/SplashVrButtons";
 
 const SPLASH_HERO = "/main/main.png";
 
@@ -50,6 +51,7 @@ export default function SplashPage() {
         >
           COMING SOON
         </h1>
+        <SplashVrButtons />
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
-/** Unsplash 플레이스홀더 — 실제 조감도·현장 사진으로 교체하세요 */
-export const heroImage =
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=85";
+/** SNS·검색 미리보기용 OG 이미지 (`public/main/main.png`) */
+export const openGraphImage = "/main/main.png";
 
 export const featureImages = [
   // 1) 도심 속 프라이빗 포레스트 (숲/산책로 느낌)

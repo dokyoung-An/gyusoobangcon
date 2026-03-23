@@ -29,7 +29,6 @@ export type NavItem =
     };
 
 export const navItems: readonly NavItem[] = [
-  { kind: "link", href: "/home", label: "홈" },
   { kind: "link", href: "/about", label: "사업 소개" },
   {
     kind: "dropdown",
