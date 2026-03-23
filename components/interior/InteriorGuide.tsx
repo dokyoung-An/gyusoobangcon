@@ -2,11 +2,12 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   FLOOR_PLAN_TYPES,
   type FloorPlanTypeId,
 } from "@/lib/floorplan-data";
-import { INTERIOR_IMAGES } from "@/lib/interior-data";
+import { getInteriorRoomLabel, INTERIOR_IMAGES } from "@/lib/interior-data";
 import { FadeInUp } from "@/components/ui/FadeInUp";
 
 const AUTO_MS = 4200;
@@ -63,6 +64,7 @@ function InteriorCarousel({ images, typeLabel }: InteriorCarouselProps) {
   }
 
   const mainSrc = slideAt(images, index);
+  const mainRoomLabel = getInteriorRoomLabel(mainSrc);
   const thumbSlots = Array.from({ length: THUMB_COUNT }, (_, k) => ({
     offset: k,
     src: slideAt(images, index + k),
@@ -76,6 +78,9 @@ function InteriorCarousel({ images, typeLabel }: InteriorCarouselProps) {
     >
       <div className="relative overflow-hidden rounded-2xl border border-[#1a3329]/12 bg-neutral-900/5 shadow-sm">
         <div className="relative aspect-[16/10] w-full bg-neutral-200/40 md:aspect-[2/1]">
+          <span className="pointer-events-none absolute left-3 top-3 z-20 rounded-md bg-black/55 px-3 py-1.5 text-xs font-semibold tracking-wide text-white backdrop-blur-sm">
+            {mainRoomLabel}
+          </span>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`${typeLabel}-${index}-${mainSrc}`}
@@ -107,6 +112,26 @@ function InteriorCarousel({ images, typeLabel }: InteriorCarouselProps) {
               )}
             </motion.div>
           </AnimatePresence>
+
+          <button
+            type="button"
+            onClick={() => goToOffset(-1)}
+            disabled={n <= 1}
+            aria-label="이전 이미지"
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/60 bg-white/85 p-2 text-[#1a3329] shadow-md backdrop-blur-sm transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 md:left-3"
+          >
+            <ChevronLeft className="size-5" strokeWidth={2.2} />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => goToOffset(1)}
+            disabled={n <= 1}
+            aria-label="다음 이미지"
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/60 bg-white/85 p-2 text-[#1a3329] shadow-md backdrop-blur-sm transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 md:right-3"
+          >
+            <ChevronRight className="size-5" strokeWidth={2.2} />
+          </button>
         </div>
         <p className="sr-only" aria-live="polite">
           {typeLabel} 갤러리 {index + 1}번째 이미지 표시 중, 자동 전환
