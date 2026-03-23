@@ -121,7 +121,11 @@ export function ModelHouseVr() {
             </span>
           </span>
         </span>
+        <p className="mt-3 w-full px-2 text-center text-xs leading-relaxed text-neutral-500 break-keep sm:text-sm">
+        본 이미지는 고객의 이해를 돕기 위한 연출 컷으로, 실제 시공 시 현장 상황에 따라 마감재 및 세부 사양이 변경될 수 있습니다
+        </p>
       </button>
     </div>
+    
   );
 }
