@@ -210,13 +210,11 @@ export function InteriorGuide() {
               <h2 className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl">
                 {current.tabLabel} 인테리어
               </h2>
-              <p className="mt-1 text-sm text-neutral-600">
+              {/* <p className="mt-1 text-sm text-neutral-600">
                 {current.unitCode} · {current.households}
-              </p>
+              </p> */}
             </div>
-            <p className="text-xs text-neutral-500">
-              갤러리가 자동으로 넘어갑니다 (무한 반복)
-            </p>
+           
           </div>
 
           <InteriorCarousel

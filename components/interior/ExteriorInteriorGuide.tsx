@@ -69,8 +69,8 @@ export function ExteriorInteriorGuide() {
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-4"
         >
-          <div className="flex flex-col items-start gap-2">
-            <h2 className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl">
+          <div className="flex flex-col items-start gap-2 border-b border-[#1a3329]/10 pb-4">
+            <h2 className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl ">
               {current.tabLabel} 외관 인테리어
             </h2>
           </div>

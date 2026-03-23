@@ -128,9 +128,9 @@ export function FloorPlanGuide() {
                   {current.unitCode}
                 </span>
               </div>
-              <p className="text-center text-xs font-medium text-neutral-600 lg:text-left">
+              {/* <p className="text-center text-xs font-medium text-neutral-600 lg:text-left">
                 {current.households}
-              </p>
+              </p> */}
             </div>
 
             <div className="rounded-2xl border border-neutral-200/90 bg-neutral-100/70 p-5 shadow-sm md:p-6">
