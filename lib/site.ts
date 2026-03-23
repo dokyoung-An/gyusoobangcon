@@ -39,7 +39,14 @@ export const navItems: readonly NavItem[] = [
       { href: "/location/premium", label: "프리미엄" },
     ],
   },
-  { kind: "link", href: "/floorplan", label: "평면도" },
+  {
+    kind: "dropdown",
+    label: "세대안내",
+    items: [
+      { href: "/floorplan", label: "평면안내" },
+      { href: "/floorplan/interior", label: "인테리어" },
+    ],
+  },
   { kind: "link", href: "/modelhouse", label: "모델하우스" },
   { kind: "link", href: "/contact", label: "상담 문의" },
 ] as const;

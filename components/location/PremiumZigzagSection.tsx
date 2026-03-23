@@ -174,7 +174,7 @@ export function PremiumZigzagSection() {
             delay={0.05 * index}
             viewport={{ amount: 0.15, once: true }}
           >
-            <div className="grid grid-cols-1 overflow-hidden rounded-2xl border border-neutral-300/70 bg-neutral-100/40 md:grid-cols-2">
+            <div className="break-keep grid grid-cols-1 overflow-hidden rounded-2xl border border-neutral-300/70 bg-neutral-100/40 md:grid-cols-2">
               {row.imageLeft ? (
                 <>
                   <MainImagePane

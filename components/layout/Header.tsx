@@ -18,7 +18,8 @@ function isLinkActive(pathname: string, href: string) {
 
 function MobileNav({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
-  const [premiumOpen, setPremiumOpen] = useState(false);
+  /** 열린 드롭다운 라벨(프리미엄·세대안내 등 각각 분리) */
+  const [expandedDropdown, setExpandedDropdown] = useState<string | null>(null);
 
   return (
     <div className="lg:hidden">
@@ -59,6 +60,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                 }
 
                 const parentActive = isDropdownActive(pathname, item);
+                const isExpanded = expandedDropdown === item.label;
                 return (
                   <div key={item.label} className="border-b border-white/5">
                     <button
@@ -66,19 +68,23 @@ function MobileNav({ pathname }: { pathname: string }) {
                       className={`flex w-full items-center justify-between py-3 text-left text-sm font-medium ${
                         parentActive ? "text-[#c6a667]" : "text-white/95"
                       }`}
-                      aria-expanded={premiumOpen}
-                      onClick={() => setPremiumOpen((v) => !v)}
+                      aria-expanded={isExpanded}
+                      onClick={() =>
+                        setExpandedDropdown((cur) =>
+                          cur === item.label ? null : item.label
+                        )
+                      }
                     >
                       {item.label}
                       <ChevronDown
                         className={`size-4 shrink-0 transition-transform ${
-                          premiumOpen ? "rotate-180" : ""
+                          isExpanded ? "rotate-180" : ""
                         }`}
                         aria-hidden
                       />
                     </button>
                     <AnimatePresence initial={false}>
-                      {premiumOpen && (
+                      {isExpanded && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
@@ -96,7 +102,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                                 }`}
                                 onClick={() => {
                                   setOpen(false);
-                                  setPremiumOpen(false);
+                                  setExpandedDropdown(null);
                                 }}
                               >
                                 {sub.label}
@@ -120,7 +126,8 @@ function MobileNav({ pathname }: { pathname: string }) {
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [premiumMenuOpen, setPremiumMenuOpen] = useState(false);
+  /** 데스크톱: 현재 열린 드롭다운의 라벨 (여러 개 동시에 열리지 않도록) */
+  const [openDropdownLabel, setOpenDropdownLabel] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -130,7 +137,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    setPremiumMenuOpen(false);
+    setOpenDropdownLabel(null);
   }, [pathname]);
 
   const isHome = pathname === "/home";
@@ -173,29 +180,30 @@ export function Header() {
             }
 
             const parentActive = isDropdownActive(pathname, item);
+            const menuOpen = openDropdownLabel === item.label;
             return (
               <div
                 key={item.label}
                 className="relative"
-                onMouseEnter={() => setPremiumMenuOpen(true)}
-                onMouseLeave={() => setPremiumMenuOpen(false)}
+                onMouseEnter={() => setOpenDropdownLabel(item.label)}
+                onMouseLeave={() => setOpenDropdownLabel(null)}
               >
                 <button
                   type="button"
                   className={`${linkClass(parentActive)} inline-flex cursor-default items-center gap-1`}
-                  aria-expanded={premiumMenuOpen}
+                  aria-expanded={menuOpen}
                   aria-haspopup="true"
                 >
                   {item.label}
                   <ChevronDown
                     className={`size-4 opacity-80 transition-transform ${
-                      premiumMenuOpen ? "rotate-180" : ""
+                      menuOpen ? "rotate-180" : ""
                     }`}
                     aria-hidden
                   />
                 </button>
                 <AnimatePresence>
-                  {premiumMenuOpen && (
+                  {menuOpen && (
                     <motion.div
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}

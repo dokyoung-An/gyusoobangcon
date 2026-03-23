@@ -190,13 +190,13 @@ export function EnvironmentSection() {
         <div className="mx-auto max-w-5xl">
           <FadeInUp className="text-center">
             <h3 className="font-serif text-xl font-semibold text-[#1a3329] md:text-2xl">
-              입지의 네 가지 가치
+              입지의 4가지 가치
             </h3>
             <p className="mx-auto mt-3 max-w-xl text-sm text-neutral-600">
               자연·교통·학군·프라이빗을 균형 있게 갖춘 주거 환경을 제안합니다.
             </p>
           </FadeInUp>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 break-keep">
             {advantages.map((item, i) => {
               const Icon = item.icon;
               return (
