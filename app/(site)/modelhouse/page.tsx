@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ModelhousePage() {
   return (
-    <div className="bg-[#f3efe6] px-4 pb-24 pt-28 md:px-8 md:pt-32">
+    <div className="bg-[#f3efe6] px-8 pb-24 pt-28 md:px-8 md:pt-32">
       <div className="mx-auto max-w-5xl">
         <FadeIn>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#1a3329]/70">

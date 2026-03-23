@@ -1,0 +1,8 @@
+# Supabase (프로덕션·스테이징에서 문의 저장 시 필수)
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+
+# 관리자 로그인 (/admin/login) — 추후 Supabase Auth로 교체 가능
+CONTACT_ADMIN_PASSWORD=강한_비밀번호
+# 세션 서명용 (16자 이상 임의 문자열)
+CONTACT_ADMIN_SECRET=임의로_긴_랜덤_문자열

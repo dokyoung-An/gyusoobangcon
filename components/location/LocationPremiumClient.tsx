@@ -59,7 +59,7 @@ export function PremiumSubpageHeader({
   title: string;
 }) {
   return (
-    <div className="border-b border-[#1a3329]/10 bg-[#f3efe6] px-4 pb-8 pt-28 md:px-8 md:pb-10 md:pt-32">
+    <div className="border-b border-[#1a3329]/10 bg-[#f3efe6] px-8 pb-8 pt-28 md:px-8 md:pb-10 md:pt-32">
       <div className="mx-auto max-w-6xl">
         <FadeInUp>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#1a3329]/70">
@@ -113,7 +113,7 @@ export function EnvironmentSection() {
             </p>
           </FadeInUp>
         </div>
-        <div className="relative z-10 border-t border-white/10 bg-[#1a3329]/95 px-4 py-4 text-center text-sm text-white/95 md:text-base">
+        <div className="relative z-10 border-t border-white/10 bg-[#1a3329]/95 px-8 py-4 text-center text-sm text-white/95 md:text-base">
           <p>
             나의 삶이 프리미엄이 되는 순간,{" "}
             <span className="font-medium text-[#c6a667]">{projectName}</span>
@@ -122,7 +122,7 @@ export function EnvironmentSection() {
         </div>
       </section>
 
-      <section className="px-4 py-16 md:px-8 md:py-24">
+      <section className="px-8 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-5xl">
           <FadeInUp>
             <div className="text-center">

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { InteriorGuide } from "@/components/interior/InteriorGuide";
+import { InteriorCategoryGuide } from "@/components/interior/InteriorCategoryGuide";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function InteriorPage() {
   return (
-    <div className="bg-[#f3efe6] px-4 pb-24 pt-28 md:px-8 md:pt-32">
+    <div className="bg-[#f3efe6] px-8 pb-24 pt-28 md:px-8 md:pt-32">
       <div className="mx-auto max-w-6xl">
         <FadeIn>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#1a3329]/70">
@@ -31,7 +31,7 @@ export default function InteriorPage() {
         </FadeIn>
 
         <div className="mt-10 md:mt-12">
-          <InteriorGuide />
+          <InteriorCategoryGuide />
         </div>
       </div>
     </div>

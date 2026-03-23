@@ -41,7 +41,7 @@ function MobileNav({ pathname }: { pathname: string }) {
             exit={{ opacity: 0, height: 0 }}
             className="fixed inset-x-0 top-[4.5rem] z-50 max-h-[min(70vh,calc(100vh-5rem))] overflow-y-auto border-t border-white/10 bg-[#0f1f1a]/98 backdrop-blur-lg"
           >
-            <nav className="mx-auto flex max-w-7xl flex-col px-4 py-4 md:px-8">
+            <nav className="mx-auto flex max-w-7xl flex-col px-8 py-4 md:px-8">
               {navItems.map((item) => {
                 if (item.kind === "link") {
                   const active = isLinkActive(pathname, item.href);
@@ -161,7 +161,7 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${barBg}`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8 lg:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4 md:px-8 lg:px-10">
         <Logo />
 
         <nav className="hidden items-center gap-1 lg:flex">

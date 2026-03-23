@@ -21,13 +21,13 @@ const items: {
     key: "in",
     label: "세대 VR",
     description: "세대 내부 공간을 360°로 둘러봅니다.",
-    thumbnail: "/main/main.jpg",
+    thumbnail: "/vr/livingroom.png",
   },
   {
     key: "ex",
     label: "외부 VR",
     description: "단지 외부·조경을 360°로 둘러봅니다.",
-    thumbnail: "/main/main.jpg",
+    thumbnail: "/vr/extrerior.png",
   },
 ];
 
@@ -88,13 +88,17 @@ export function ModelHouseVr() {
         <span className="mt-2 text-sm leading-relaxed text-neutral-600">
           {current.description}
         </span>
-        <span className="relative mt-4 block aspect-[16/10] w-full overflow-hidden rounded-xl border border-[#1a3329]/10">
+        <span className="relative mt-4 block aspect-16/10 w-full overflow-hidden rounded-xl border border-[#1a3329]/10">
           <Image
             src={current.thumbnail}
             alt={`${current.label} 썸네일`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             sizes="100vw"
+            priority={selected === "in"}
+            loading={selected === "in" ? "eager" : "lazy"}
+            fetchPriority={selected === "in" ? "high" : "auto"}
+            unoptimized={selected === "in"}
           />
           <span className="absolute inset-0 bg-black/25" aria-hidden />
           <span className="absolute inset-0 flex items-center justify-center">

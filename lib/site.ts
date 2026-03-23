@@ -12,7 +12,10 @@ export const siteConfig = {
     name: "규수방 건설 주식회사",
     ceo: "대표이사 홍길동",
     bizNo: "123-45-67890",
+    /** 단지·건설 현장 등 */
     address: "경기도 수지구 동천동 438-8외",
+    /** 분양 홍보관 */
+    promotionHallAddress: "경기도 수지구 동천동 483-13",
     tel: "1551-8959",
     fax: "02-0000-0001",
     email: "info@gyusoobang.co.kr",
@@ -46,6 +49,6 @@ export const navItems: readonly NavItem[] = [
       { href: "/floorplan/interior", label: "인테리어" },
     ],
   },
-  { kind: "link", href: "/modelhouse", label: "모델하우스" },
+  { kind: "link", href: "/modelhouse", label: "사이버 모델하우스" },
   { kind: "link", href: "/contact", label: "상담 문의" },
 ] as const;

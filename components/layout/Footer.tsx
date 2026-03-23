@@ -7,7 +7,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-white/10 bg-[#0a1411] text-white/80">
-      <div className="mx-auto max-w-7xl px-4 py-14 md:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl px-8 py-14 md:px-8 lg:px-10">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <Logo />
@@ -20,16 +20,7 @@ export function Footer() {
               연락처
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>대표문의전화 {company.tel}</li>
-              <li>FAX {company.fax}</li>
-              <li>
-                <a
-                  href={`mailto:${company.email}`}
-                  className="hover:text-[#c6a667]"
-                >
-                  {company.email}
-                </a>
-              </li>
+              <li>대표전화 {company.tel}</li>
             </ul>
           </div>
           <div>
@@ -40,7 +31,9 @@ export function Footer() {
               <li>{company.name}</li>
               <li>사업자등록번호 {company.bizNo}</li>
               <li className="leading-relaxed">현장 주소: {company.address}</li>
-              <li className="leading-relaxed">홍보관 주소: {company.address}</li>
+              <li className="leading-relaxed">
+                홍보관 주소: {company.promotionHallAddress}
+              </li>
             </ul>
           </div>
         </div>

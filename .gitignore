@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 로컬 개발용 문의 저장 (Supabase 미설정 시)
+/data/

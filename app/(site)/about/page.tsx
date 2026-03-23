@@ -9,6 +9,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { BUSINESS_OVERVIEW_ROWS } from "@/lib/business-overview";
 import { siteConfig, projectDisplayName } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -47,7 +48,7 @@ export default function AboutPage() {
   return (
     <div className="bg-[#f6f3eb] text-[#1a1a1a]">
       {/* 히어로 */}
-      <section className="border-b border-[#1a3329]/8 bg-white/80 px-4 pb-10 pt-24 text-center backdrop-blur-sm md:px-8 md:pb-12 md:pt-28">
+      <section className="border-b border-[#1a3329]/8 bg-white/80 px-8 pb-10 pt-24 text-center backdrop-blur-sm md:px-8 md:pb-12 md:pt-28">
         <div className="mx-auto max-w-4xl">
           <FadeIn>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#1a3329]/55">
@@ -61,8 +62,8 @@ export default function AboutPage() {
             <div className="mt-5 space-y-4 md:mt-6 md:space-y-5">
               <p className="text-base font-bold leading-snug text-[#1a3329] sm:text-lg md:text-xl lg:text-2xl">
                 도심속 대단지 1차{" "}
-                <span className="whitespace-nowrap">29세대 입주 완료</span>
-                <span className="text-[#c6a667]">에 이은</span>
+                <span className="whitespace-nowrap"><span className="text-[#c6a667]">29세대 입주 완료</span></span>
+                <span className="text-[#1a3329]">에 이은</span>
               </p>
 
               <p className="font-serif text-2xl font-bold leading-tight text-[#1a3329] sm:text-3xl md:text-4xl lg:text-5xl">
@@ -86,9 +87,9 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-neutral-600 md:mt-6 md:text-base">
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-neutral-600 md:mt-6 md:text-base break-keep">
               {siteConfig.name}이 선보이는 {projectDisplayName}은(는) 검증된
-              1차 단지의 흐름 위에서, 2차 분양으로 완성도를 더해갑니다.
+              1차 단지의 흐름 위에서,<br/> 2차 분양으로 완성도를 더해갑니다.
             </p>
 
             <div className="mt-5 flex justify-center md:mt-6">
@@ -109,27 +110,65 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 메인 비주얼 */}
-      <section className="px-4 py-12 md:px-8 md:py-16">
+      {/* 메인 비주얼 + 사업 개요 */}
+      <section
+        className="bg-[#f6f3eb] px-8 py-12 md:px-8 md:py-16"
+        aria-labelledby="heading-business-overview"
+      >
         <div className="mx-auto max-w-6xl">
           <FadeIn>
-            <div className="overflow-hidden rounded-2xl border border-[#1a3329]/10 bg-[#1a3329]/5 shadow-2xl shadow-[#1a3329]/10 md:rounded-3xl">
-              <Image
-                src="/main/main.png"
-                alt={`${projectDisplayName} 단지 조감`}
-                width={1920}
-                height={1080}
-                className="h-auto w-full object-cover"
-                sizes="(max-width: 1152px) 100vw, 1152px"
-                priority
-              />
+            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-10 xl:gap-12">
+              <div className="min-w-0 flex-1 lg:max-w-[55%]">
+                <div className="overflow-hidden rounded-2xl bg-[#1a3329]/5 shadow-lg shadow-[#1a3329]/5 md:rounded-3xl">
+                  <Image
+                    src="/main/main.png"
+                    alt={`${projectDisplayName} 단지 조감`}
+                    width={1920}
+                    height={1080}
+                    className="h-auto w-full object-cover"
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    priority
+                  />
+                </div>
+              </div>
+
+              <div className="mx-auto w-full max-w-md shrink-0 lg:mx-0 lg:max-w-none lg:flex-1 lg:pl-2">
+                <h2
+                  id="heading-business-overview"
+                  className="text-center font-serif text-lg font-semibold text-[#1a3329] md:text-xl"
+                >
+                  사업 개요
+                </h2>
+                <p className="mt-2 text-center text-xs leading-relaxed text-neutral-600 md:text-sm">
+                  {projectDisplayName} 2차 분양 단지의 주요 사업 조건을 요약했습니다.
+                </p>
+                <div className="mt-6 md:mt-8">
+                  <table className="w-full border-0  text-center text-[11px] leading-snug text-neutral-800 md:text-xs">
+                    <tbody className="divide-y divide-neutral-200/90">
+                      {BUSINESS_OVERVIEW_ROWS.map((row) => (
+                        <tr key={row.label}>
+                          <th
+                            scope="row"
+                            className="border-0 py-1.5 align-top font-semibold text-[#1a3329] md:py-2"
+                          >
+                            {row.label}
+                          </th>
+                          <td className="border-0 py-1.5 align-top text-neutral-700 md:py-2">
+                            {row.value}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </FadeIn>
         </div>
       </section>
 
       {/* 하단: 비전 + 카드 */}
-      <section className="border-t border-[#1a3329]/8 bg-white px-4 py-16 md:px-8 md:py-24">
+      <section className="border-t border-[#1a3329]/8 bg-white px-8 py-16 md:px-8 md:py-24">
         <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start lg:gap-20">
           <FadeIn>
             <div className="flex flex-col gap-8">

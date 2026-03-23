@@ -7,7 +7,7 @@ import { FadeInUp } from "@/components/ui/FadeInUp";
 
 export function CtaSection() {
   return (
-    <section className="bg-[#1a3329] px-4 py-24 md:px-8 md:py-32">
+    <section className="bg-[#1a3329] px-8 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-4xl text-center">
         <FadeInUp>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a667]">
@@ -18,7 +18,7 @@ export function CtaSection() {
             <br />
             지금 바로 경험해보세요.
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/75 md:text-base">
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/75 md:text-base break-keep">
             분양 상담 및 현장 안내를 통해 입지와 평면을 직접 확인해 보실 수
             있습니다.
           </p>

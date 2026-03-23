@@ -22,7 +22,7 @@ const rows: readonly RowConfig[] = [
     accent: "#b45309",
     eyebrow: "Premium Access",
     englishLines: ["FAST", "TRAFFIC"],
-    mainImage: "/main/hero1.jpg",
+    mainImage: "/location/location.jpg",
     titleBefore: "편리한 접근성 및 ",
     titleHighlight: "쾌속교통망",
     description:
@@ -34,11 +34,11 @@ const rows: readonly RowConfig[] = [
     accent: "#0f766e",
     eyebrow: "Green Living",
     englishLines: ["NATURE", "PREMIUM"],
-    mainImage: "/main/hero3.jpg",
+    mainImage: "/premium/hap.jpg",
     titleBefore: "숲이 일상이 되는 ",
     titleHighlight: "자연 환경",
     description:
-      "녹지·공원·수변과 맞닿은 쾌적한 주거 환경으로, 도심 속 그린 라이프를 완성합니다.",
+      "광교산의 확 트인 전망 아래 맑은 공기와 피톤치드 등을 마음껏 마실 수 있는 나만의 마당이 있는 단독주택입니다.",
   },
   {
     key: "central",
@@ -46,23 +46,23 @@ const rows: readonly RowConfig[] = [
     accent: "#3d5a80",
     eyebrow: "Urban Core",
     englishLines: ["CENTRAL", "LOCATION"],
-    mainImage: "/main/hero5.jpg",
+    mainImage: "/premium/land.png",
     titleBefore: "삶의 질을 높여주는 ",
     titleHighlight: "상권 중심",
     description:
-      "백화점·마트·문화시설 등 생활 편의가 한데 모인 입지로 프리미엄 라이프스타일을 지원합니다.",
+      "우수한 명문학군, 초/중/고등학교 도보 통학! 서울대병원 연세대세브란스병원 등 우수 의료시설과 접근성이 용이해 도심 아파트의 삶을 그대로 옮겨놓은 편의시설을 누릴수 있습니다.",
   },
   {
     key: "private",
     imageLeft: false,
     accent: "#7c3d4a",
-    eyebrow: "Exclusive Life",
-    englishLines: ["PRIVATE", "PREMIUM"],
-    mainImage: "/main/hero4.jpg",
+    eyebrow: "Luxury Living",
+    englishLines: ["LUXURY", "PRIMIUM"],
+    mainImage: "/vr/livingroom.png",
     titleBefore: "입주민만의 품격, ",
     titleHighlight: "프라이빗 라이프",
     description:
-      "단지 설계와 커뮤니티로 프라이빗한 일상을 강화한 하이엔드 타운하우스의 가치를 담았습니다.",
+      "친환경 자재 사용과 고객을 최우선으로 생각하는 규슈방 가구의 40년 전통 원목가구 인테리어가 주택의 품격을 한층 높여드립니다.",
   },
 ];
 
@@ -167,7 +167,7 @@ export function PremiumZigzagSection() {
       <h2 id="premium-zigzag-heading" className="sr-only">
         프리미엄 가치
       </h2>
-      <div className="mx-auto max-w-6xl px-4 md:px-8">
+      <div className="mx-auto max-w-6xl px-8 md:px-8">
         {rows.map((row, index) => (
           <FadeInUp
             key={row.key}
