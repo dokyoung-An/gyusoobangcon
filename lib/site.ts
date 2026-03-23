@@ -1,8 +1,12 @@
+/** 타운하우스 공식 명칭: 수지 듸림더힐 (전역 동일) */
+export const projectDisplayName =
+  "수지 드림더힐";
+
 export const siteConfig = {
   name: "규수방 건설",
-  projectName: "아크로 드림힐",
+  projectName: projectDisplayName,
   description:
-    "도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 아크로 드림힐. 규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.",
+    `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. 규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.`,
   url: "https://gyusoobang.example.com",
   company: {
     name: "규수방 건설 주식회사",
@@ -15,11 +19,27 @@ export const siteConfig = {
   },
 } as const;
 
-export const navItems = [
-  { href: "/home", label: "홈" },
-  { href: "/about", label: "사업 소개" },
-  { href: "/location", label: "입지 소개" },
-  { href: "/floorplan", label: "평면도" },
-  { href: "/modelhouse", label: "모델하우스" },
-  { href: "/contact", label: "상담 문의" },
+/** 헤더 네비: 단일 링크 또는 드롭다운(하위 메뉴) */
+export type NavItem =
+  | { kind: "link"; href: string; label: string }
+  | {
+      kind: "dropdown";
+      label: string;
+      items: readonly { href: string; label: string }[];
+    };
+
+export const navItems: readonly NavItem[] = [
+  { kind: "link", href: "/home", label: "홈" },
+  { kind: "link", href: "/about", label: "사업 소개" },
+  {
+    kind: "dropdown",
+    label: "프리미엄",
+    items: [
+      { href: "/location", label: "입지 환경" },
+      { href: "/location/premium", label: "프리미엄" },
+    ],
+  },
+  { kind: "link", href: "/floorplan", label: "평면도" },
+  { kind: "link", href: "/modelhouse", label: "모델하우스" },
+  { kind: "link", href: "/contact", label: "상담 문의" },
 ] as const;

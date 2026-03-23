@@ -16,7 +16,7 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#d4b87a]">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
               연락처
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
@@ -25,7 +25,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${company.email}`}
-                  className="hover:text-[#d4b87a]"
+                  className="hover:text-[#c6a667]"
                 >
                   {company.email}
                 </a>
@@ -33,7 +33,7 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#d4b87a]">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
               회사 정보
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
@@ -47,7 +47,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {company.name}. All rights reserved.</p>
-          <Link href="/contact#privacy" className="hover:text-[#d4b87a]">
+          <Link href="/contact#privacy" className="hover:text-[#c6a667]">
             개인정보처리방침
           </Link>
         </div>

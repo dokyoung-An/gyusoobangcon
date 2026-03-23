@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
+import { projectDisplayName } from "@/lib/site";
 
 const VR_URLS = {
   in: "https://ttdesign-jk.synology.me/VR/20260307GSB/in/index.html",
@@ -75,7 +76,7 @@ export function ModelHouseVr() {
   return (
     <div className="mt-8 space-y-6">
       <p className="text-sm text-neutral-600 md:text-base">
-        아크로 드림힐 사이버 모델하우스 VR 투어입니다.
+        {projectDisplayName} 사이버 모델하우스 VR 투어입니다.
       </p>
 
       <div className="flex flex-wrap gap-3">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { projectDisplayName } from "@/lib/site";
 
 type LogoProps = {
   className?: string;
@@ -13,8 +14,8 @@ export function Logo({ className = "" }: LogoProps) {
       className={`group inline-flex items-center transition-opacity hover:opacity-90 ${className}`}
     >
       <Image
-        src="/gulogomi.png"
-        alt="아크로 드림힐 로고"
+        src="/top_logo.png"
+        alt={`${projectDisplayName} 로고`}
         width={140}
         height={44}
         priority
