@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MobileFloatingActions } from "@/components/layout/MobileFloatingActions";
 
 export default function SiteLayout({
   children,
@@ -10,6 +11,7 @@ export default function SiteLayout({
     <>
       <Header />
       <main className="flex-1">{children}</main>
+      <MobileFloatingActions />
       <Footer />
     </>
   );
