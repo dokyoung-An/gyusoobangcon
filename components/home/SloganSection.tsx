@@ -100,19 +100,19 @@ export function SloganSection() {
       className="relative overflow-hidden px-8 py-16 md:px-8 md:py-24 lg:py-32"
       aria-labelledby="slogan-heading"
     >
-      {/* 베이스 그라데이션 */}
+      {/* 베이스 그라데이션 — 크림·베이지 톤을 줄이고 연한 뉴트럴 그레이지 */}
       <div
-        className="pointer-events-none absolute inset-0 bg-linear-to-b from-[#e5dfd4] via-[#f3efe6] to-[#ebe4d6]"
+        className="pointer-events-none absolute inset-0 bg-linear-to-b from-[#ecebe8] via-[#f4f3f1] to-[#ebeae7]"
         aria-hidden
       />
       {/* 가장자리 비네팅 */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_70%_at_50%_45%,transparent_40%,rgba(26,51,41,0.07)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_70%_at_50%_45%,transparent_40%,rgba(26,51,41,0.06)_100%)]"
         aria-hidden
       />
-      {/* 중앙 골드 소프트 글로우 */}
+      {/* 중앙 하이라이트 — 골드 대신 아주 옅은 뉴트럴(노란기 최소화) */}
       <div
-        className="pointer-events-none absolute left-1/2 top-[42%] h-[min(100vw,52rem)] w-[min(100vw,52rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c6a667]/15 blur-[100px]"
+        className="pointer-events-none absolute left-1/2 top-[42%] h-[min(100vw,52rem)] w-[min(100vw,52rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/35 blur-[100px]"
         aria-hidden
       />
       {/* 미세 패턴 */}

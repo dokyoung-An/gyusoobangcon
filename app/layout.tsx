@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
-import { openGraphImage } from "@/lib/images";
+import { openGraphImagePath } from "@/lib/images";
 
 const notoSerif = Noto_Serif_KR({
   weight: ["400", "600", "700"],
@@ -18,8 +18,12 @@ const notoSans = Noto_Sans_KR({
   display: "swap",
 });
 
+const metadataBase = new URL(siteConfig.url);
+/** 크롤러가 상대 경로를 잘못 해석하지 않도록 절대 URL */
+const openGraphImageUrl = new URL(openGraphImagePath, metadataBase).href;
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase,
   title: {
     default: `${siteConfig.projectName} | ${siteConfig.name}`,
     template: `%s | ${siteConfig.name}`,
@@ -42,7 +46,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: openGraphImage,
+        url: openGraphImageUrl,
         width: 1200,
         height: 630,
         alt: siteConfig.projectName,
@@ -53,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.projectName} | ${siteConfig.name}`,
     description: siteConfig.description,
-    images: [openGraphImage],
+    images: [openGraphImageUrl],
   },
   robots: { index: true, follow: true },
 };

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const HERO_VIDEO_SRC = "/0323.mp4";
 /** 비디오 첫 프레임 전까지 보여 줄 정적 이미지 (영상과 톤이 맞는 파일로 교체 가능) */
@@ -12,13 +12,36 @@ const HERO_POSTER_SRC = "/main/hero1.jpg";
 export function HeroSection() {
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const readyRef = useRef(false);
+
+  const markVideoReady = useCallback(() => {
+    if (readyRef.current) return;
+    readyRef.current = true;
+    setVideoReady(true);
+  }, []);
+
+  /** 데스크톱에서도 모바일처럼 영상 요청을 일찍 시작 */
+  useEffect(() => {
+    const id = "hero-0323-preload";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "preload";
+    link.as = "video";
+    link.href = HERO_VIDEO_SRC;
+    link.type = "video/mp4";
+    document.head.appendChild(link);
+    return () => {
+      document.getElementById(id)?.remove();
+    };
+  }, []);
 
   useEffect(() => {
     const el = videoRef.current;
-    if (el && el.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      setVideoReady(true);
+    if (el && el.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      queueMicrotask(() => markVideoReady());
     }
-  }, []);
+  }, [markVideoReady]);
 
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-end">
@@ -44,8 +67,9 @@ export function HeroSection() {
         muted
         loop
         playsInline
-        preload="auto"
-        onCanPlay={() => setVideoReady(true)}
+        preload="metadata"
+        onLoadedData={markVideoReady}
+        onCanPlay={markVideoReady}
         aria-label="수지 드림더힐 단지 소개 영상"
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />

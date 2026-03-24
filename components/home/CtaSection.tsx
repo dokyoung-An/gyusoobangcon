@@ -7,8 +7,8 @@ import { FadeInUp } from "@/components/ui/FadeInUp";
 
 export function CtaSection() {
   return (
-    <section className="bg-[#1a3329] px-8 py-24 md:px-8 md:py-32">
-      <div className="mx-auto max-w-4xl text-center">
+    <section className="bg-[#1a3329] px-8 py-20 md:px-10 md:py-28 lg:px-14 lg:py-32">
+      <div className="mx-auto w-full max-w-xl text-center">
         <FadeInUp>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a667]">
             Premium Living

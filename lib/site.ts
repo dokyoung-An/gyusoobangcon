@@ -2,12 +2,27 @@
 export const projectDisplayName =
   "수지 드림더힐";
 
+/**
+ * OG·canonical·metadataBase용 절대 URL.
+ * 배포 후 반드시 `.env`에 `NEXT_PUBLIC_SITE_URL=https://실제도메인` 설정 (끝 슬래시 없음).
+ * Vercel은 미설정 시 `VERCEL_URL`로 대체.
+ */
+export function getSiteUrl(): string {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (fromEnv) return fromEnv.replace(/\/$/, "");
+  const vercel = process.env.VERCEL_URL?.trim();
+  if (vercel) return `https://${vercel.replace(/\/$/, "")}`;
+  return "http://localhost:3000";
+}
+
+export const siteUrl = getSiteUrl();
+
 export const siteConfig = {
   name: "규수방 건설",
   projectName: projectDisplayName,
   description:
     `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. 규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.`,
-  url: "https://gyusoobang.example.com",
+  url: siteUrl,
   company: {
     name: "규수방 건설 주식회사",
     ceo: "대표이사 홍길동",

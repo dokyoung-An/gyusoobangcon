@@ -1,5 +1,8 @@
-/** SNS·검색 미리보기용 OG 이미지 (`public/main/main.png`) */
-export const openGraphImage = "/main/main.png";
+/** SNS·검색 미리보기용 OG 이미지 경로 (`public/main/main.png`) */
+export const openGraphImagePath = "/main/main.png";
+
+/** @deprecated `openGraphImagePath` 사용 권장 */
+export const openGraphImage = openGraphImagePath;
 
 export const featureImages = [
   // 1) 도심 속 프라이빗 포레스트 (숲/산책로 느낌)

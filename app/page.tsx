@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Manrope } from "next/font/google";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, siteUrl } from "@/lib/site";
+import { openGraphImagePath } from "@/lib/images";
 import { SplashVrButtons } from "@/components/splash/SplashVrButtons";
 
 const SPLASH_HERO = "/main/main.png";
@@ -12,6 +13,8 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const splashOgImage = new URL(openGraphImagePath, new URL(siteUrl)).href;
+
 export const metadata: Metadata = {
   title: "Comming Soon",
   description: `${siteConfig.name} 공식 홈페이지 오픈 예정입니다.`,
@@ -19,6 +22,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Comming Soon",
     description: `${siteConfig.name} 공식 홈페이지 오픈 예정입니다.`,
+    images: [{ url: splashOgImage, width: 1200, height: 630, alt: "" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Comming Soon",
+    description: `${siteConfig.name} 공식 홈페이지 오픈 예정입니다.`,
+    images: [splashOgImage],
   },
 };
 
