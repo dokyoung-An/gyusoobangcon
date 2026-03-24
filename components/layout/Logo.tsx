@@ -36,7 +36,7 @@ export function Logo({ className = "" }: LogoProps) {
           className={`${bebasLogo.className} text-[1.5rem] tracking-[0.06em] text-white md:text-[1.75rem] md:tracking-[0.08em]`}
         >
           <span className="text-white">DREAM THE </span>
-          <span className="text-[#c6a667]">HIL</span>
+          <span className="text-[#c6a667]">HILL</span>
         </p>
         <p className="text-[0.5625rem] font-medium tracking-[0.12em] text-white/45 transition-colors group-hover:text-white/60 md:text-[0.625rem] md:tracking-[0.14em]">
           수지드림더힐

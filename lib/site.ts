@@ -18,19 +18,19 @@ export function getSiteUrl(): string {
 export const siteUrl = getSiteUrl();
 
 export const siteConfig = {
-  name: "규수방 건설",
+  name: "(주)규수방종합건설",
   projectName: projectDisplayName,
   description:
     `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. \n규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.`,
   url: siteUrl,
   company: {
-    name: "규수방 건설 주식회사",
+    name: "(주)규수방종합건설",
     ceo: "대표이사 홍길동",
-    bizNo: "123-45-67890",
+    bizNo: "527-88-02156",
     /** 단지·건설 현장 등 */
-    address: "경기도 수지구 동천동 438-8",
+    address: "경기도 수지구 동천동 483-8 번지",
     /** 분양 홍보관 */
-    promotionHallAddress: "경기도 수지구 동천동 483-13",
+    promotionHallAddress: "경기도 수지구 동천동 483-13 번지",
     tel: "1551-8959",
     fax: "02-0000-0001",
     email: "info@gyusoobang.co.kr",
@@ -47,7 +47,14 @@ export type NavItem =
     };
 
 export const navItems: readonly NavItem[] = [
-  { kind: "link", href: "/about", label: "사업 소개" },
+  {
+    kind: "dropdown",
+    label: "사업 소개",
+    items: [
+      { href: "/about/company", label: "회사소개" },
+      { href: "/about", label: "사업소개" },
+    ],
+  },
   {
     kind: "dropdown",
     label: "프리미엄",

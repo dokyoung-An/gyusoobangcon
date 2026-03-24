@@ -174,7 +174,7 @@ export function EnvironmentSection() {
                 </aside>
                 <div className="relative min-h-[220px] flex-1 overflow-hidden rounded-xl bg-neutral-100 sm:min-h-[280px] md:min-h-[min(52vw,420px)] lg:min-h-[380px]">
                   <Image
-                    src="/location/location.jpg"
+                    src="/location/location.jpeg"
                     alt={`${projectName} 입지 안내 지도`}
                     fill
                     className="object-contain object-center"
@@ -188,7 +188,7 @@ export function EnvironmentSection() {
               <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-[#1a3329] md:justify-between">
                 <span className="inline-flex items-center gap-2 rounded-full bg-[#1a3329]/5 px-4 py-2">
                   <MapPin className="size-4 text-[#c6a667]" aria-hidden />
-                  경기도 수지구 동천동 438-8 외
+                  경기도 수지구 동천동 438-8 번지
                 </span>
                 <span className="text-neutral-500">
                   상세 노선·시설은 상담 시 안내드립니다.
