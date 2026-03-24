@@ -21,14 +21,14 @@ export const siteConfig = {
   name: "규수방 건설",
   projectName: projectDisplayName,
   description:
-    `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. 규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.`,
+    `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. \n규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.`,
   url: siteUrl,
   company: {
     name: "규수방 건설 주식회사",
     ceo: "대표이사 홍길동",
     bizNo: "123-45-67890",
     /** 단지·건설 현장 등 */
-    address: "경기도 수지구 동천동 438-8외",
+    address: "경기도 수지구 동천동 438-8",
     /** 분양 홍보관 */
     promotionHallAddress: "경기도 수지구 동천동 483-13",
     tel: "1551-8959",

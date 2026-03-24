@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <Logo />
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-white/65 break-keep">
+            <p className="mt-6 max-w-md text-sm leading-relaxed text-white/65 break-keep whitespace-pre-line">
               {siteConfig.description}
             </p>
           </div>
