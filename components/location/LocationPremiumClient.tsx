@@ -86,9 +86,10 @@ export function EnvironmentSection() {
           alt=""
           fill
           priority
-          unoptimized
+          fetchPriority="high"
           className="object-cover"
           sizes="100vw"
+          quality={75}
         />
         <div
           className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/55"
@@ -169,6 +170,7 @@ export function EnvironmentSection() {
                     className="object-contain object-center"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 900px"
                     priority
+                    quality={75}
                   />
                 </div>
               </div>

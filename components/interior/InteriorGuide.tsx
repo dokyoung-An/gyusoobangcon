@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import {
   FLOOR_PLAN_TYPES,
   type FloorPlanTypeId,
@@ -91,13 +92,16 @@ function InteriorCarousel({ images, typeLabel }: InteriorCarouselProps) {
               className="absolute inset-0"
             >
               {!mainFailed ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={mainSrc}
                   alt={`${typeLabel} 인테리어 이미지 ${index + 1}`}
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                  priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
-                  decoding="async"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  quality={72}
                   onError={() => setMainFailed(true)}
                 />
               ) : (
@@ -155,14 +159,15 @@ function InteriorCarousel({ images, typeLabel }: InteriorCarouselProps) {
               aria-label={`${typeLabel} 이미지 ${((index + offset) % n) + 1}번 보기`}
               aria-current={active ? "true" : undefined}
             >
-              <div className="aspect-[5/3] w-full bg-neutral-200/50">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative aspect-[5/3] w-full overflow-hidden bg-neutral-200/50">
+                <Image
                   src={src}
                   alt=""
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 24vw, 200px"
                   loading="lazy"
-                  decoding="async"
+                  quality={65}
                 />
               </div>
             </button>

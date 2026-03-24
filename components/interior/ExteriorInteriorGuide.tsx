@@ -84,8 +84,9 @@ export function ExteriorInteriorGuide() {
                     alt={`${current.tabLabel} 외관 인테리어 1`}
                     fill
                     className="object-contain"
-                    sizes="100vw"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     priority
+                    quality={75}
                   />
                 </div>
               </div>
@@ -99,7 +100,8 @@ export function ExteriorInteriorGuide() {
                     alt={`${current.tabLabel} 외관 인테리어 2`}
                     fill
                     className="object-contain"
-                    sizes="100vw"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={75}
                   />
                 </div>
               </div>

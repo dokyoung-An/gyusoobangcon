@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FadeInUp } from "@/components/ui/FadeInUp";
 
 type RowConfig = {
@@ -77,16 +78,15 @@ function MainImagePane({
 }) {
   return (
     <div className="relative min-h-[240px] w-full overflow-hidden md:min-h-[min(48vh,400px)] lg:min-h-[420px]">
-      {/* eslint-disable-next-line @next/next/no-img-element -- /_next/image 최적화 미사용(직접 로드) */}
-      <img
+      <Image
         src={src}
         alt={alt}
-        width={1600}
-        height={1200}
-        className="h-full w-full min-h-[240px] object-cover md:min-h-[min(48vh,400px)] lg:min-h-[420px]"
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 50vw"
         loading={priority ? "eager" : "lazy"}
-        decoding="async"
         fetchPriority={priority ? "high" : "auto"}
+        quality={75}
       />
     </div>
   );

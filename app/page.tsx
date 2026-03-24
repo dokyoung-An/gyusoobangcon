@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Manrope } from "next/font/google";
-import { preload } from "react-dom";
 import { siteConfig } from "@/lib/site";
 import { SplashVrButtons } from "@/components/splash/SplashVrButtons";
 
@@ -24,8 +23,6 @@ export const metadata: Metadata = {
 };
 
 export default function SplashPage() {
-  preload(SPLASH_HERO, { as: "image" });
-
   return (
     <div className="relative h-[100dvh] min-h-[100dvh] w-full overflow-hidden bg-black">
       <Image
@@ -34,9 +31,9 @@ export default function SplashPage() {
         fill
         priority
         fetchPriority="high"
-        unoptimized
         className="object-cover"
         sizes="100vw"
+        quality={75}
       />
       <div
         className="absolute inset-0 bg-black/25"

@@ -28,6 +28,8 @@ export function Logo({ className = "" }: LogoProps) {
         height={44}
         priority
         className="h-10 w-auto shrink-0 md:h-11"
+        sizes="140px"
+        quality={85}
       />
       <div className="flex min-w-0 flex-col justify-center gap-1 border-l border-white/20 pl-2.5 leading-none md:gap-1.5 md:pl-3">
         <p

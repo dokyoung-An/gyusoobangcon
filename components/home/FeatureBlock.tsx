@@ -27,7 +27,6 @@ export function FeatureBlock({
   // public 경로는 항상 `/...` 형태로 정규화합니다.
   const normalizedSrc =
     imageSrc.startsWith("./") ? imageSrc.slice(1) : imageSrc;
-  const shouldUnoptimized = priority && normalizedSrc.startsWith("/");
 
   const imgRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -62,7 +61,7 @@ export function FeatureBlock({
             priority={priority}
             loading={priority ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : "auto"}
-            unoptimized={shouldUnoptimized}
+            quality={75}
           />
         </motion.div>
       </div>

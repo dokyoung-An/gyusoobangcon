@@ -23,9 +23,9 @@ export default function FloorplanPage() {
           <h1 className="mt-4 font-serif text-3xl font-semibold text-[#1a3329] md:text-4xl">
             평면안내
           </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-600 md:text-base">
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed break-keep text-neutral-600 md:text-base ">
             타입을 선택하면 해당 세대의 면적 정보·배치 위치·평면·아이소 구성을
-            한 화면에서 확인할 수 있습니다. 수치 및 도면은 확정안 기준으로
+            한 화면에서 확인할 수 있습니다. <br />수치 및 도면은 확정안 기준으로
             갱신될 수 있으며, 상세는 상담을 통해 안내됩니다.
           </p>
         </FadeIn>

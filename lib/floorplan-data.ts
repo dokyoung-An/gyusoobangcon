@@ -32,7 +32,8 @@ export type FloorPlanTypeConfig = {
   tabLabel: string;
   unitCode: string;
   households: string;
-  keyMapSlot: number;
+  /** 평면 안내 상단 카드용 외관 참고 이미지 (`public` 기준 경로) */
+  exteriorSrc: string;
   /** 건축·토지 등 그룹별 행 — 평면안내 Unit Plan 표에 그대로 반영 */
   unitPlan: readonly UnitPlanSection[];
   images?: FloorImages;
@@ -90,7 +91,7 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     tabLabel: "A Type",
     unitCode: "A-1",
     households: "8세대",
-    keyMapSlot: 0,
+    exteriorSrc: "/exterior/ex_A-1.jpg",
     unitPlan: [
       {
         category: "건축",
@@ -116,7 +117,7 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     tabLabel: "B Type",
     unitCode: "B-1",
     households: "6세대",
-    keyMapSlot: 1,
+    exteriorSrc: "/exterior/ex_B-1.jpg",
     unitPlan: [
       {
         category: "건축",
@@ -142,7 +143,7 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     tabLabel: "C Type",
     unitCode: "C-1",
     households: "10세대",
-    keyMapSlot: 2,
+    exteriorSrc: "/exterior/ex_C-1.jpg",
     unitPlan: [
       {
         category: "건축",
@@ -168,7 +169,7 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     tabLabel: "D Type",
     unitCode: "D-1",
     households: "4세대",
-    keyMapSlot: 3,
+    exteriorSrc: "/exterior/ex_D-1.jpg",
     unitPlan: [
       {
         category: "건축",
@@ -194,7 +195,7 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     tabLabel: "E Type",
     unitCode: "E-1",
     households: "4세대",
-    keyMapSlot: 4,
+    exteriorSrc: "/exterior/ex_E-1.jpg",
     unitPlan: [
       {
         category: "건축",

@@ -45,3 +45,48 @@ body {
     transform: translateY(-2px) scale(1.04);
   }
 }
+
+/* 홈 슬로건 — 글자 단위 왼쪽→오른쪽 순차 골드 하이라이트 (무한) */
+@keyframes slogan-char-sweep {
+  0%,
+  100% {
+    color: #1a3329;
+    text-shadow: none;
+  }
+  5% {
+    color: #c6a667;
+    text-shadow:
+      0 0 12px rgba(198, 166, 103, 0.55),
+      0 0 24px rgba(250, 246, 232, 0.35);
+  }
+  11% {
+    color: #1a3329;
+    text-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .slogan-char-root {
+    --char-stagger: 0.11s;
+    display: block;
+    width: 100%;
+  }
+
+  .slogan-char-wave {
+    display: inline-block;
+    color: #1a3329;
+    /* 한 글자씩 지연 → 왼쪽에서 오른쪽으로 파도. 주기 끝에 잠깐 쉼 후 반복 */
+    animation-name: slogan-char-sweep;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: calc(var(--char-total) * var(--char-stagger) + 1.6s);
+    animation-delay: calc(var(--char-i) * var(--char-stagger));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slogan-char-wave {
+    color: var(--forest);
+    animation: none;
+  }
+}

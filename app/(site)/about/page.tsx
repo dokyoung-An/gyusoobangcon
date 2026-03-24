@@ -128,6 +128,7 @@ export default function AboutPage() {
                     className="h-auto w-full object-cover"
                     sizes="(max-width: 1024px) 100vw, 55vw"
                     priority
+                    quality={75}
                   />
                 </div>
               </div>
@@ -188,6 +189,8 @@ export default function AboutPage() {
                   width={320}
                   height={320}
                   className="h-auto w-full object-contain"
+                  sizes="(max-width: 1024px) 80vw, 320px"
+                  quality={80}
                 />
               </div>
             </div>

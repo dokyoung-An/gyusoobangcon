@@ -2,19 +2,50 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 const HERO_VIDEO_SRC = "/0323.mp4";
+/** 비디오 첫 프레임 전까지 보여 줄 정적 이미지 (영상과 톤이 맞는 파일로 교체 가능) */
+const HERO_POSTER_SRC = "/main/hero1.jpg";
 
 export function HeroSection() {
+  const [videoReady, setVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (el && el.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      setVideoReady(true);
+    }
+  }, []);
+
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-end">
+      <div
+        className={`pointer-events-none absolute inset-0 transition-opacity duration-700 ease-out ${videoReady ? "opacity-0" : "opacity-100"}`}
+        aria-hidden
+      >
+        <Image
+          src={HERO_POSTER_SRC}
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          className="object-cover"
+          sizes="100vw"
+          quality={75}
+        />
+      </div>
       <video
-        className="absolute inset-0 h-full w-full object-cover"
+        ref={videoRef}
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${videoReady ? "opacity-100" : "opacity-0"}`}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
+        onCanPlay={() => setVideoReady(true)}
         aria-label="수지 드림더힐 단지 소개 영상"
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />

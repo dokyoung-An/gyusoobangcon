@@ -94,11 +94,11 @@ export function ModelHouseVr() {
             alt={`${current.label} 썸네일`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, min(100vw, 720px)"
             priority={selected === "in"}
             loading={selected === "in" ? "eager" : "lazy"}
             fetchPriority={selected === "in" ? "high" : "auto"}
-            unoptimized={selected === "in"}
+            quality={75}
           />
           <span className="absolute inset-0 bg-black/25" aria-hidden />
           <span className="absolute inset-0 flex items-center justify-center">
