@@ -11,13 +11,33 @@ const HERO_POSTER_SRC = "/main/hero1.jpg";
 
 export function HeroSection() {
   const [videoReady, setVideoReady] = useState(false);
+  const [bufferedEnough, setBufferedEnough] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const readyRef = useRef(false);
+  const unlockedRef = useRef(false);
 
   const markVideoReady = useCallback(() => {
     if (readyRef.current) return;
     readyRef.current = true;
     setVideoReady(true);
+  }, []);
+
+  const markBufferedEnough = useCallback(() => {
+    setBufferedEnough(true);
+  }, []);
+
+  const checkFullyBuffered = useCallback(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const duration = el.duration;
+    if (!Number.isFinite(duration) || duration <= 0) return;
+    const ranges = el.buffered;
+    if (!ranges || ranges.length === 0) return;
+    const end = ranges.end(ranges.length - 1);
+    if (end >= duration - 0.35) {
+      setBufferedEnough(true);
+    }
   }, []);
 
   /** 데스크톱에서도 모바일처럼 영상 요청을 일찍 시작 */
@@ -43,8 +63,39 @@ export function HeroSection() {
     }
   }, [markVideoReady]);
 
+  useEffect(() => {
+    if (!bufferedEnough || unlockedRef.current) return;
+    unlockedRef.current = true;
+    setPageReady(true);
+  }, [bufferedEnough]);
+
+  /** 영상이 충분히 로드되기 전에는 히어로 구간에서 스크롤 잠금 */
+  useEffect(() => {
+    if (pageReady || typeof document === "undefined") return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [pageReady]);
+
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-end">
+      {!pageReady ? (
+        <div className="absolute inset-0 z-30" aria-hidden>
+          <Image
+            src={HERO_POSTER_SRC}
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            className="object-cover"
+            sizes="100vw"
+            quality={75}
+          />
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
+      ) : null}
       <div
         className={`pointer-events-none absolute inset-0 transition-opacity duration-700 ease-out ${videoReady ? "opacity-0" : "opacity-100"}`}
         aria-hidden
@@ -67,9 +118,17 @@ export function HeroSection() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         onLoadedData={markVideoReady}
-        onCanPlay={markVideoReady}
+        onCanPlay={() => {
+          markVideoReady();
+          checkFullyBuffered();
+        }}
+        onCanPlayThrough={() => {
+          markVideoReady();
+          markBufferedEnough();
+        }}
+        onProgress={checkFullyBuffered}
         aria-label="수지 드림더힐 단지 소개 영상"
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
