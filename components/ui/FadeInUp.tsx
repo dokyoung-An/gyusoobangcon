@@ -9,6 +9,10 @@ type FadeInUpProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  /** 기본 ~1.2s — 짧게 쓰려면 duration prop으로 덮어쓰기 */
+  duration?: number;
+  /** 기본 22 — 작을수록 덜 밑에서 올라옴 */
+  initialY?: number;
   /** 기본: once + amount 기준으로 안정적으로 트리거 (과도한 margin 제거) */
   viewport?: Partial<MotionViewport>;
 };
@@ -26,6 +30,8 @@ export function FadeInUp({
   children,
   className,
   delay = 0,
+  duration = 1.2,
+  initialY = 22,
   viewport: viewportOverrides,
 }: FadeInUpProps) {
   const viewport: MotionViewport = {
@@ -36,13 +42,13 @@ export function FadeInUp({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: initialY }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewport}
       transition={{
-        duration: 0.75,
+        duration,
         delay,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.33, 1, 0.68, 1],
       }}
       style={{ willChange: "transform, opacity" }}
     >

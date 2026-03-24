@@ -117,40 +117,40 @@ export default function AboutPage() {
       >
         <div className="mx-auto max-w-6xl">
           <FadeIn>
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-10 xl:gap-12">
-              <div className="min-w-0 flex-1 lg:max-w-[55%]">
-                <div className="overflow-hidden rounded-2xl bg-[#1a3329]/5 shadow-lg shadow-[#1a3329]/5 md:rounded-3xl">
+            <div className="flex flex-col gap-8 lg:gap-10">
+              <div className="text-center lg:text-left">
+                <h2
+                  id="heading-business-overview"
+                  className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl lg:text-2xl"
+                >
+                  사업 개요
+                </h2>
+                <p className="mx-auto mt-2 max-w-2xl text-xs leading-relaxed text-neutral-600 md:mt-3 md:text-sm lg:mx-0">
+                  {projectDisplayName} 2차 분양 단지의 주요 사업 조건을 요약했습니다.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-10 xl:gap-12">
+                <div className="relative aspect-[16/10] min-h-[200px] w-full overflow-hidden rounded-2xl bg-[#1a3329]/5 shadow-lg shadow-[#1a3329]/5 md:rounded-3xl lg:aspect-auto lg:min-h-[min(22rem,52vh)] lg:h-full">
                   <Image
                     src="/main/main.png"
                     alt={`${projectDisplayName} 단지 조감`}
-                    width={1920}
-                    height={1080}
-                    className="h-auto w-full object-cover"
-                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     priority
                     quality={75}
                   />
                 </div>
-              </div>
 
-              <div className="mx-auto w-full max-w-md shrink-0 lg:mx-0 lg:max-w-none lg:flex-1 lg:pl-2">
-                <h2
-                  id="heading-business-overview"
-                  className="text-center font-serif text-lg font-semibold text-[#1a3329] md:text-xl"
-                >
-                  사업 개요
-                </h2>
-                <p className="mt-2 text-center text-xs leading-relaxed text-neutral-600 md:text-sm">
-                  {projectDisplayName} 2차 분양 단지의 주요 사업 조건을 요약했습니다.
-                </p>
-                <div className="mt-6 md:mt-8">
-                  <table className="w-full border-0  text-center text-[11px] leading-snug text-neutral-800 md:text-xs">
+                <div className="flex min-h-0 w-full flex-col justify-center lg:h-full lg:min-h-[min(22rem,52vh)]">
+                  <table className="w-full border-0 text-left text-[11px] leading-snug text-neutral-800 md:text-xs">
                     <tbody className="divide-y divide-neutral-200/90">
                       {BUSINESS_OVERVIEW_ROWS.map((row) => (
                         <tr key={row.label}>
                           <th
                             scope="row"
-                            className="border-0 py-1.5 align-top font-semibold text-[#1a3329] md:py-2"
+                            className="w-[34%] border-0 py-1.5 align-top font-semibold text-[#1a3329] md:py-2 lg:w-[32%]"
                           >
                             {row.label}
                           </th>
@@ -182,14 +182,14 @@ export default function AboutPage() {
                   입주 이후에도 이어지는 가치를 설계합니다.
                 </p>
               </div>
-              <div className="max-w-sm overflow-hidden rounded-2xl md:rounded-3xl md:p-8">
+              <div className="max-w-sm overflow-hidden rounded-2xl md:rounded-3xl md:p-2">
                 <Image
                   src="/main/house.png"
                   alt={`${siteConfig.name} 로고`}
-                  width={320}
-                  height={320}
+                  width={420}
+                  height={420}
                   className="h-auto w-full object-contain"
-                  sizes="(max-width: 1024px) 80vw, 320px"
+                  sizes="(max-width: 1024px) 80vw, 420px"
                   quality={80}
                 />
               </div>

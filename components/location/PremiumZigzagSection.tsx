@@ -70,11 +70,12 @@ const rows: readonly RowConfig[] = [
 function MainImagePane({
   src,
   alt,
-  priority,
+  eager,
 }: {
   src: string;
   alt: string;
-  priority?: boolean;
+  /** 히어로 직후 보이는 상단 행들은 즉시 로드 */
+  eager?: boolean;
 }) {
   return (
     <div className="relative min-h-[240px] w-full overflow-hidden md:min-h-[min(48vh,400px)] lg:min-h-[420px]">
@@ -84,8 +85,9 @@ function MainImagePane({
         fill
         className="object-cover"
         sizes="(max-width: 768px) 100vw, 50vw"
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
+        priority={eager}
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         quality={75}
       />
     </div>
@@ -161,18 +163,18 @@ function EditorialContentBlock({ row }: { row: RowConfig }) {
 export function PremiumZigzagSection() {
   return (
     <section
-      className="border-t border-[#1a3329]/10 bg-[#e8e6e1]/50 pb-20 pt-0"
+      className="border-t border-[#1a3329]/10 bg-[#e8e6e1]/50 px-8 py-16 md:px-8 md:py-24"
       aria-labelledby="premium-zigzag-heading"
     >
       <h2 id="premium-zigzag-heading" className="sr-only">
         프리미엄 가치
       </h2>
-      <div className="mx-auto max-w-6xl px-8 md:px-8">
+      <div className="mx-auto max-w-6xl">
         {rows.map((row, index) => (
           <FadeInUp
             key={row.key}
-            delay={0.05 * index}
-            viewport={{ amount: 0.15, once: true }}
+            delay={0.04 * index}
+            viewport={{ amount: 0.05, once: true, margin: "0px 0px -8% 0px" }}
           >
             <div className="break-keep grid grid-cols-1 overflow-hidden rounded-2xl border border-neutral-300/70 bg-neutral-100/40 md:grid-cols-2">
               {row.imageLeft ? (
@@ -180,7 +182,7 @@ export function PremiumZigzagSection() {
                   <MainImagePane
                     src={row.mainImage}
                     alt={`${row.englishLines.join(" ")} 관련 이미지`}
-                    priority={index === 0}
+                    eager={index < 2}
                   />
                   <EditorialContentBlock row={row} />
                 </>
@@ -190,7 +192,7 @@ export function PremiumZigzagSection() {
                   <MainImagePane
                     src={row.mainImage}
                     alt={`${row.englishLines.join(" ")} 관련 이미지`}
-                    priority={false}
+                    eager={index < 2}
                   />
                 </>
               )}

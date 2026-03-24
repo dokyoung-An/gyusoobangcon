@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
@@ -15,6 +15,69 @@ import {
 import { FadeInUp } from "@/components/ui/FadeInUp";
 
 type LightboxState = { src: string; alt: string; title: string };
+type FloorPlanCurrent = (typeof FLOOR_PLAN_TYPES)[number];
+
+type FloorPlanGuideContextValue = {
+  activeId: FloorPlanTypeId;
+  setActiveId: (id: FloorPlanTypeId) => void;
+  current: FloorPlanCurrent;
+  lightbox: LightboxState | null;
+  setLightbox: (state: LightboxState | null) => void;
+};
+
+const FloorPlanGuideContext = createContext<FloorPlanGuideContextValue | null>(null);
+
+function useFloorPlanGuideContext() {
+  const ctx = useContext(FloorPlanGuideContext);
+  if (!ctx) throw new Error("FloorPlanGuideProvider ?대??먯꽌 ?ъ슜?섏꽭??");
+  return ctx;
+}
+
+export function FloorPlanGuideProvider({ children }: { children: ReactNode }) {
+  const [activeId, setActiveId] = useState<FloorPlanTypeId>("A");
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
+
+  const current =
+    FLOOR_PLAN_TYPES.find((t) => t.id === activeId) ?? FLOOR_PLAN_TYPES[0];
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const cfg =
+      FLOOR_PLAN_TYPES.find((t) => t.id === activeId) ?? FLOOR_PLAN_TYPES[0];
+    const urls: string[] = [];
+    for (let i = 2; i < FLOOR_LEVELS_META.length; i++) {
+      const code = FLOOR_LEVELS_META[i]!.code;
+      const p = resolvePlan2dSrc(cfg, code);
+      const iso = resolveIsoSrc(cfg, code);
+      if (p) urls.push(p);
+      if (iso) urls.push(iso);
+    }
+    const run = () => {
+      for (const href of urls) {
+        const im = document.createElement("img");
+        im.decoding = "async";
+        im.src = href;
+      }
+    };
+    const w = window;
+    const id =
+      "requestIdleCallback" in w
+        ? w.requestIdleCallback(run, { timeout: 2000 })
+        : globalThis.setTimeout(run, 400);
+    return () => {
+      if ("cancelIdleCallback" in w) w.cancelIdleCallback(id as number);
+      else globalThis.clearTimeout(id as number);
+    };
+  }, [activeId]);
+
+  return (
+    <FloorPlanGuideContext.Provider
+      value={{ activeId, setActiveId, current, lightbox, setLightbox }}
+    >
+      {children}
+    </FloorPlanGuideContext.Provider>
+  );
+}
 
 function FloorPlanImageLightbox({
   state,
@@ -70,7 +133,7 @@ function FloorPlanImageLightbox({
               type="button"
               onClick={onClose}
               className="fixed right-3 top-3 z-[210] flex size-11 items-center justify-center rounded-full bg-white/15 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a667] sm:right-5 sm:top-5"
-              aria-label="닫기"
+              aria-label="?リ린"
             >
               <X className="size-6" strokeWidth={1.75} />
             </button>
@@ -125,15 +188,11 @@ function FloorImageCard({
   const expandable = Boolean(showImage && onExpand);
 
   return (
-    <div
-      className={`relative overflow-hidden rounded-2xl border border-[#1a3329]/12 bg-gradient-to-b from-white to-neutral-100/80 shadow-sm ${expandable ? "cursor-zoom-in" : ""}`}
-    >
+    <div className={`relative overflow-hidden rounded-2xl bg-white ${expandable ? "cursor-zoom-in" : ""}`}>
       <div className="absolute left-3 top-3 z-10 rounded-md bg-[#1a3329] px-3 py-1.5 text-xs font-semibold tracking-wide text-white shadow-md">
         {label}
       </div>
-      <div
-        className={`relative w-full bg-neutral-100/90 pt-12 ${aspectClassName}`}
-      >
+      <div className={`relative w-full bg-white pt-12 ${aspectClassName}`}>
         {showImage ? (
           <>
             <div className="absolute inset-0 z-0 p-3 md:p-4">
@@ -154,7 +213,7 @@ function FloorImageCard({
             {onExpand ? (
               <button
                 type="button"
-                className="absolute inset-0 z-[1] rounded-b-2xl bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c6a667]"
+                className="absolute inset-0 z-[1] bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c6a667]"
                 aria-label={`${alt} 크게 보기`}
                 onClick={() =>
                   onExpand({
@@ -172,7 +231,7 @@ function FloorImageCard({
             <p className="text-sm font-medium text-[#1a3329]/85">{caption}</p>
             <p className="max-w-[14rem] text-xs leading-relaxed text-neutral-500">
               {src
-                ? "이미지를 불러오지 못했습니다. 경로·파일명을 확인해 주세요."
+                ? "?대?吏瑜?遺덈윭?ㅼ? 紐삵뻽?듬땲?? 寃쎈줈쨌?뚯씪紐낆쓣 ?뺤씤??二쇱꽭??"
                 : placeholderHint}
             </p>
           </div>
@@ -182,53 +241,16 @@ function FloorImageCard({
   );
 }
 
-export function FloorPlanGuide() {
-  const [activeId, setActiveId] = useState<FloorPlanTypeId>("A");
-  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
-  const current =
-    FLOOR_PLAN_TYPES.find((t) => t.id === activeId) ?? FLOOR_PLAN_TYPES[0];
-
-  /** 첫 행(2장) 이후 타일은 네트워크 한가할 때 미리 받아 두어 스크롤 시 체감 지연 완화 */
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const cfg =
-      FLOOR_PLAN_TYPES.find((t) => t.id === activeId) ?? FLOOR_PLAN_TYPES[0];
-    const urls: string[] = [];
-    for (let i = 2; i < FLOOR_LEVELS_META.length; i++) {
-      const code = FLOOR_LEVELS_META[i]!.code;
-      const p = resolvePlan2dSrc(cfg, code);
-      const iso = resolveIsoSrc(cfg, code);
-      if (p) urls.push(p);
-      if (iso) urls.push(iso);
-    }
-    const run = () => {
-      for (const href of urls) {
-        const im = document.createElement("img");
-        im.decoding = "async";
-        im.src = href;
-      }
-    };
-    const w = window;
-    const id =
-      "requestIdleCallback" in w
-        ? w.requestIdleCallback(run, { timeout: 2000 })
-        : globalThis.setTimeout(run, 400);
-    return () => {
-      if ("cancelIdleCallback" in w) {
-        w.cancelIdleCallback(id as number);
-      } else {
-        globalThis.clearTimeout(id as number);
-      }
-    };
-  }, [activeId]);
+export function FloorPlanTopSection() {
+  const { activeId, setActiveId, current } = useFloorPlanGuideContext();
 
   return (
-    <div className="space-y-10 md:space-y-12">
+    <section className=" pb-12 pt-2 md:pb-14 md:pt-4">
       <FadeInUp>
         <div
           className="overflow-hidden rounded-xl border border-[#1a3329]/15 bg-white shadow-sm"
           role="tablist"
-          aria-label="세대 타입 선택"
+          aria-label="?몃? ????좏깮"
         >
           <div className="grid grid-cols-5 divide-x divide-[#1a3329]/10">
             {FLOOR_PLAN_TYPES.map((t) => {
@@ -258,92 +280,92 @@ export function FloorPlanGuide() {
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={current.id}
+          key={`top-${current.id}`}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.65, ease: [0.33, 1, 0.68, 1] }}
+          className="mt-6 grid gap-6 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-8"
+        >
+          <div className="flex flex-col items-center gap-2 lg:items-start">
+            <div className="flex size-[4.375rem] shrink-0 items-center justify-center border-4 border-[#1a3329] bg-white shadow-inner sm:size-[3.625rem]">
+              <span className="font-serif text-2xl font-bold tracking-tight text-[#1a3329] sm:text-3xl">
+                {current.id}
+              </span>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-neutral-200/90 bg-white p-5 shadow-sm md:p-6">
+            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Unit Plan</h2>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200/80">
+              <table className="w-full border-collapse text-center text-sm">
+                <tbody className="divide-y divide-neutral-200/90">
+                  {current.unitPlan.map((section) =>
+                    section.rows.map((row, rowIndex) => (
+                      <tr key={`${section.category}-${row.label}`}>
+                        {rowIndex === 0 ? (
+                          <th
+                            rowSpan={section.rows.length}
+                            scope="row"
+                            className="w-[4.5rem] align-middle border-r border-neutral-200/80 bg-[#f0ebe2]/90 px-2 py-2.5 text-center text-xs font-bold text-[#1a3329] sm:w-[5.25rem] sm:px-3 sm:text-sm"
+                          >
+                            {section.category}
+                          </th>
+                        ) : null}
+                        <td className="bg-white/95 px-3 py-2.5 text-[11px] font-medium text-neutral-600 sm:px-4 sm:text-xs">{row.label}</td>
+                        <td className="bg-white/95 px-3 py-2.5 text-center text-sm font-semibold tabular-nums text-[#1a3329] sm:px-4">{row.value}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="flex flex-col rounded-2xl border border-neutral-200/90 bg-neutral-100/70 p-5 shadow-sm md:p-6">
+            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Exterior</h2>
+            <div className="mt-4 flex min-h-0 flex-1 flex-col">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200/80 sm:aspect-[5/4]">
+                <NextImage
+                  src={current.exteriorSrc}
+                  alt={`${current.tabLabel} ?멸? 李멸퀬 ?대?吏`}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  quality={75}
+                />
+              </div>
+            </div>
+            <p className="mt-3 text-center text-[11px] text-neutral-600">
+              ?좏깮 ??? <span className="font-semibold text-[#1a3329]">{current.tabLabel}</span>
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </section>
+  );
+}
+
+export function FloorPlanBottomSection() {
+  const { current, setLightbox } = useFloorPlanGuideContext();
+
+  return (
+    <section className="bg-white pb-2 pt-2 md:pt-4">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`bottom-${current.id}`}
           id={`panel-${current.id}`}
           role="tabpanel"
           aria-labelledby={`tab-${current.id}`}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.65, ease: [0.33, 1, 0.68, 1] }}
           className="space-y-10 md:space-y-14"
         >
-          <div className="grid gap-6 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-8">
-            <div className="flex flex-col items-center gap-2 lg:items-start">
-              <div className="flex size-[4.375rem] shrink-0 items-center justify-center border-4 border-[#1a3329] bg-white shadow-inner sm:size-[3.625rem]">
-                <span className="font-serif text-2xl font-bold tracking-tight text-[#1a3329] sm:text-3xl">
-                  {current.id}
-                </span>
-              </div>
-              {/* <p className="text-center text-xs font-medium text-neutral-600 lg:text-left">
-                {current.households}
-              </p> */}
-            </div>
-
-            <div className="rounded-2xl border border-neutral-200/90 bg-neutral-100/70 p-5 shadow-sm md:p-6">
-              <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">
-                Unit Plan
-              </h2>
-              <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200/80">
-                <table className="w-full border-collapse text-center text-sm">
-                  <tbody className="divide-y divide-neutral-200/90">
-                    {current.unitPlan.map((section) =>
-                      section.rows.map((row, rowIndex) => (
-                        <tr key={`${section.category}-${row.label}`}>
-                          {rowIndex === 0 ? (
-                            <th
-                              rowSpan={section.rows.length}
-                              scope="row"
-                              className="w-[4.5rem] align-middle border-r border-neutral-200/80 bg-[#f0ebe2]/90 px-2 py-2.5 text-center text-xs font-bold text-[#1a3329] sm:w-[5.25rem] sm:px-3 sm:text-sm"
-                            >
-                              {section.category}
-                            </th>
-                          ) : null}
-                          <td className="bg-white/95 px-3 py-2.5 text-[11px] font-medium text-neutral-600 sm:px-4 sm:text-xs">
-                            {row.label}
-                          </td>
-                          <td className="bg-white/95 px-3 py-2.5 text-center text-sm font-semibold tabular-nums text-[#1a3329] sm:px-4">
-                            {row.value}
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="flex flex-col rounded-2xl border border-neutral-200/90 bg-neutral-100/70 p-5 shadow-sm md:p-6">
-              <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">
-                Exterior
-              </h2>
-              <div className="mt-4 flex min-h-0 flex-1 flex-col">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200/80 sm:aspect-[5/4]">
-                  <NextImage
-                    src={current.exteriorSrc}
-                    alt={`${current.tabLabel} 외관 참고 이미지`}
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    quality={75}
-                  />
-                </div>
-              </div>
-              <p className="mt-3 text-center text-[11px] text-neutral-600">
-                선택 타입:{" "}
-                <span className="font-semibold text-[#1a3329]">
-                  {current.tabLabel}
-                </span>
-              </p>
-            </div>
-          </div>
-
           <section aria-labelledby="heading-2d">
             <div className="mb-5 flex items-end justify-between gap-4 border-b border-[#1a3329]/10 pb-3">
-              <h2
-                id="heading-2d"
-                className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl"
-              >
+              <h2 id="heading-2d" className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl">
                 평면도 <span className="text-sm font-normal text-neutral-500">(2D)</span>
               </h2>
               <span className="hidden text-xs text-neutral-500 sm:inline">
@@ -380,12 +402,8 @@ export function FloorPlanGuide() {
 
           <section aria-labelledby="heading-iso">
             <div className="mb-5 border-b border-[#1a3329]/10 pb-3">
-              <h2
-                id="heading-iso"
-                className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl"
-              >
-                아이소메트릭{" "}
-                <span className="text-sm font-normal text-neutral-500">(3D 투시)</span>
+              <h2 id="heading-iso" className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl">
+                아이소메트릭 <span className="text-sm font-normal text-neutral-500">(3D 투시)</span>
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-600">
                 층별 공간감을 한눈에 파악할 수 있도록 지하 1층부터 3층까지
@@ -393,7 +411,6 @@ export function FloorPlanGuide() {
                 이미지를 누르면 확대해서 볼 수 있습니다.
               </p>
             </div>
-
             <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:gap-8">
               {FLOOR_LEVELS_META.map(({ label, code }, i) => {
                 const src = resolveIsoSrc(current, code);
@@ -416,11 +433,23 @@ export function FloorPlanGuide() {
           </section>
         </motion.div>
       </AnimatePresence>
-
-      <FloorPlanImageLightbox
-        state={lightbox}
-        onClose={() => setLightbox(null)}
-      />
-    </div>
+    </section>
   );
 }
+
+export function FloorPlanGuideLightbox() {
+  const { lightbox, setLightbox } = useFloorPlanGuideContext();
+  return <FloorPlanImageLightbox state={lightbox} onClose={() => setLightbox(null)} />;
+}
+
+export function FloorPlanGuide() {
+  return (
+    <FloorPlanGuideProvider>
+      <FloorPlanTopSection />
+      <FloorPlanBottomSection />
+      <FloorPlanGuideLightbox />
+    </FloorPlanGuideProvider>
+  );
+}
+
+

@@ -31,7 +31,7 @@ export function Logo({ className = "" }: LogoProps) {
         sizes="140px"
         quality={85}
       />
-      <div className="flex min-w-0 flex-col justify-center gap-1 border-l border-white/20 pl-2.5 leading-none md:gap-1.5 md:pl-3">
+      <div className="flex min-w-0 flex-col justify-center py-1 border-l border-white/20 pl-2.5 leading-none md:py-1.5 md:pl-3">
         <p
           className={`${bebasLogo.className} text-[1.5rem] tracking-[0.06em] text-white md:text-[1.75rem] md:tracking-[0.08em]`}
         >

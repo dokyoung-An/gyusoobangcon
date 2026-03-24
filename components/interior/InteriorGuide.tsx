@@ -151,9 +151,9 @@ function InteriorCarousel({ images, typeLabel }: InteriorCarouselProps) {
               key={`thumb-${offset}`}
               type="button"
               onClick={() => goToOffset(offset)}
-              className={`group relative overflow-hidden rounded-xl border-2 transition-shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a3329] ${
+              className={`group relative overflow-hidden rounded-xl border border-transparent transition-shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a3329] ${
                 active
-                  ? "border-[#1a3329] shadow-md ring-2 ring-[#c6a667]/50"
+                  ? "shadow-md ring-2 ring-[#c6a667]/50"
                   : "border-transparent opacity-90 hover:border-[#1a3329]/25 hover:opacity-100"
               }`}
               aria-label={`${typeLabel} 이미지 ${((index + offset) % n) + 1}번 보기`}
@@ -232,7 +232,7 @@ export function InteriorGuide() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.65, ease: [0.33, 1, 0.68, 1] }}
           className="space-y-6"
         >
           <div className="flex flex-col gap-2 border-b border-[#1a3329]/10 pb-4 sm:flex-row sm:items-end sm:justify-between">

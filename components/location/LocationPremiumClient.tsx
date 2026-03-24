@@ -74,54 +74,63 @@ export function PremiumSubpageHeader({
   );
 }
 
+/** 입지·프리미엄 상단 공용 풀블리드 히어로 */
+function LocationBillboardHero() {
+  const { projectName } = siteConfig;
+
+  return (
+    <section className="relative min-h-[72vh] overflow-hidden md:min-h-[78vh]">
+      <Image
+        src="/main/hero1.jpg"
+        alt=""
+        fill
+        priority
+        fetchPriority="high"
+        className="object-cover"
+        sizes="100vw"
+        quality={75}
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/55"
+        aria-hidden
+      />
+      <div className="relative z-10 flex min-h-[72vh] flex-col items-center justify-center px-6 py-24 text-center md:min-h-[78vh] md:py-32">
+        <FadeInUp className="max-w-3xl">
+          <p className="text-sm font-light tracking-wide text-white/90 md:text-base">
+            입지, 교육, 교통, 편의시설까지.
+          </p>
+          <p className="mt-2 text-sm font-light text-white/80 md:text-base">
+            생활 인프라와 미래 가치에 기대를 품다.
+          </p>
+          <h2 className="mt-8 font-serif text-2xl font-semibold leading-snug text-white md:text-4xl lg:text-[2.35rem]">
+            더 완벽한 프리미엄 라이프의 시작,
+            <br className="hidden sm:block" />
+            중심에서 누리는 또 다른 여유
+          </h2>
+          <div className="mx-auto my-8 h-12 w-px bg-[#c6a667]/90" aria-hidden />
+          <p className="font-serif text-xl font-semibold tracking-[0.35em] text-white md:text-2xl">
+            {projectName}
+          </p>
+        </FadeInUp>
+      </div>
+      <div className="relative z-10 border-t border-white/10 bg-[#1a3329]/95 px-8 py-4 text-center text-sm text-white/95 md:text-base">
+        <p>
+          나의 삶이 프리미엄이 되는 순간,{" "}
+          <span className="font-medium text-[#c6a667]">{projectName}</span>
+          에서 시작됩니다.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /** /location — 입지 환경 본문 */
 export function EnvironmentSection() {
   const { projectName } = siteConfig;
 
   return (
     <>
-      <section className="relative min-h-[72vh] overflow-hidden md:min-h-[78vh]">
-        <Image
-          src="/main/hero1.jpg"
-          alt=""
-          fill
-          priority
-          fetchPriority="high"
-          className="object-cover"
-          sizes="100vw"
-          quality={75}
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/55"
-          aria-hidden
-        />
-        <div className="relative z-10 flex min-h-[72vh] flex-col items-center justify-center px-6 py-24 text-center md:min-h-[78vh] md:py-32">
-          <FadeInUp className="max-w-3xl">
-            <p className="text-sm font-light tracking-wide text-white/90 md:text-base">
-              입지, 교육, 교통, 편의시설까지.
-            </p>
-            <p className="mt-2 text-sm font-light text-white/80 md:text-base">
-              생활 인프라와 미래 가치에 기대를 품다.
-            </p>
-            <h2 className="mt-8 font-serif text-2xl font-semibold leading-snug text-white md:text-4xl lg:text-[2.35rem]">
-              더 완벽한 프리미엄 라이프의 시작,
-              <br className="hidden sm:block" />
-              중심에서 누리는 또 다른 여유
-            </h2>
-            <div className="mx-auto my-8 h-12 w-px bg-[#c6a667]/90" aria-hidden />
-            <p className="font-serif text-xl font-semibold tracking-[0.35em] text-white md:text-2xl">
-              {projectName}
-            </p>
-          </FadeInUp>
-        </div>
-        <div className="relative z-10 border-t border-white/10 bg-[#1a3329]/95 px-8 py-4 text-center text-sm text-white/95 md:text-base">
-          <p>
-            나의 삶이 프리미엄이 되는 순간,{" "}
-            <span className="font-medium text-[#c6a667]">{projectName}</span>
-            에서 시작됩니다.
-          </p>
-        </div>
-      </section>
+      <LocationBillboardHero />
 
       <section className="px-8 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-5xl">
@@ -136,7 +145,8 @@ export function EnvironmentSection() {
               </p>
             </div>
           </FadeInUp>
-          <FadeInUp delay={0.1} className="mt-10">
+          {/* 지도는 FadeInUp 밖에 두어 로드·표시 지연(불투명 애니메이션) 방지 */}
+          <div className="mt-10">
             <div className="overflow-hidden rounded-2xl border border-[#1a3329]/10 bg-white p-4 shadow-xl shadow-black/10 md:p-6">
               <div className="flex flex-col gap-6 md:flex-row md:items-stretch md:gap-5 lg:gap-8">
                 <aside
@@ -170,6 +180,7 @@ export function EnvironmentSection() {
                     className="object-contain object-center"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 900px"
                     priority
+                    fetchPriority="high"
                     quality={75}
                   />
                 </div>
@@ -184,7 +195,7 @@ export function EnvironmentSection() {
                 </span>
               </div>
             </div>
-          </FadeInUp>
+          </div>
         </div>
       </section>
 
@@ -230,7 +241,12 @@ export function EnvironmentSection() {
   );
 }
 
-/** /location/premium — 프리미엄 본문 (지그재그 4행) */
+/** /location/premium — 프리미엄 본문 (입지와 동일 히어로 + 지그재그) */
 export function PremiumSection() {
-  return <PremiumZigzagSection />;
+  return (
+    <>
+      <LocationBillboardHero />
+      <PremiumZigzagSection />
+    </>
+  );
 }

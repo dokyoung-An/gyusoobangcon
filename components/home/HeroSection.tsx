@@ -85,7 +85,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="text-xs font-medium uppercase tracking-[0.35em] text-[#c6a667] md:text-sm"
+          className="text-xs font-medium uppercase tracking-[0.35em] text-[#c6a667] [text-shadow:0_2px_14px_rgb(0_0_0_/_0.3),0_1px_5px_rgb(0_0_0_/_0.3)] md:text-sm"
         >
           Urban Forest Residence
         </motion.p>
@@ -93,7 +93,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.35 }}
-          className="mt-6 font-serif text-3xl font-semibold leading-snug tracking-tight text-white md:text-5xl lg:text-6xl"
+          className="mt-6 font-serif text-3xl font-semibold leading-snug tracking-tight text-white [text-shadow:0_2px_24px_rgb(0_0_0_/_0.3),0_1px_8px_rgb(0_0_0_/_0.3)] md:[text-shadow:0_3px_32px_rgb(0_0_0_/_0.3),0_2px_12px_rgb(0_0_0_/_0.3)] md:text-5xl lg:text-6xl"
         >
           세월이 지나도 변하지 않는
           <br className="hidden sm:block" /> 고품격 하이엔드 주거공간의 새로운 기준
@@ -102,7 +102,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
-          className="mx-auto mt-6 max-w-2xl text-base break-keep text-white/85 md:text-lg"
+          className="mx-auto mt-6 max-w-2xl text-base break-keep text-white/85 [text-shadow:0_2px_16px_rgb(0_0_0_/_0.3),0_1px_6px_rgb(0_0_0_/_0.3)] md:text-lg"
         >
           동천동 최고의 전세대 남향 조망권 확보, 도심 속 대단지 전원주택 단독형
           타운하우스

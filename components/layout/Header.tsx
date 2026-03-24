@@ -49,7 +49,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`border-b border-white/5 py-3 text-sm font-medium ${
+                      className={`border-b border-white/5 py-3 text-base font-medium ${
                         active ? "text-[#c6a667]" : "text-white/95"
                       }`}
                       onClick={() => setOpen(false)}
@@ -65,7 +65,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                   <div key={item.label} className="border-b border-white/5">
                     <button
                       type="button"
-                      className={`flex w-full items-center justify-between py-3 text-left text-sm font-medium ${
+                      className={`flex w-full items-center justify-between py-3 text-left text-base font-medium ${
                         parentActive ? "text-[#c6a667]" : "text-white/95"
                       }`}
                       aria-expanded={isExpanded}
@@ -97,7 +97,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                               <Link
                                 key={sub.href}
                                 href={sub.href}
-                                className={`block border-l border-white/10 py-2.5 pl-3 text-sm ${
+                                className={`block border-l border-white/10 py-2.5 pl-3 text-base ${
                                   active ? "text-[#c6a667]" : "text-white/80"
                                 }`}
                                 onClick={() => {
@@ -147,7 +147,7 @@ export function Header() {
     : "bg-transparent";
 
   const linkClass = (active: boolean) =>
-    `rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+    `rounded-full px-3 py-2 text-base font-medium transition-colors ${
       solidBar
         ? active
           ? "bg-white/10 text-[#c6a667]"
@@ -218,7 +218,7 @@ export function Header() {
                             <Link
                               key={sub.href}
                               href={sub.href}
-                              className={`block px-4 py-2.5 text-sm transition-colors ${
+                              className={`block px-4 py-2.5 text-base transition-colors ${
                                 active
                                   ? "bg-white/10 text-[#c6a667]"
                                   : "text-white/90 hover:bg-white/5 hover:text-[#c6a667]"
