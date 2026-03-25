@@ -30,7 +30,7 @@ export const siteConfig = {
     /** 단지·건설 현장 등 */
     address: "경기도 수지구 동천동 483-8 번지",
     /** 분양 홍보관 */
-    promotionHallAddress: "경기도 수지구 동천동 483-13 번지",
+    promotionHallAddress: "경기도 수지구 동천동 483-8 번지",
     tel: "1551-8959",
     fax: "02-0000-0001",
     email: "info@gyusoobang.co.kr",

@@ -29,10 +29,10 @@ export const CONTACT_LOCATION: ContactLocationData = {
     title: "홍보관 안내",
     tel: "1551-8959",
     fax: "02-0000-0001",
-    address: "경기도 수지구 동천동 483-13",
+    address: "경기도 수지구 동천동 483-8",
     naverMapUrl:
       "https://map.naver.com/v5/search/" +
-      encodeURIComponent("경기도 수지구 동천동 483-13"),
+      encodeURIComponent("경기도 수지구 동천동 483-8"),
   },
   transport: {
     title: "교통안내",
