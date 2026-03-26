@@ -261,7 +261,7 @@ export function CompanyOverviewClient() {
     <div className="bg-[#f3efe6]">
       <section className="relative min-h-[72vh] overflow-hidden md:min-h-[78vh]">
         <Image
-          src="/about/a-hero.png"
+          src="/main/hero1.jpg"
           alt="규수방종합건설 회사소개 배경 이미지"
           fill
           priority

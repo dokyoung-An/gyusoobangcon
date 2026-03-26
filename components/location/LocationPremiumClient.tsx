@@ -156,7 +156,7 @@ export function EnvironmentSection() {
                   {transitAccess.map((item) => (
                     <div
                       key={item.key}
-                      className="flex aspect-square w-full max-w-[7.25rem] flex-col items-center justify-center rounded-full border-4 border-[#c6a667] bg-white px-2 py-3 text-center shadow-md md:max-w-none"
+                      className="flex aspect-square w-full max-w-[7.25rem] flex-col items-center justify-center rounded-full border-4 #1a3329 bg-white px-2 py-3 text-center shadow-md md:max-w-none"
                     >
                       <TrainFront
                         className="mb-1.5 size-7 shrink-0 text-[#1a3329] md:size-8"

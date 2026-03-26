@@ -96,10 +96,11 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
       {
         category: "건축",
         rows: [
-          { label: "전용면적", value: "125.75㎡" },
-          { label: "2층면적", value: "28㎡" },
-          { label: "3층면적", value: "28㎡" },
-          { label: "분양면적", value: "153.75㎡" },
+          { label: "전용면적", value: "459.14㎡" },
+          { label: "지하1층", value: "224.01㎡" },
+          { label: "1층면적", value: "94.00㎡" },
+          { label: "2층면적", value: "94.00㎡" },
+          { label: "3층면적", value: "47.13㎡" },
         ],
       },
       {
@@ -122,10 +123,11 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
       {
         category: "건축",
         rows: [
-          { label: "전용면적", value: "125.75㎡" },
-          { label: "2층면적", value: "28㎡" },
-          { label: "3층면적", value: "28㎡" },
-          { label: "분양면적", value: "153.75㎡" },
+          { label: "전용면적", value: "459.14㎡" },
+          { label: "지하1층", value: "224.01㎡" },
+          { label: "1층면적", value: "94.00㎡" },
+          { label: "2층면적", value: "94.00㎡" },
+          { label: "3층면적", value: "47.13㎡" },
         ],
       },
       {
@@ -148,10 +150,11 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
       {
         category: "건축",
         rows: [
-          { label: "전용면적", value: "125.75㎡" },
-          { label: "2층면적", value: "28㎡" },
-          { label: "3층면적", value: "28㎡" },
-          { label: "분양면적", value: "153.75㎡" },
+          { label: "전용면적", value: "459.14㎡" },
+          { label: "지하1층", value: "224.01㎡" },
+          { label: "1층면적", value: "94.00㎡" },
+          { label: "2층면적", value: "94.00㎡" },
+          { label: "3층면적", value: "47.13㎡" },
         ],
       },
       {
@@ -174,10 +177,11 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
       {
         category: "건축",
         rows: [
-          { label: "전용면적", value: "125.75㎡" },
-          { label: "2층면적", value: "28㎡" },
-          { label: "3층면적", value: "28㎡" },
-          { label: "분양면적", value: "153.75㎡" },
+          { label: "전용면적", value: "459.14㎡" },
+          { label: "지하1층", value: "224.01㎡" },
+          { label: "1층면적", value: "94.00㎡" },
+          { label: "2층면적", value: "94.00㎡" },
+          { label: "3층면적", value: "47.13㎡" },
         ],
       },
       {
@@ -200,10 +204,11 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
       {
         category: "건축",
         rows: [
-          { label: "전용면적", value: "125.75㎡" },
-          { label: "2층면적", value: "28㎡" },
-          { label: "3층면적", value: "28㎡" },
-          { label: "분양면적", value: "153.75㎡" },
+          { label: "전용면적", value: "459.14㎡" },
+          { label: "지하1층", value: "224.01㎡" },
+          { label: "1층면적", value: "94.00㎡" },
+          { label: "2층면적", value: "94.00㎡" },
+          { label: "3층면적", value: "47.13㎡" },
         ],
       },
       {

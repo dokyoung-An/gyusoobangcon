@@ -22,7 +22,7 @@ export function Logo({ className = "" }: LogoProps) {
       aria-label={`${projectDisplayName} 홈으로`}
     >
       <Image
-        src="/top_logo2.png"
+        src="/top_logo2.jpg"
         alt=""
         width={140}
         height={44}

@@ -57,7 +57,7 @@ export const navItems: readonly NavItem[] = [
   },
   {
     kind: "dropdown",
-    label: "프리미엄",
+    label: "단지소개",
     items: [
       { href: "/location", label: "입지 환경" },
       { href: "/location/premium", label: "프리미엄" },

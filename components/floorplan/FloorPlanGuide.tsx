@@ -291,8 +291,8 @@ export function FloorPlanTopSection() {
           className="mt-6 grid gap-6 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-8"
         >
           <div className="order-1 flex flex-col items-center gap-2 lg:order-1 lg:items-start">
-            <div className="flex size-[4.375rem] shrink-0 items-center justify-center border-4 border-[#1a3329] bg-white shadow-inner sm:size-[3.625rem]">
-              <span className="font-serif text-2xl font-bold tracking-tight text-[#1a3329] sm:text-3xl">
+            <div className="flex size-[4.375rem] shrink-0 items-center justify-center border-4 border-[#c6a667] bg-white shadow-[0_0_10px_rgba(198,167,103,0.35)] sm:size-[3.625rem]">
+              <span className="font-serif text-2xl font-bold tracking-tight text-[#c6a667] sm:text-3xl">
                 {current.id}
               </span>
             </div>

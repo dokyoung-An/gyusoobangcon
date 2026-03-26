@@ -44,8 +44,17 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-end">
-      
-      <video
+      <Image
+        src="/main/hero1.jpg"
+        alt=""
+        fill
+        priority
+        fetchPriority="high"
+        className="object-cover"
+        sizes="100vw"
+        quality={75}
+      />
+      {/* <video
         ref={videoRef}
         className="absolute inset-0 z-0 h-full w-full object-cover"
         style={{ backgroundColor: "transparent" }}
@@ -60,7 +69,7 @@ export function HeroSection() {
         aria-label="수지 드림더힐 단지 소개 영상"
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
-      </video>
+      </video> */}
 
       <div
         className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/20"
