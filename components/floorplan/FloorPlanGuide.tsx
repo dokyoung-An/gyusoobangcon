@@ -29,7 +29,9 @@ const FloorPlanGuideContext = createContext<FloorPlanGuideContextValue | null>(n
 
 function useFloorPlanGuideContext() {
   const ctx = useContext(FloorPlanGuideContext);
-  if (!ctx) throw new Error("FloorPlanGuideProvider ?대??먯꽌 ?ъ슜?섏꽭??");
+  if (!ctx) {
+    throw new Error("FloorPlanGuideProvider 내부에서만 사용할 수 있습니다.");
+  }
   return ctx;
 }
 
@@ -133,7 +135,7 @@ function FloorPlanImageLightbox({
               type="button"
               onClick={onClose}
               className="fixed right-3 top-3 z-[210] flex size-11 items-center justify-center rounded-full bg-white/15 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a667] sm:right-5 sm:top-5"
-              aria-label="?リ린"
+              aria-label="닫기"
             >
               <X className="size-6" strokeWidth={1.75} />
             </button>
@@ -231,7 +233,7 @@ function FloorImageCard({
             <p className="text-sm font-medium text-[#1a3329]/85">{caption}</p>
             <p className="max-w-[14rem] text-xs leading-relaxed text-neutral-500">
               {src
-                ? "?대?吏瑜?遺덈윭?ㅼ? 紐삵뻽?듬땲?? 寃쎈줈쨌?뚯씪紐낆쓣 ?뺤씤??二쇱꽭??"
+                ? "이미지를 불러오지 못했습니다. 경로·파일명을 확인해 주세요."
                 : placeholderHint}
             </p>
           </div>
@@ -242,7 +244,8 @@ function FloorImageCard({
 }
 
 export function FloorPlanTopSection() {
-  const { activeId, setActiveId, current } = useFloorPlanGuideContext();
+  const { activeId, setActiveId, current, setLightbox } =
+    useFloorPlanGuideContext();
 
   return (
     <section className=" pb-12 pt-2 md:pb-14 md:pt-4">
@@ -250,7 +253,7 @@ export function FloorPlanTopSection() {
         <div
           className="overflow-hidden rounded-xl border border-[#1a3329]/15 bg-white shadow-sm"
           role="tablist"
-          aria-label="?몃? ????좏깮"
+          aria-label="평형 타입 선택"
         >
           <div className="grid grid-cols-5 divide-x divide-[#1a3329]/10">
             {FLOOR_PLAN_TYPES.map((t) => {
@@ -287,7 +290,7 @@ export function FloorPlanTopSection() {
           transition={{ duration: 0.65, ease: [0.33, 1, 0.68, 1] }}
           className="mt-6 grid gap-6 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-8"
         >
-          <div className="flex flex-col items-center gap-2 lg:items-start">
+          <div className="order-1 flex flex-col items-center gap-2 lg:order-1 lg:items-start">
             <div className="flex size-[4.375rem] shrink-0 items-center justify-center border-4 border-[#1a3329] bg-white shadow-inner sm:size-[3.625rem]">
               <span className="font-serif text-2xl font-bold tracking-tight text-[#1a3329] sm:text-3xl">
                 {current.id}
@@ -295,7 +298,7 @@ export function FloorPlanTopSection() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-neutral-200/90 bg-white p-5 shadow-sm md:p-6">
+          <div className="order-3 rounded-2xl border border-neutral-200/90 bg-white p-5 shadow-sm md:p-6 lg:order-2">
             <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Unit Plan</h2>
             <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200/80">
               <table className="w-full border-collapse text-center text-sm">
@@ -322,22 +325,35 @@ export function FloorPlanTopSection() {
             </div>
           </div>
 
-          <div className="flex flex-col rounded-2xl border border-neutral-200/90 bg-neutral-100/70 p-5 shadow-sm md:p-6">
+          <div className="order-2 flex flex-col lg:order-3">
             <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Exterior</h2>
             <div className="mt-4 flex min-h-0 flex-1 flex-col">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200/80 sm:aspect-[5/4]">
+              <div className="relative w-full cursor-zoom-in overflow-hidden rounded-xl max-lg:aspect-[3/4] max-lg:min-h-[min(92vw,420px)] lg:aspect-[5/4] lg:min-h-0">
                 <NextImage
                   src={current.exteriorSrc}
-                  alt={`${current.tabLabel} ?멸? 李멸퀬 ?대?吏`}
+                  alt={`${current.tabLabel} 외관 참고 이미지`}
                   fill
                   className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  sizes="(max-width: 1024px) 96vw, 33vw"
                   quality={75}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-0 z-[1] bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c6a667]"
+                  aria-label={`${current.tabLabel} 외관 참고 이미지 크게 보기`}
+                  onClick={() =>
+                    setLightbox({
+                      src: current.exteriorSrc,
+                      alt: `${current.tabLabel} 외관 참고 이미지`,
+                      title: `${current.tabLabel} · Exterior`,
+                    })
+                  }
                 />
               </div>
             </div>
             <p className="mt-3 text-center text-[11px] text-neutral-600">
-              ?좏깮 ??? <span className="font-semibold text-[#1a3329]">{current.tabLabel}</span>
+              선택 평형{" "}
+              <span className="font-semibold text-[#1a3329]">{current.tabLabel}</span>
             </p>
           </div>
         </motion.div>

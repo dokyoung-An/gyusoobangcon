@@ -3,9 +3,7 @@ import { COOKIE_NAME, signAdminSession } from "@/lib/admin-session";
 
 function adminPassword(): string {
   const p = process.env.CONTACT_ADMIN_PASSWORD;
-  if (p && p.length > 0) return p;
-  if (process.env.NODE_ENV === "development") return "admin";
-  return "";
+  return p && p.length > 0 ? p : "";
 }
 
 export async function POST(request: Request) {
@@ -13,6 +11,14 @@ export async function POST(request: Request) {
   if (!pwd) {
     return NextResponse.json(
       { error: "CONTACT_ADMIN_PASSWORD 환경 변수를 설정해 주세요." },
+      { status: 500 }
+    );
+  }
+
+  const signingSecret = process.env.CONTACT_ADMIN_SECRET;
+  if (!signingSecret || signingSecret.length < 16) {
+    return NextResponse.json(
+      { error: "CONTACT_ADMIN_SECRET(16자 이상)을 환경 변수로 설정해 주세요." },
       { status: 500 }
     );
   }
@@ -39,7 +45,7 @@ export async function POST(request: Request) {
   const token = signAdminSession();
   if (!token) {
     return NextResponse.json(
-      { error: "CONTACT_ADMIN_SECRET(16자 이상)을 설정해 주세요." },
+      { error: "세션을 발급할 수 없습니다. CONTACT_ADMIN_SECRET을 확인해 주세요." },
       { status: 500 }
     );
   }

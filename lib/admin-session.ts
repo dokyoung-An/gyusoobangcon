@@ -4,11 +4,7 @@ const COOKIE_NAME = "gyusoobang_admin_session";
 
 function getSecret(): string {
   const s = process.env.CONTACT_ADMIN_SECRET;
-  if (s && s.length >= 16) return s;
-  if (process.env.NODE_ENV === "development") {
-    return "dev-contact-admin-secret-min-16-chars";
-  }
-  return "";
+  return s && s.length >= 16 ? s : "";
 }
 
 export { COOKIE_NAME };

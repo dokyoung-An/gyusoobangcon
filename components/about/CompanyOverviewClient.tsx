@@ -51,31 +51,31 @@ const companyRows: readonly CompanyRow[] = [
       { label: "준공여부", value: "준공완료" },
     ],
   },
-  {
-    key: "apartment-dangjin",
-    category: "apartment",
-    imageLeft: false,
-    accent: "#b45309",
-    eyebrow: "Apartment Construction",
-    englishLines: ["DANGJIN", "NEW BUILD"],
-    title: "당진시 신축공사",
-    description:
-      "당진시 신축공사 프로젝트를 통해 기획·시공·품질관리의 실행력을 입증하며, 지역 특성을 반영한 주거 개발 예정 중에 있습니다.",
-    imageSrc: "/about/dang.png",
-    imageAlt: "당진시 신축공사 사업 사례 이미지",
-    detailsTable: [
-      { label: "사업명", value: "당진시 읍내동 공동주택 신축공사" },
-      { label: "위치", value: "충남 당진시 읍내동" },
-      { label: "지역지구", value: "2종일반주거지역" },
-      { label: "구조", value: "철근 콘크리트" },
-      { label: "규모", value: "지하 1층~지상 28층 884세대, 근린생활시설" },
-      { label: "대지면적", value: "39,669.60㎡" },
-      { label: "건축면적", value: "8,500.00㎡" },
-      { label: "건폐율", value: "21.43% (법정 60%)" },
-      { label: "연면적", value: "지상층 - 98,008.60㎡ / 지하층 - 31,640.00㎡" },
-      { label: "용적률", value: "249.68%" },
-    ],
-  },
+  // {
+  //   key: "apartment-dangjin",
+  //   category: "apartment",
+  //   imageLeft: false,
+  //   accent: "#b45309",
+  //   eyebrow: "Apartment Construction",
+  //   englishLines: ["DANGJIN", "NEW BUILD"],
+  //   title: "당진시 신축공사",
+  //   description:
+  //     "당진시 신축공사 프로젝트를 통해 기획·시공·품질관리의 실행력을 입증하며, 지역 특성을 반영한 주거 개발 예정 중에 있습니다.",
+  //   imageSrc: "/about/dang.png",
+  //   imageAlt: "당진시 신축공사 사업 사례 이미지",
+  //   detailsTable: [
+  //     { label: "사업명", value: "당진시 읍내동 공동주택 신축공사" },
+  //     { label: "위치", value: "충남 당진시 읍내동" },
+  //     { label: "지역지구", value: "2종일반주거지역" },
+  //     { label: "구조", value: "철근 콘크리트" },
+  //     { label: "규모", value: "지하 1층~지상 28층 884세대, 근린생활시설" },
+  //     { label: "대지면적", value: "39,669.60㎡" },
+  //     { label: "건축면적", value: "8,500.00㎡" },
+  //     { label: "건폐율", value: "21.43% (법정 60%)" },
+  //     { label: "연면적", value: "지상층 - 98,008.60㎡ / 지하층 - 31,640.00㎡" },
+  //     { label: "용적률", value: "249.68%" },
+  //   ],
+  // },
   {
     key: "country-dreamhill",
     category: "country-house",
@@ -269,6 +269,7 @@ export function CompanyOverviewClient() {
           className="object-cover"
           sizes="100vw"
           quality={75}
+          unoptimized
         />
         <div
           className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/55"
