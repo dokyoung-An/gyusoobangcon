@@ -261,7 +261,7 @@ export function CompanyOverviewClient() {
     <div className="bg-[#f3efe6]">
       <section className="relative min-h-[72vh] overflow-hidden md:min-h-[78vh]">
         <Image
-          src="/main/hero1.jpg"
+          src="/main/hero1.webp"
           alt="규수방종합건설 회사소개 배경 이미지"
           fill
           priority
@@ -269,7 +269,6 @@ export function CompanyOverviewClient() {
           className="object-cover"
           sizes="100vw"
           quality={75}
-          unoptimized
         />
         <div
           className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/55"

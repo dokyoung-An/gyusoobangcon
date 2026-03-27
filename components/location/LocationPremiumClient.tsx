@@ -11,6 +11,10 @@ import {
 import { siteConfig } from "@/lib/site";
 import { FadeInUp } from "@/components/ui/FadeInUp";
 import { PremiumZigzagSection } from "@/components/location/PremiumZigzagSection";
+import {
+  LocationConfigurableZigzagSection,
+  type LocationZigzagRow,
+} from "@/components/location/LocationConfigurableZigzagSection";
 
 const advantages = [
   {
@@ -81,7 +85,7 @@ function LocationBillboardHero() {
   return (
     <section className="relative min-h-[72vh] overflow-hidden md:min-h-[78vh]">
       <Image
-        src="/main/hero1.jpg"
+        src="/main/hero1.webp"
         alt=""
         fill
         priority
@@ -247,6 +251,73 @@ export function PremiumSection() {
     <>
       <LocationBillboardHero />
       <PremiumZigzagSection />
+    </>
+  );
+}
+
+const danjiLayoutRows: readonly LocationZigzagRow[] = [
+  {
+    key: "danji-layout",
+    imageLeft: true,
+    accent: "#c6a667",
+    eyebrow: "Danji Layout",
+    englishLines: ["SITE", "PLAN"],
+    mainImage: "/location/location.jpeg",
+    titleBefore: "단지의 흐름을 담은 ",
+    titleHighlight: "배치 계획",
+    description:
+      "단지 출입 동선과 주요 커뮤니티, 프라이빗 영역을 체계적으로 구성한 배치 계획을 소개합니다.",
+  },
+];
+
+const donghoLayoutRows: readonly LocationZigzagRow[] = [
+  {
+    key: "dongho-layout",
+    imageLeft: true,
+    accent: "#3d5a80",
+    mainImage: "/batch/batch.webp",
+    imageContain: true,
+  },
+];
+
+const systemRows: readonly LocationZigzagRow[] = [
+  {
+    key: "system",
+    imageLeft: true,
+    accent: "#0f766e",
+    eyebrow: "System",
+    englishLines: ["DESIGN", "SYSTEM"],
+    mainImage: "/premium/traffic.png",
+    titleBefore: "일상을 지키는 ",
+    titleHighlight: "시스템",
+    description:
+      "생활 편의와 동선 효율을 높이는 설계 시스템을 중심으로 안내드립니다. 이미지와 문구는 추후 교체 가능합니다.",
+  },
+];
+
+export function DanjiLayoutSection() {
+  return (
+    <>
+      <LocationBillboardHero />
+      <LocationConfigurableZigzagSection rows={danjiLayoutRows} />
+    </>
+  );
+}
+
+export function DonghoLayoutSection() {
+  return (
+    <>
+      <LocationBillboardHero />
+      <LocationConfigurableZigzagSection rows={donghoLayoutRows} />
+    </>
+  );
+}
+
+export function LocationSystemSection() {
+  return (
+    <>
+      <LocationBillboardHero />
+      <LocationConfigurableZigzagSection rows={systemRows} />
     </>
   );
 }

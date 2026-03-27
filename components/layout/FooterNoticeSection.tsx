@@ -2,7 +2,7 @@ export function FooterNoticeSection() {
   return (
     <section className="border-t border-white/10 bg-[#1a3329]">
       <div className="mx-auto max-w-7xl px-8 py-6 md:px-8 md:py-7 lg:px-10">
-        <div className="space-y-2 text-base leading-relaxed text-[#f3efe6] break-keep">
+        <div className="space-y-2 text-sm leading-relaxed text-[#f3efe6] break-keep">
           <p>※ 본 사이트의 내용 및 이미지는 소비자의 이해를 돕기 위한 것으로 실제와 다를 수 있습니다.</p>
           <p>
             ※ 각종 개발계획 및 예정사항 등은 추후 관계기관의 사정에 따라 변경 및 취소될 수 있으며. 이는

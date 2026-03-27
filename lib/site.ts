@@ -59,8 +59,12 @@ export const navItems: readonly NavItem[] = [
     kind: "dropdown",
     label: "단지소개",
     items: [
+      // { href: "/location/danji-layout", label: "단지배치도" },
+      { href: "/location/dongho-layout", label: "동호수배치도" },
+      // { href: "/location/system", label: "시스템" },
       { href: "/location", label: "입지 환경" },
       { href: "/location/premium", label: "프리미엄" },
+     
     ],
   },
   {

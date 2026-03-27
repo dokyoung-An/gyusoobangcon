@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const HERO_VIDEO_SRC = "/0324.mp4";
 /** 비디오 첫 프레임 전까지 보여 줄 정적 이미지 (영상과 톤이 맞는 파일로 교체 가능) */
-const HERO_POSTER_SRC = "/main/hero1.jpg";
+const HERO_POSTER_SRC = "/main/hero1.webp";
 
 export function HeroSection() {
   const [videoReady, setVideoReady] = useState(false);
@@ -45,7 +45,7 @@ export function HeroSection() {
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-end">
       <Image
-        src="/main/hero1.jpg"
+        src="/main/hero1.webp"
         alt=""
         fill
         priority
