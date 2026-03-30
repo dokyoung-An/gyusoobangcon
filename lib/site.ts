@@ -12,7 +12,7 @@ export function getSiteUrl(): string {
   if (fromEnv) return fromEnv.replace(/\/$/, "");
   const vercel = process.env.VERCEL_URL?.trim();
   if (vercel) return `https://${vercel.replace(/\/$/, "")}`;
-  return "http://localhost:3000";
+  return "https://www.gyusoobangcon.kr";
 }
 
 export const siteUrl = getSiteUrl();
