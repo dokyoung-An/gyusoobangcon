@@ -1,5 +1,5 @@
 /** SNS·검색 미리보기용 OG 이미지 경로 (`public/main/main.png`) */
-export const openGraphImagePath = "/main/main.png";
+export const openGraphImagePath = "/main/hero1.webp";
 
 /** @deprecated `openGraphImagePath` 사용 권장 */
 export const openGraphImage = openGraphImagePath;
