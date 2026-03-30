@@ -45,7 +45,7 @@ export function HeroSection() {
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-end">
       <Image
-        src="/premium/hap.jpg"
+        src="/premium/hap.webp"
         alt=""
         fill
         priority

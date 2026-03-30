@@ -14,8 +14,12 @@ import { FadeInUp } from "@/components/ui/FadeInUp";
 const AUTO_MS = 4200;
 const THUMB_COUNT = 4;
 
+function wrapIndex(i: number, n: number): number {
+  return ((i % n) + n) % n;
+}
+
 function slideAt(images: readonly string[], i: number): string {
-  return images[i % images.length]!;
+  return images[wrapIndex(i, images.length)]!;
 }
 
 type InteriorCarouselProps = {
@@ -49,7 +53,7 @@ function InteriorCarousel({ images, typeLabel }: InteriorCarouselProps) {
   const goToOffset = useCallback(
     (offset: number) => {
       if (n === 0) return;
-      setIndex((i) => (i + offset) % n);
+      setIndex((i) => wrapIndex(i + offset, n));
     },
     [n]
   );

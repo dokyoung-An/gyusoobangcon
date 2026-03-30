@@ -23,7 +23,7 @@ const rows: readonly RowConfig[] = [
     accent: "#b45309",
     eyebrow: "Premium Access",
     englishLines: ["FAST", "TRAFFIC"],
-    mainImage: "/location/location.jpg",
+    mainImage: "/location/location.png",
     titleBefore: "편리한 접근성 및 ",
     titleHighlight: "쾌속교통망",
     description:
