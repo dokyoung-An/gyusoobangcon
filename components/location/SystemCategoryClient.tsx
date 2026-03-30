@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Player } from "@lottiefiles/react-lottie-player";
 import { FadeInUp } from "@/components/ui/FadeInUp";
 
 type SystemRow = {
@@ -215,13 +214,12 @@ function SystemTextPane({ row }: { row: SystemRow }) {
                   loading="lazy"
                 />
               ) : (
-                <Player
-                  autoplay
-                  loop
-                  src={point.lottieSrc}
-                  className="h-16 w-16"
+                <div
+                  className="flex h-16 w-16 items-center justify-center rounded-full border border-[#1a3329]/15 bg-[#f3efe6] text-[10px] font-semibold text-[#1a3329]/60"
                   aria-hidden
-                />
+                >
+                  ICON
+                </div>
               )}
               <p className="mt-1.5 text-[11px] font-medium text-neutral-600 md:text-xs break-keep">
                 {point.label}
