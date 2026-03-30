@@ -269,7 +269,7 @@ export function FloorPlanTopSection() {
                   onClick={() => setActiveId(t.id)}
                   className={`py-3.5 text-center text-xs font-semibold transition-colors sm:text-sm ${
                     on
-                      ? "bg-[#e8dfd0] text-[#1a3329]"
+                      ? "bg-[#1a3329] text-[#e8dfd0]"
                       : "bg-white text-neutral-600 hover:bg-neutral-50 hover:text-[#1a3329]"
                   }`}
                 >
@@ -288,17 +288,39 @@ export function FloorPlanTopSection() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.65, ease: [0.33, 1, 0.68, 1] }}
-          className="mt-6 grid gap-6 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-8"
+          className="mt-6 space-y-6"
         >
-          <div className="order-1 flex flex-col items-center gap-2 lg:order-1 lg:items-start">
-            <div className="flex size-[4.375rem] shrink-0 items-center justify-center border-4 border-[#c6a667] bg-white shadow-[0_0_10px_rgba(198,167,103,0.35)] sm:size-[3.625rem]">
-              <span className="font-serif text-2xl font-bold tracking-tight text-[#c6a667] sm:text-3xl">
-                {current.id}
-              </span>
+          <div className="flex flex-col">
+            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Exterior</h2>
+            <div className="mt-4 flex min-h-0 flex-1 flex-col">
+              <div className="relative w-full cursor-zoom-in overflow-vis rounded-xl aspect-[16/10] min-h-[min(68vw,420px)]">
+                <NextImage
+                  src={current.exteriorSrc}
+                  alt={`${current.tabLabel} 외관 참고 이미지`}
+                  fill
+                  className="object-contain object-center"
+                  sizes="(max-width: 1200px) calc(100vw - 4rem), 1152px"
+                  quality={75}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-0 z-[1] bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c6a667]"
+                  aria-label={`${current.tabLabel} 외관 참고 이미지 크게 보기`}
+                  onClick={() =>
+                    setLightbox({
+                      src: current.exteriorSrc,
+                      alt: `${current.tabLabel} 외관 참고 이미지`,
+                      title: `${current.tabLabel} · Exterior`,
+                    })
+                  }
+                />
+              </div>
             </div>
           </div>
 
-          <div className="order-3 rounded-2xl border border-neutral-200/90 bg-white p-5 shadow-sm md:p-6 lg:order-2">
+
+
+          <div className="rounded-2xl border border-neutral-200/90 bg-white p-5 shadow-sm md:p-6">
             <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Unit Plan</h2>
             <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200/80">
               <table className="w-full border-collapse text-center text-sm">
@@ -323,38 +345,6 @@ export function FloorPlanTopSection() {
                 </tbody>
               </table>
             </div>
-          </div>
-
-          <div className="order-2 flex flex-col lg:order-3">
-            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Exterior</h2>
-            <div className="mt-4 flex min-h-0 flex-1 flex-col">
-              <div className="relative w-full cursor-zoom-in overflow-hidden rounded-xl max-lg:aspect-[3/4] max-lg:min-h-[min(92vw,420px)] lg:aspect-[5/4] lg:min-h-0">
-                <NextImage
-                  src={current.exteriorSrc}
-                  alt={`${current.tabLabel} 외관 참고 이미지`}
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 96vw, 33vw"
-                  quality={75}
-                />
-                <button
-                  type="button"
-                  className="absolute inset-0 z-[1] bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c6a667]"
-                  aria-label={`${current.tabLabel} 외관 참고 이미지 크게 보기`}
-                  onClick={() =>
-                    setLightbox({
-                      src: current.exteriorSrc,
-                      alt: `${current.tabLabel} 외관 참고 이미지`,
-                      title: `${current.tabLabel} · Exterior`,
-                    })
-                  }
-                />
-              </div>
-            </div>
-            <p className="mt-3 text-center text-[11px] text-neutral-600">
-              선택 평형{" "}
-              <span className="font-semibold text-[#1a3329]">{current.tabLabel}</span>
-            </p>
           </div>
         </motion.div>
       </AnimatePresence>

@@ -45,7 +45,7 @@ export function HeroSection() {
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-end">
       <Image
-        src="/main/hero1.webp"
+        src="/premium/hap.jpg"
         alt=""
         fill
         priority
@@ -54,22 +54,6 @@ export function HeroSection() {
         sizes="100vw"
         quality={75}
       />
-      {/* <video
-        ref={videoRef}
-        className="absolute inset-0 z-0 h-full w-full object-cover"
-        style={{ backgroundColor: "transparent" }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        onLoadedData={markVideoReady}
-        onCanPlay={markVideoReady}
-        onPlaying={markVideoReady}
-        aria-label="수지 드림더힐 단지 소개 영상"
-      >
-        <source src={HERO_VIDEO_SRC} type="video/mp4" />
-      </video> */}
 
       <div
         className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/20"

@@ -211,7 +211,7 @@ export function InteriorGuide() {
                   onClick={() => setActiveId(t.id)}
                   className={`py-3.5 text-center text-xs font-semibold transition-colors sm:text-sm ${
                     on
-                      ? "bg-[#e8dfd0] text-[#1a3329]"
+                      ? "bg-[#1a3329] text-[#e8dfd0]"
                       : "bg-white text-neutral-600 hover:bg-neutral-50 hover:text-[#1a3329]"
                   }`}
                 >

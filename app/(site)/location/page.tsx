@@ -13,7 +13,10 @@ export const metadata: Metadata = {
 export default function LocationPage() {
   return (
     <div className="bg-[#f3efe6]">
-      <PremiumSubpageHeader title="입지 환경" />
+      <PremiumSubpageHeader
+        title="입지 환경"
+        description="광역 교통망과 생활 인프라, 자연 환경까지 핵심 입지 요소를 한눈에 확인해 보세요."
+      />
       <EnvironmentSection />
     </div>
   );

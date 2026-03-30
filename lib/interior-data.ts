@@ -1,118 +1,110 @@
 import type { FloorPlanTypeId } from "@/lib/floorplan-data";
 
 /**
- * 타입별 인테리어 갤러리 (public 기준 절대 경로).
- * - A 타입: 현재 선택한 실 이미지 연결
- * - B~E 타입: 아직 미지정 시 기본 샘플 사용
+ * 파일명 규칙:
+ * - 타입 분기: `a-...` => A, `b-...` => B, ...
+ * - 라벨 키: `-` 뒤 이름 (예: `b-parkinglot.png` -> parkinglot)
  */
-const A_SELECTED_IMAGES = [
-  "/interior/a_living.png",
-  "/interior/a_living_2.png",
-  "/interior/a_kichen.png",
-  "/interior/a_bedroom.png",
-  "/interior/a_room1.png",
-  "/interior/a_rooftop.png",
+const INTERIOR_IMAGE_PATHS = [
+  "/interior/a-bathroom.png",
+  "/interior/a-dressroom.png",
+  "/interior/a-kitchen.png",
+  "/interior/a-living.png",
+  "/interior/a-rooftop.png",
+  "/interior/b-bathroom.png",
+  "/interior/b-dressroom.png",
+  "/interior/b-elevator.png",
+  "/interior/b-homebar.png",
+  "/interior/b-kitchen.png",
+  "/interior/b-livingroom.png",
+  "/interior/b-mainroom.png",
+  "/interior/b-parkinglot.png",
+  "/interior/b-rooftop.png",
+  "/interior/b-sauna.png",
+  "/interior/b-screengolf.png",
+  "/interior/b-swimmingpool.png",
+  "/interior/c-bathroom.png",
+  "/interior/c-dressroom.png",
+  "/interior/c-elevator.png",
+  "/interior/c-homebar.png",
+  "/interior/c-kitchen.png",
+  "/interior/c-livingroom.png",
+  "/interior/c-mainroom.png",
+  "/interior/c-parkinglot.png",
+  "/interior/c-rooftop.png",
+  "/interior/c-sauna.png",
+  "/interior/c-screengolf.png",
+  "/interior/c-swimmingpool.png",
+  "/interior/d-bathroom.png",
+  "/interior/d-dressroom.png",
+  "/interior/d-elevator.png",
+  "/interior/d-kitchen.png",
+  "/interior/d-livingroom.png",
+  "/interior/d-mainroom.png",
+  "/interior/d-parkinglot.png",
+  "/interior/d-rooftop.png",
+  "/interior/d-sauna.png",
+  "/interior/d-screengolf.png",
+  "/interior/d-swimmingpool.png",
+  "/interior/e-bathroom.png",
+  "/interior/e-dressroom.png",
+  "/interior/e-elevator.png",
+  "/interior/e-homebar.png",
+  "/interior/e-kitchen.png",
+  "/interior/e-livingroom.png",
+  "/interior/e-mainroom.png",
+  "/interior/e-parkinglot.png",
+  "/interior/e-rooftop.png",
+  "/interior/e-sauna.png",
+  "/interior/e-screengolf.png",
+  "/interior/e-swimmingpool.png",
 ] as const;
 
-  const B_SELECTED_IMAGES = [
-    "/interior/b_1b.png",
-    "/interior/b_1b2.png",
-    "/interior/b_bathroom.png",
-    "/interior/b_bedroom.png",
-    "/interior/b_living.png",
-    "/interior/b-kitchen.png",
-  ] as const;
-
-  const C_SELECTED_IMAGES = [
-    "/interior/c_1b.png",
-    "/interior/c_2_living.png",
-    "/interior/c_b_homebar.png",
-    "/interior/c_bedroom2.png",
-    "/interior/c_dining.png",
-    "/interior/c_front.png",
-    "/interior/c_roof.png",
-    "/interior/c_room1.png",
-    "/interior/c_swim.png",
-  ] as const;
-
-  const D_SELECTED_IMAGES = [
-    "/interior/d_dining.png",
-    "/interior/d_familly.png",
-    "/interior/d_front.png",
-    "/interior/d_living.png",
-    "/interior/d_master.png",
-    "/interior/d_roof.png",
-    "/interior/d_room1.png",
-  ] as const;
-
-  const E_SELECTED_IMAGES = [
-    "/interior/e_bathroom.png",
-    "/interior/e_hombar.png",
-    "/interior/e_library.png",
-    "/interior/e_living.png",
-    "/interior/e_roof.png",
-    "/interior/e_room1.png",
-    "/interior/e_room2.png",
-    "/interior/e_swiming.png",
-  ] as const;
-
-
-
-export const INTERIOR_IMAGES: Record<FloorPlanTypeId, readonly string[]> = {
-  A: A_SELECTED_IMAGES,
-  B: B_SELECTED_IMAGES,
-  C: C_SELECTED_IMAGES,
-  D: D_SELECTED_IMAGES,
-  E: E_SELECTED_IMAGES,
+const ROOM_LABEL_BY_KEY: Record<string, string> = {
+  bathroom: "욕실",
+  dressroom: "드레스룸",
+  kitchen: "주방",
+  living: "거실",
+  livingroom: "거실",
+  rooftop: "루프탑",
+  elevator: "엘리베이터",
+  homebar: "홈바",
+  mainroom: "안방",
+  parkinglot: "주차장",
+  sauna: "사우나",
+  screengolf: "스크린골프",
+  swimmingpool: "수영장",
 };
 
-/**
- * 갤러리 상단 오버레이에 표시할 ROOM 명칭.
- * 필요 시 아래 텍스트를 직접 수정하면 즉시 반영됩니다.
- */
-export const INTERIOR_ROOM_LABEL_BY_SRC: Record<string, string> = {
-  "/interior/a_living.png": "거실",
-  "/interior/a_living_2.png": "거실",
-  "/interior/a_kichen.png": "주방",
-  "/interior/a_bedroom.png": "침실",
-  "/interior/a_room1.png": "침실 1",
-  "/interior/a_rooftop.png": "루프탑",
+function getTypePrefix(src: string): FloorPlanTypeId | null {
+  const file = src.split("/").pop()?.toLowerCase() ?? "";
+  const head = file.charAt(0);
+  if (head === "a" || head === "b" || head === "c" || head === "d" || head === "e") {
+    return head.toUpperCase() as FloorPlanTypeId;
+  }
+  return null;
+}
 
-  "/interior/b_1b.png": "침실 2",
-  "/interior/b_1b2.png": "다이닝",
-  "/interior/b_bathroom.png": "욕실",
-  "/interior/b_bedroom.png": "침실 1",
-  "/interior/b_living.png": "거실",
-  "/interior/b_kitchen.png": "주방",
+function getRoomKey(src: string): string {
+  const file = src.split("/").pop()?.toLowerCase() ?? "";
+  const noExt = file.replace(/\.[^.]+$/, "");
+  const match = noExt.match(/^[a-e]-(.+)$/);
+  return match?.[1] ?? "";
+}
 
-  "/interior/c_1b.png": "지하 1층",
-  "/interior/c_2_living.png": "거실",
-  "/interior/c_b_homebar.png": "홈바",
-  "/interior/c_bedroom2.png": "침실 1",
-  "/interior/c_dining.png": "다이닝",
-  "/interior/c_front.png": "현관",
-  "/interior/c_roof.png": "루프탑",
-  "/interior/c_room1.png": "침실 2",
-  "/interior/c_swim.png": "수영장",
+function uniqueInOrder(paths: readonly string[]): readonly string[] {
+  return Array.from(new Set(paths));
+}
 
-  "/interior/d_dining.png": "다이닝",
-  "/interior/d_familly.png": "패밀리룸",
-  "/interior/d_front.png": "현관",
-  "/interior/d_living.png": "거실",
-  "/interior/d_master.png": "마스터룸",
-  "/interior/d_roof.png": "루프탑",
-  "/interior/d_room1.png": "침실 1",
-
-  "/interior/e_bathroom.png": "욕실",
-  "/interior/e_hombar.png": "홈바",
-  "/interior/e_library.png": "서재",
-  "/interior/e_living.png": "거실",
-  "/interior/e_roof.png": "루프탑",
-  "/interior/e_room1.png": "침실 1",
-  "/interior/e_room2.png": "침실 2",
-  "/interior/e_swiming.png": "수영장",
+export const INTERIOR_IMAGES: Record<FloorPlanTypeId, readonly string[]> = {
+  A: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "A")),
+  B: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "B")),
+  C: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "C")),
+  D: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "D")),
+  E: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "E")),
 };
 
 export function getInteriorRoomLabel(src: string): string {
-  return INTERIOR_ROOM_LABEL_BY_SRC[src] ?? "ROOM";
+  const key = getRoomKey(src);
+  return ROOM_LABEL_BY_KEY[key] ?? "공간";
 }

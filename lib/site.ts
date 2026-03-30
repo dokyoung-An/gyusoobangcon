@@ -23,6 +23,8 @@ export const siteConfig = {
   description:
     `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. \n규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.`,
   url: siteUrl,
+  promotionVideoEmbedUrl:
+    "https://www.youtube.com/embed/LKxAJb_Gfgg?autoplay=1&mute=1&playsinline=1&rel=0",
   company: {
     name: "(주)규수방종합건설",
     ceo: "대표이사 홍길동",
@@ -60,9 +62,9 @@ export const navItems: readonly NavItem[] = [
     label: "단지소개",
     items: [
       // { href: "/location/danji-layout", label: "단지배치도" },
-      { href: "/location/dongho-layout", label: "동호수배치도" },
-      // { href: "/location/system", label: "시스템" },
-      { href: "/location", label: "입지 환경" },
+      { href: "/location/dongho-layout", label: "단지배치도" },
+      { href: "/location/system", label: "시스템" },
+      { href: "/location", label: "입지환경" },
       { href: "/location/premium", label: "프리미엄" },
      
     ],
@@ -76,5 +78,6 @@ export const navItems: readonly NavItem[] = [
     ],
   },
   { kind: "link", href: "/modelhouse", label: "사이버 모델하우스" },
+  { kind: "link", href: "/promotion-video", label: "홍보영상" },
   { kind: "link", href: "/contact", label: "상담 문의" },
 ] as const;

@@ -58,12 +58,14 @@ const transitAccess = [
 export function PremiumSubpageHeader({
   eyebrow = "Premium",
   title,
+  description,
 }: {
   eyebrow?: string;
   title: string;
+  description?: string;
 }) {
   return (
-    <div className="border-b border-[#1a3329]/10 bg-[#f3efe6] px-8 pb-8 pt-28 md:px-8 md:pb-10 md:pt-32">
+    <div className="bg-[#f3efe6] px-8 pb-10 pt-28 md:px-8 md:pb-12 md:pt-32">
       <div className="mx-auto max-w-6xl">
         <FadeInUp>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#1a3329]/70">
@@ -72,14 +74,19 @@ export function PremiumSubpageHeader({
           <h1 className="mt-4 font-serif text-3xl font-semibold text-[#1a3329] md:text-4xl">
             {title}
           </h1>
+          {description ? (
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed break-keep text-neutral-600 md:text-base">
+              {description}
+            </p>
+          ) : null}
         </FadeInUp>
       </div>
     </div>
   );
 }
 
-/** 입지·프리미엄 상단 공용 풀블리드 히어로 */
-function LocationBillboardHero() {
+/** 입지·프리미엄·배치도·시스템 등 상단 공용 풀블리드 히어로 */
+export function LocationBillboardHero() {
   const { projectName } = siteConfig;
 
   return (
@@ -134,8 +141,6 @@ export function EnvironmentSection() {
 
   return (
     <>
-      <LocationBillboardHero />
-
       <section className="px-8 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-5xl">
           <FadeInUp>
@@ -178,7 +183,7 @@ export function EnvironmentSection() {
                 </aside>
                 <div className="relative min-h-[220px] flex-1 overflow-hidden rounded-xl bg-neutral-100 sm:min-h-[280px] md:min-h-[min(52vw,420px)] lg:min-h-[380px]">
                   <Image
-                    src="/location/location.jpeg"
+                    src="/location/location.png"
                     alt={`${projectName} 입지 안내 지도`}
                     fill
                     className="object-contain object-center"
@@ -249,7 +254,6 @@ export function EnvironmentSection() {
 export function PremiumSection() {
   return (
     <>
-      <LocationBillboardHero />
       <PremiumZigzagSection />
     </>
   );
@@ -263,6 +267,8 @@ const danjiLayoutRows: readonly LocationZigzagRow[] = [
     eyebrow: "Danji Layout",
     englishLines: ["SITE", "PLAN"],
     mainImage: "/location/location.jpeg",
+    imageW: 1287,
+    imageH: 913,
     titleBefore: "단지의 흐름을 담은 ",
     titleHighlight: "배치 계획",
     description:
@@ -276,22 +282,9 @@ const donghoLayoutRows: readonly LocationZigzagRow[] = [
     imageLeft: true,
     accent: "#3d5a80",
     mainImage: "/batch/batch.webp",
+    imageW: 2560,
+    imageH: 1280,
     imageContain: true,
-  },
-];
-
-const systemRows: readonly LocationZigzagRow[] = [
-  {
-    key: "system",
-    imageLeft: true,
-    accent: "#0f766e",
-    eyebrow: "System",
-    englishLines: ["DESIGN", "SYSTEM"],
-    mainImage: "/premium/traffic.png",
-    titleBefore: "일상을 지키는 ",
-    titleHighlight: "시스템",
-    description:
-      "생활 편의와 동선 효율을 높이는 설계 시스템을 중심으로 안내드립니다. 이미지와 문구는 추후 교체 가능합니다.",
   },
 ];
 
@@ -304,20 +297,35 @@ export function DanjiLayoutSection() {
   );
 }
 
+function DonghoBusinessOverviewSection() {
+  return (
+    <section className=" bg-white px-8 py-12 md:px-8 md:py-16" aria-label="사업 개요">
+      <div className="mx-auto max-w-6xl">
+        <FadeInUp>
+          <div className="w-full">
+            <div className="w-full text-center">
+              <h2 className="font-serif text-lg font-semibold text-[#1a3329] md:text-2xl lg:text-4xl">
+                수지드림더힐{" "}
+                <span className="font-semibold text-[#c6a667]">46세대</span> 분양
+              </h2>
+              <p className="text-center mt-3 text-xs leading-relaxed text-neutral-600 md:mt-4 md:text-base">
+              도심에서 누리는 또 다른 여유 특별한 여러분께 소개합니다.
+              </p>
+            </div>
+
+          </div>
+        </FadeInUp>
+      </div>
+    </section>
+  );
+}
+
 export function DonghoLayoutSection() {
   return (
     <>
-      <LocationBillboardHero />
       <LocationConfigurableZigzagSection rows={donghoLayoutRows} />
+      <DonghoBusinessOverviewSection />
     </>
   );
 }
 
-export function LocationSystemSection() {
-  return (
-    <>
-      <LocationBillboardHero />
-      <LocationConfigurableZigzagSection rows={systemRows} />
-    </>
-  );
-}

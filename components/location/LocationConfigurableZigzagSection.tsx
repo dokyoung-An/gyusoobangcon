@@ -13,6 +13,9 @@ export type LocationZigzagRow = {
 
   mainImage?: string;
   imageContain?: boolean;
+  /** 이미지 비율 유지용(세로 높이 자동 계산). */
+  imageW?: number;
+  imageH?: number;
   titleBefore?: string;
   titleHighlight?: string;
   description?: string;
@@ -23,24 +26,29 @@ function MainImagePane({
   alt,
   eager,
   imageContain = false,
+  imageW,
+  imageH,
 }: {
   src: string;
   alt: string;
   eager?: boolean;
   imageContain?: boolean;
+  imageW?: number;
+  imageH?: number;
 }) {
+  const w = imageW ?? 1200;
+  const h = imageH ?? 800;
+
   return (
     <div
-      className={[
-        "relative min-h-[240px] w-full overflow-hidden md:min-h-[min(48vh,400px)] lg:min-h-[420px]",
-        imageContain ? "bg-[#e8e6e1]/50" : "",
-      ].join(" ")}
+      className="relative w-full overflow-hidden"
     >
       <Image
         src={src}
         alt={alt}
-        fill
-        className={imageContain ? "object-contain" : "object-cover"}
+        width={w}
+        height={h}
+        className={imageContain ? "h-auto w-full object-contain" : "h-auto w-full object-cover"}
         sizes="(max-width: 768px) 100vw, 50vw"
         priority={eager}
         loading={eager ? "eager" : "lazy"}
@@ -157,10 +165,10 @@ export function LocationConfigurableZigzagSection({
 }) {
   return (
     <section
-      className="border-t border-[#1a3329]/10 bg-[#e8e6e1]/50 px-8 py-16 md:px-8 md:py-24"
+      className="border-t border-[#1a3329]/10 bg-[#e8e6e1]/50  py-16  md:py-24"
       aria-label="단지 소개 콘텐츠"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl w-full">
         {rows.map((row, index) => {
           const hasImage = Boolean(row.mainImage);
           const hasCopy =
