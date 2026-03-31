@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { PromotionVideoLauncher } from "@/components/promotion-video/PromotionVideoLauncher";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -32,18 +33,7 @@ export default function PromotionVideoPage() {
         </FadeIn>
 
         <FadeIn delay={0.12}>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-[#1a3329]/15 bg-white/90 p-3 shadow-sm md:p-4">
-            <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-              <iframe
-                src={siteConfig.promotionVideoEmbedUrl}
-                title={`${siteConfig.projectName} 홍보영상`}
-                className="absolute inset-0 h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
-          </div>
+          <PromotionVideoLauncher />
         </FadeIn>
       </div>
     </div>
