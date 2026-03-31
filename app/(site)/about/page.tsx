@@ -170,9 +170,9 @@ export default function AboutPage() {
 
       {/* 하단: 비전 + 카드 */}
       <section className="border-t border-[#1a3329]/8 bg-white px-8 py-16 md:px-8 md:py-24">
-        <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start lg:gap-20">
+        <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:items-start lg:gap-16">
           <FadeIn>
-            <div className="flex flex-col gap-8">
+            <div className="flex w-full flex-col gap-8">
               <div>
                 <h2 className="font-serif text-2xl font-semibold text-[#1a3329] md:text-3xl">
                   사업의 목표
@@ -182,14 +182,14 @@ export default function AboutPage() {
                   입주 이후에도 이어지는 가치를 설계합니다.
                 </p>
               </div>
-              <div className="max-w-sm overflow-hidden rounded-2xl md:rounded-3xl md:p-2">
+              <div className="w-full overflow-hidden rounded-2xl md:rounded-3xl md:p-2">
                 <Image
                   src="/main/house.png"
                   alt={`${siteConfig.name} 로고`}
-                  width={420}
-                  height={420}
+                  width={720}
+                  height={720}
                   className="h-auto w-full object-contain"
-                  sizes="(max-width: 1024px) 80vw, 420px"
+                  sizes="(max-width: 1024px) 100vw, 58vw"
                   quality={80}
                 />
               </div>

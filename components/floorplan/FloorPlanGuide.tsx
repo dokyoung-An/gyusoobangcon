@@ -197,14 +197,14 @@ function FloorImageCard({
       <div className={`relative w-full bg-white pt-12 ${aspectClassName}`}>
         {showImage ? (
           <>
-            <div className="absolute inset-0 z-0 p-3 md:p-4">
+            <div className="absolute inset-0 z-0 p-1 md:p-2">
               <div className="relative h-full w-full">
                 <NextImage
                   src={src!}
                   alt={alt}
                   fill
                   className="object-contain object-center"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 1024px) 100vw, 100vw"
                   loading={priority ? "eager" : "lazy"}
                   fetchPriority={priority ? "high" : "auto"}
                   quality={72}
@@ -293,12 +293,12 @@ export function FloorPlanTopSection() {
           <div className="flex flex-col">
             <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Exterior</h2>
             <div className="mt-4 flex min-h-0 flex-1 flex-col">
-              <div className="relative w-full cursor-zoom-in overflow-vis rounded-xl aspect-[16/10] min-h-[min(68vw,420px)]">
+              <div className="relative w-full cursor-zoom-in overflow-hidden rounded-xl aspect-[16/10] min-h-[min(68vw,420px)]">
                 <NextImage
                   src={current.exteriorSrc}
                   alt={`${current.tabLabel} 외관 참고 이미지`}
                   fill
-                  className="object-contain object-center"
+                  className="object-cover object-contain"
                   sizes="(max-width: 1200px) calc(100vw - 4rem), 1152px"
                   quality={75}
                 />
@@ -383,7 +383,7 @@ export function FloorPlanBottomSection() {
               비교할 수 있습니다. 이미지를 누르면 화면 중앙에서 크게 볼 수
               있습니다.
             </p>
-            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+            <div className="grid gap-5 grid-cols-1 sm:gap-6 lg:gap-8">
               {FLOOR_LEVELS_META.map(({ label, code }, i) => {
                 const src = resolvePlan2dSrc(current, code);
                 return (
@@ -417,7 +417,7 @@ export function FloorPlanBottomSection() {
                 이미지를 누르면 확대해서 볼 수 있습니다.
               </p>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+            <div className="grid gap-5 grid-cols-1 sm:gap-6 lg:gap-8">
               {FLOOR_LEVELS_META.map(({ label, code }, i) => {
                 const src = resolveIsoSrc(current, code);
                 return (

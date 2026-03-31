@@ -25,7 +25,7 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
-              회사 정보
+              시공회사정보
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>{company.name}</li>

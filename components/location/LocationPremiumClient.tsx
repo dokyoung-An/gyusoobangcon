@@ -156,7 +156,7 @@ export function EnvironmentSection() {
           </FadeInUp>
           {/* 지도는 FadeInUp 밖에 두어 로드·표시 지연(불투명 애니메이션) 방지 */}
           <div className="mt-10">
-            <div className="overflow-hidden rounded-2xl border border-[#1a3329]/10 bg-white p-4 shadow-xl shadow-black/10 md:p-6">
+            <div className="overflow-hidden rounded-2xl border border-[#1a3329]/10 bg-[#1a3329] p-4 shadow-xl shadow-black/10 md:p-6">
               <div className="flex flex-col gap-6 md:flex-row md:items-stretch md:gap-5 lg:gap-8">
                 <aside
                   className="grid shrink-0 grid-cols-2 justify-items-center gap-3 sm:max-w-md sm:mx-auto sm:grid-cols-4 md:mx-0 md:w-[7.5rem] md:grid-cols-1 md:justify-items-stretch md:gap-3.5 lg:w-[8.75rem]"
@@ -165,7 +165,7 @@ export function EnvironmentSection() {
                   {transitAccess.map((item) => (
                     <div
                       key={item.key}
-                      className="flex aspect-square w-full max-w-[7.25rem] flex-col items-center justify-center rounded-full border-4 #1a3329 bg-white px-2 py-3 text-center shadow-md md:max-w-none"
+                      className="flex aspect-square w-full max-w-[7.25rem] flex-col items-center justify-center rounded-full border-2 border-white bg-white px-2 py-3 text-center shadow-md md:max-w-none"
                     >
                       <TrainFront
                         className="mb-1.5 size-7 shrink-0 text-[#1a3329] md:size-8"
@@ -175,13 +175,13 @@ export function EnvironmentSection() {
                       <span className="text-[11px] font-semibold leading-tight text-[#1a3329] md:text-xs">
                         {item.label}
                       </span>
-                      <span className="mt-1 font-serif text-lg font-semibold tabular-nums text-[#c6a667] md:text-xl">
+                      <span className="mt-1 font-serif text-lg font-semibold tabular-nums text-[#1a3329] md:text-xl">
                         {item.time}
                       </span>
                     </div>
                   ))}
                 </aside>
-                <div className="relative min-h-[220px] flex-1 overflow-hidden rounded-xl bg-neutral-100 sm:min-h-[280px] md:min-h-[min(52vw,420px)] lg:min-h-[380px]">
+                <div className="relative min-h-[220px] flex-1 overflow-hidden  sm:min-h-[280px] md:min-h-[min(52vw,420px)] lg:min-h-[380px]">
                   <Image
                     src="/location/location.png"
                     alt={`${projectName} 입지 안내 지도`}
@@ -194,12 +194,12 @@ export function EnvironmentSection() {
                   />
                 </div>
               </div>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-[#1a3329] md:justify-between">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#1a3329]/5 px-4 py-2">
-                  <MapPin className="size-4 text-[#c6a667]" aria-hidden />
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-white md:justify-between">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2">
+                  <MapPin className="size-4 text-white" aria-hidden />
                   경기도 수지구 동천동 438-8 번지
                 </span>
-                <span className="text-neutral-500">
+                <span className="text-white/70">
                   상세 노선·시설은 상담 시 안내드립니다.
                 </span>
               </div>

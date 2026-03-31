@@ -29,7 +29,7 @@ const companyRows: readonly CompanyRow[] = [
     title: "자연으로 빚어진 레저 아파트\n 규수방 헤븐레스트",
     description:
       "헤븐레스트 아파트는 Heaven+Rest 천국과 휴양, 휴식, 안정, 안심, 평온, 안식처의 합성어로 서비스드 레지던스 아파트먼트의 브랜드명입니다.",
-    imageSrc: "/about/heaven.png",
+    imageSrc: "/about/heaven.jpg",
     imageAlt: "규수방 헤븐레스트 사업 사례 이미지",
     detailsTable: [
       { label: "사업명", value: "서비스드 레지던스 아파트 규수방 헤븐레스트" },
@@ -194,14 +194,14 @@ function CompanyZigzagRow({ row }: { row: CompanyRow }) {
             {row.description}
           </p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
-          <div className="relative min-h-[190px] overflow-hidden rounded-lg border border-[#1a3329]/10 bg-white md:min-h-[260px]">
+        <div className="grid gap-4 md:grid-cols-[1.3fr_1fr] md:gap-5">
+          <div className="relative min-h-[470px] overflow-hidden rounded-lg border border-[#1a3329]/10 bg-white md:min-h-[338px]">
             <Image
               src={row.imageSrc}
               alt={row.imageAlt}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 56vw"
               quality={76}
             />
           </div>
@@ -261,7 +261,7 @@ export function CompanyOverviewClient() {
     <div className="bg-[#f3efe6]">
       <section className="relative min-h-[72vh] overflow-hidden md:min-h-[78vh]">
         <Image
-          src="/main/hero1.webp"
+          src="/about/hero22.png"
           alt="규수방종합건설 회사소개 배경 이미지"
           fill
           priority
