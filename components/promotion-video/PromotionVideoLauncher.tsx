@@ -6,6 +6,32 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { projectDisplayName, siteConfig } from "@/lib/site";
 
+function toYouTubeEmbedUrl(url: string) {
+  try {
+    const parsed = new URL(url);
+    if (
+      parsed.hostname.includes("youtube.com") &&
+      parsed.pathname === "/watch"
+    ) {
+      const videoId = parsed.searchParams.get("v");
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      }
+    }
+
+    if (parsed.hostname === "youtu.be") {
+      const videoId = parsed.pathname.replace("/", "");
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      }
+    }
+  } catch {
+    return url;
+  }
+
+  return url;
+}
+
 function PromotionVideoModal({
   open,
   onClose,
@@ -14,6 +40,7 @@ function PromotionVideoModal({
   onClose: () => void;
 }) {
   const [mounted, setMounted] = useState(false);
+  const embedUrl = toYouTubeEmbedUrl(siteConfig.promotionVideoEmbedUrl);
 
   useEffect(() => {
     setMounted(true);
@@ -60,13 +87,13 @@ function PromotionVideoModal({
         </button>
 
         <div className="relative aspect-video w-full bg-black">
-          <video
-            src={siteConfig.promotionVideoEmbedUrl}
+          <iframe
+            src={embedUrl}
+            title={`${projectDisplayName} 홍보영상`}
             className="h-full w-full"
-            controls
-            autoPlay
-            playsInline
-            preload="metadata"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           />
         </div>
       </div>
