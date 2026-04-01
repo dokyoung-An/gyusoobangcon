@@ -1,6 +1,6 @@
 /** 타운하우스 공식 명칭: 수지 듸림더힐 (전역 동일) */
 export const projectDisplayName =
-  "수지 드림더힐";
+  "수지드림더힐";
 
 /**
  * OG·canonical·metadataBase용 절대 URL.
@@ -21,13 +21,13 @@ export const siteConfig = {
   name: "(주)규수방종합건설",
   projectName: projectDisplayName,
   description:
-    `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. \n규수방 건설이 선사하는 프리미엄 주거문화를 경험하세요.`,
+    `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. \n(주)규수방종합건설이 약속하는 프리미엄 주거문화를 경험하세요.`,
   url: siteUrl,
   promotionVideoEmbedUrl:
     "http://ttdesign-jk.synology.me/VR/20260307GSB/%EC%88%98%EC%A7%80%EB%93%9C%EB%A6%BC%EB%8D%94%ED%9E%90.mp4",
   company: {
     name: "(주)규수방종합건설",
-    ceo: "대표이사 홍길동",
+    ceo: "대표이사 양군석",
     bizNo: "527-88-02156",
     /** 단지·건설 현장 등 */
     address: "경기도 수지구 동천동 483-8 번지",
