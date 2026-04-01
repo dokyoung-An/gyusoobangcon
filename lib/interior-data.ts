@@ -76,6 +76,10 @@ const ROOM_LABEL_BY_KEY: Record<string, string> = {
   swimmingpool: "수영장",
 };
 
+const SHARED_ROOM_IMAGE_BY_KEY: Partial<Record<string, string>> = {
+  sauna: "/interior/sauna.jpg",
+};
+
 function getTypePrefix(src: string): FloorPlanTypeId | null {
   const file = src.split("/").pop()?.toLowerCase() ?? "";
   const head = file.charAt(0);
@@ -89,7 +93,7 @@ function getRoomKey(src: string): string {
   const file = src.split("/").pop()?.toLowerCase() ?? "";
   const noExt = file.replace(/\.[^.]+$/, "");
   const match = noExt.match(/^[a-e]-(.+)$/);
-  return match?.[1] ?? "";
+  return match?.[1] ?? noExt;
 }
 
 function uniqueInOrder(paths: readonly string[]): readonly string[] {
@@ -97,11 +101,31 @@ function uniqueInOrder(paths: readonly string[]): readonly string[] {
 }
 
 export const INTERIOR_IMAGES: Record<FloorPlanTypeId, readonly string[]> = {
-  A: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "A")),
-  B: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "B")),
-  C: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "C")),
-  D: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "D")),
-  E: uniqueInOrder(INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "E")),
+  A: uniqueInOrder(
+    INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "A").map(
+      (src) => SHARED_ROOM_IMAGE_BY_KEY[getRoomKey(src)] ?? src
+    )
+  ),
+  B: uniqueInOrder(
+    INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "B").map(
+      (src) => SHARED_ROOM_IMAGE_BY_KEY[getRoomKey(src)] ?? src
+    )
+  ),
+  C: uniqueInOrder(
+    INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "C").map(
+      (src) => SHARED_ROOM_IMAGE_BY_KEY[getRoomKey(src)] ?? src
+    )
+  ),
+  D: uniqueInOrder(
+    INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "D").map(
+      (src) => SHARED_ROOM_IMAGE_BY_KEY[getRoomKey(src)] ?? src
+    )
+  ),
+  E: uniqueInOrder(
+    INTERIOR_IMAGE_PATHS.filter((src) => getTypePrefix(src) === "E").map(
+      (src) => SHARED_ROOM_IMAGE_BY_KEY[getRoomKey(src)] ?? src
+    )
+  ),
 };
 
 export function getInteriorRoomLabel(src: string): string {
