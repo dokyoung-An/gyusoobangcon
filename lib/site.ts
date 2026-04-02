@@ -24,7 +24,7 @@ export const siteConfig = {
     `도심 속 완벽한 여유, 자연을 품은 하이엔드 타운하우스 ${projectDisplayName}. \n(주)규수방종합건설이 약속하는 프리미엄 주거문화를 경험하세요.`,
   url: siteUrl,
   promotionVideoEmbedUrl:
-    "https://www.youtube.com/watch?v=O9v1jyzTqqw&t=3s",
+    "https://www.youtube.com/watch?v=PjgZmDh_HZo",
   company: {
     name: "(주)규수방종합건설",
     ceo: "대표이사 양군석",
