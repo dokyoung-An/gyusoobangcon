@@ -30,12 +30,11 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "규수방 건설",
+    "규수방종합건설",
     "타운하우스",
-    "분양",
-    "고급 주택",
-    "도심 속 숲",
-    "프리미엄 주거",
+    "수지드림더힐",
+    "수지드림더힐 타운하우스",
+    "규수방종합건설 타운하우스",
   ],
   openGraph: {
     type: "website",
@@ -75,6 +74,12 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon/manifest.json",
   robots: { index: true, follow: true },
+  verification: {
+    google: "L8ejwaQzUCUcJ6p0mFAtIJYCsVfmtMt0JOQ6fhcMDto",
+    other: {
+      "naver-site-verification": "784397adc64ebe0872e81deb0727330d3f930a12",
+    },
+  },
 };
 
 export default function RootLayout({
