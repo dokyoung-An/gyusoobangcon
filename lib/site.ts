@@ -2,17 +2,28 @@
 export const projectDisplayName =
   "수지드림더힐";
 
+/** 서비스 공식 도메인 (sitemap·OG·canonical 기본값). 다른 도메인 쓰면 `NEXT_PUBLIC_SITE_URL`로 덮어씀. */
+export const canonicalSiteUrl = "https://www.gyusoobangcon.kr";
+
 /**
- * OG·canonical·metadataBase용 절대 URL.
- * 배포 후 반드시 `.env`에 `NEXT_PUBLIC_SITE_URL=https://실제도메인` 설정 (끝 슬래시 없음).
- * Vercel은 미설정 시 `VERCEL_URL`로 대체.
+ * OG·canonical·metadataBase·sitemap용 절대 URL.
+ * - `NEXT_PUBLIC_SITE_URL`이 있으면 최우선 (끝 슬래시 없음).
+ * - Vercel **Production** 배포는 공식 도메인 사용 → Search Console과 sitemap URL 일치.
+ * - Vercel **Preview**만 `VERCEL_URL`(배포 전용 호스트) 사용.
  */
 export function getSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (fromEnv) return fromEnv.replace(/\/$/, "");
+
+  const vercelEnv = process.env.VERCEL_ENV;
+  if (vercelEnv === "production") {
+    return canonicalSiteUrl;
+  }
+
   const vercel = process.env.VERCEL_URL?.trim();
   if (vercel) return `https://${vercel.replace(/\/$/, "")}`;
-  return "https://www.gyusoobangcon.kr";
+
+  return canonicalSiteUrl;
 }
 
 export const siteUrl = getSiteUrl();
