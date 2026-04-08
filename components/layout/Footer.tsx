@@ -29,6 +29,7 @@ export function Footer() {
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>{company.name}</li>
+              <li>대표자명명 : {company.ceo}</li>
               <li>사업자등록번호 : {company.bizNo}</li>
               <li className="leading-relaxed">현장 주소 : {company.address}</li>
               <li className="leading-relaxed">

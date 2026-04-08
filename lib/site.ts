@@ -38,7 +38,7 @@ export const siteConfig = {
     "https://www.youtube.com/watch?v=PjgZmDh_HZo",
   company: {
     name: "(주)규수방종합건설",
-    ceo: "대표이사 양군석",
+    ceo: "양군석",
     bizNo: "527-88-02156",
     /** 단지·건설 현장 등 */
     address: "경기도 수지구 동천동 483-8 번지",
