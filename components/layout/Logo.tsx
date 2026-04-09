@@ -17,7 +17,7 @@ type LogoProps = {
 export function Logo({ className = "" }: LogoProps) {
   return (
     <Link
-      href="/home"
+      href="/"
       className={`group inline-flex items-center gap-2.5 transition-opacity hover:opacity-90 md:gap-3 ${className}`}
       aria-label={`${projectDisplayName} 홈으로`}
     >

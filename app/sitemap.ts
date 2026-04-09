@@ -13,8 +13,7 @@ const PUBLIC_PATHS: {
   changeFrequency: ChangeFrequency;
   priority: number;
 }[] = [
-  { path: "/", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/home", changeFrequency: "weekly", priority: 1 },
+  { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/about", changeFrequency: "monthly", priority: 0.9 },
   { path: "/about/company", changeFrequency: "monthly", priority: 0.9 },
   { path: "/location", changeFrequency: "monthly", priority: 0.9 },

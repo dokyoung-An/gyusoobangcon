@@ -140,7 +140,7 @@ export function Header() {
     setOpenDropdownLabel(null);
   }, [pathname]);
 
-  const isHome = pathname === "/home";
+  const isHome = pathname === "/" || pathname === "/home";
   const solidBar = !isHome || scrolled;
   const barBg = solidBar
     ? "bg-[#0f1f1a]/95 shadow-sm backdrop-blur-md"

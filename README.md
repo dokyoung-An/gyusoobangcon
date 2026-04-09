@@ -9,8 +9,8 @@ npm install
 npm run dev
 ```
 
-- `/` — Coming Soon (`public/main/main.jpg`)
-- `/home` — 본 메인 페이지
+- `/` — 메인 페이지(히어로·특장점·CTA)
+- `/home` — `/`로 영구 리다이렉트(예전 링크 호환)
 
 ## Vercel 배포
 
