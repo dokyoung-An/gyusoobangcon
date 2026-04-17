@@ -106,6 +106,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
           crossOrigin="anonymous"
         />
+        {/* Naver WCS — 공식 스니펫은 wcslog.js 직후 동기 실행이 필요함 */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `if (!wcs_add) var wcs_add={};
+wcs_add["wa"] = "s_5032715b122c";
+if (!_nasa) var _nasa={};
+if(window.wcs){
+wcs.inflow();
+wcs_do();
+}`,
+          }}
+        />
       </head>
       <body
         className={`${notoSans.variable} ${notoSerif.variable} min-h-full flex flex-col antialiased`}
