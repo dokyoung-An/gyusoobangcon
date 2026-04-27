@@ -1,7 +1,14 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { FLOOR_PLAN_TYPES } from "@/lib/floorplan-data";
+
+function formatPhoneNumber(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+}
 
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -103,10 +110,11 @@ export function ContactForm() {
             name="phone"
             type="tel"
             autoComplete="tel"
-            inputMode="tel"
+            inputMode="numeric"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
             required
+            maxLength={13}
             placeholder="010-0000-0000"
             className="mt-2 w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none ring-[#1a3329]/20 transition focus:border-[#1a3329]/40 focus:ring-2"
           />
