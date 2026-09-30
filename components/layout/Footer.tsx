@@ -1,40 +1,38 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/lib/site";
-import { Logo } from "./Logo";
 
 export function Footer() {
-  const { company } = siteConfig;
+  const { company, developer } = siteConfig;
 
   return (
     <footer className="border-t border-white/10 bg-[#0a1411] text-white/80">
       <div className="mx-auto max-w-7xl px-8 py-14 md:px-8 lg:px-10">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-2">
-            <Logo />
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-white/65 break-keep whitespace-pre-line">
-              {siteConfig.description}
-            </p>
+        <div className="grid gap-10 md:grid-cols-3">
+          <div className="md:col-span-2">
+            <Link
+              href="/"
+              aria-label={`${siteConfig.projectName} 홈으로`}
+              className="inline-block transition-opacity hover:opacity-80"
+            >
+              <Image
+                src="/footer_logo.png"
+                alt="SUJI DREAM THE HILL II 수지 드림 더 힐 2차"
+                width={1024}
+                height={187}
+                className="h-10 w-auto md:h-12"
+                sizes="280px"
+              />
+            </Link>
           </div>
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
-              연락처
+              시행사
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>대표전화 : {company.tel}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
-              시공회사정보
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>{company.name}</li>
-              <li>대표자명 : {company.ceo}</li>
-              <li>사업자등록번호 : {company.bizNo}</li>
-              <li className="leading-relaxed">현장 주소 : {company.address}</li>
-              <li className="leading-relaxed">
-                홍보관 주소 : {company.promotionHallAddress}
-              </li>
+              <li>{developer.name}</li>
+              <li>대표자명 : {developer.ceo}</li>
+              <li>사업자등록번호 : {developer.bizNo}</li>
             </ul>
           </div>
         </div>

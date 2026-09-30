@@ -48,6 +48,11 @@ export const siteConfig = {
     fax: "02-0000-0001",
     email: "info@gyusoobang.co.kr",
   },
+  developer: {
+    name: "동광주태주식회사",
+    ceo: "이정주",
+    bizNo: "126-81-35149",
+  },
 } as const;
 
 /** 헤더 네비: 단일 링크 또는 드롭다운(하위 메뉴) */
