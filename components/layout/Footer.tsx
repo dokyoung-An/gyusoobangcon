@@ -27,6 +27,14 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
+              시공회사정보
+            </h3>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li>{company.name}</li>
+              <li>대표자명 : {company.ceo}</li>
+              <li>사업자등록번호 : {company.bizNo}</li>
+            </ul>
+            <h3 className="mt-6 text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
               시행사
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
