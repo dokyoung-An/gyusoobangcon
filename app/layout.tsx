@@ -97,24 +97,31 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full scroll-smooth">
       <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
           crossOrigin="anonymous"
         />
-        {/* 네이버 WCS PV: 가이드와 동일하게 inflow(1차도메인) + wcs_do() 1회 */}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
+        {/* 네이버 WCS PV: inflow(1차도메인) + wcs_do() 1회 — 동기 로드는 첫 화면 렌더를 막으므로 비동기로 불러온 뒤 실행 */}
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: `if (!wcs_add) var wcs_add={};
-wcs_add["wa"] = ${naverWa};
-if (!_nasa) var _nasa={};
+            __html: `(function(){
+var s=document.createElement("script");
+s.async=true;
+s.src="https://wcs.naver.net/wcslog.js";
+s.onload=function(){
+if (!window.wcs_add) window.wcs_add={};
+window.wcs_add["wa"] = ${naverWa};
+if (!window._nasa) window._nasa={};
 if(window.wcs){
 wcs.inflow(${naverInflow});
+wcs_do();
 }
-wcs_do();`,
+};
+document.head.appendChild(s);
+})();`,
           }}
         />
       </head>

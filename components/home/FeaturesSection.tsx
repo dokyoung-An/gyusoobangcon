@@ -38,7 +38,6 @@ export function FeaturesSection() {
             imageSrc={featureImages[i]}
             imageAlt={f.imageAlt}
             reverse={i % 2 === 1}
-            priority={i === 0}
           />
         ))}
       </div>
