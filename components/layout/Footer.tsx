@@ -7,9 +7,9 @@ export function Footer() {
 
   return (
     <footer className="border-t border-white/10 bg-[#0a1411] text-white/80">
-      <div className="mx-auto max-w-7xl px-8 py-14 md:px-8 lg:px-10">
-        <div className="grid gap-10 md:grid-cols-3">
-          <div className="md:col-span-2">
+      <div className="mx-auto max-w-7xl px-8 py-7 md:px-8 lg:px-10">
+        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+          <div>
             <Link
               href="/"
               aria-label={`${siteConfig.projectName} 홈으로`}
@@ -25,27 +25,31 @@ export function Footer() {
               />
             </Link>
           </div>
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
-              시공회사정보
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>{company.name}</li>
-              <li>대표자명 : {company.ceo}</li>
-              <li>사업자등록번호 : {company.bizNo}</li>
-            </ul>
-            <h3 className="mt-6 text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
-              시행사
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>{developer.name}</li>
-              <li>대표자명 : {developer.ceo}</li>
-              <li>사업자등록번호 : {developer.bizNo}</li>
-            </ul>
+          <div className="flex flex-col gap-8 sm:flex-row sm:gap-0">
+            <div className="sm:pr-10">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
+                시공사
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li>{company.name}</li>
+                <li>대표자명 : {company.ceo}</li>
+                <li>사업자등록번호 : {company.bizNo}</li>
+              </ul>
+            </div>
+            <div className="sm:border-l sm:border-white/15 sm:pl-10">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c6a667]">
+                시행사
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li>{developer.name}</li>
+                <li>대표자명 : {developer.ceo}</li>
+                <li>사업자등록번호 : {developer.bizNo}</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col gap-4 border-t border-white/10 pt-4 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {company.name}. All rights reserved.</p>
           <Link href="/contact#privacy" className="hover:text-[#c6a667]">
             개인정보처리방침

@@ -11,7 +11,7 @@ const notices = [
 export function FooterNoticeSection() {
   return (
     <section className="border-t border-white/10 bg-[#1a3329]">
-      <div className="mx-auto max-w-7xl px-8 py-6 md:px-8 md:py-7 lg:px-10">
+      <div className="mx-auto max-w-7xl px-8 pt-6 pb-12 md:px-8 md:pt-7 md:pb-14 lg:px-10">
         <div className="space-y-2 text-sm leading-relaxed text-[#f3efe6] break-keep whitespace-pre-line">
           {notices.map((text) => (
             <p key={text} className="flex gap-1.5">

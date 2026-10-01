@@ -16,6 +16,15 @@
   --font-serif: var(--font-serif-heading);
 }
 
+/* Tailwind v4 preflight는 button 커서를 default로 두므로, 클릭 가능한 요소는 손가락 커서로 */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"] {
+    cursor: pointer;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -46,47 +55,25 @@ body {
   }
 }
 
-/* 홈 슬로건 — 글자 단위 왼쪽→오른쪽 순차 골드 하이라이트 (무한) */
-@keyframes slogan-char-sweep {
-  0%,
-  100% {
-    color: #1a3329;
-    text-shadow: none;
+/* RevealGroup 내부 요소 — 아래에서 위로 opacity 등장 (--reveal-delay로 순차) */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 32px), 0);
   }
-  5% {
-    color: #c6a667;
-    text-shadow:
-      0 0 12px rgba(198, 166, 103, 0.55),
-      0 0 24px rgba(250, 246, 232, 0.35);
-  }
-  11% {
-    color: #1a3329;
-    text-shadow: none;
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .slogan-char-root {
-    --char-stagger: 0.11s;
-    display: block;
-    width: 100%;
+  [data-reveal] .reveal-up {
+    opacity: 0;
   }
 
-  .slogan-char-wave {
-    display: inline-block;
-    color: #1a3329;
-    /* 한 글자씩 지연 → 왼쪽에서 오른쪽으로 파도. 주기 끝에 잠깐 쉼 후 반복 */
-    animation-name: slogan-char-sweep;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-duration: calc(var(--char-total) * var(--char-stagger) + 1.6s);
-    animation-delay: calc(var(--char-i) * var(--char-stagger));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .slogan-char-wave {
-    color: var(--forest);
-    animation: none;
+  [data-reveal="shown"] .reveal-up {
+    animation: reveal-up var(--reveal-duration, 1.1s) cubic-bezier(0.33, 1, 0.68, 1)
+      var(--reveal-delay, 0s) both;
   }
 }

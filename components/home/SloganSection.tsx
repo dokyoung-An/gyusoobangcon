@@ -1,5 +1,6 @@
-import { FadeInUp } from "@/components/ui/FadeInUp";
-import { SloganShimmerText } from "@/components/home/SloganShimmerText";
+import Image from "next/image";
+import type { CSSProperties } from "react";
+import { RevealGroup } from "@/components/ui/RevealGroup";
 
 /** 하단 숲·지평선 실루엣 — 브랜드 그린 톤 */
 function SloganBackdropSilhouette({ className }: { className?: string }) {
@@ -44,26 +45,30 @@ function SloganBackdropSilhouette({ className }: { className?: string }) {
   );
 }
 
-/** 상단 얇은 장식 라인 + 골드 포인트 */
-function SloganTopOrnament({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 400 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      <path
-        d="M0 12h160M240 12h160"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeOpacity="0.35"
-      />
-      <circle cx="200" cy="12" r="3.5" fill="currentColor" fillOpacity="0.85" />
-      <circle cx="200" cy="12" r="7" stroke="currentColor" strokeOpacity="0.25" />
-    </svg>
-  );
+/** md 이상에서는 콜라주 박스 안 절대 위치, 모바일에서는 좌우 엇갈림 세로 배치 */
+const lifeCuts = [
+  {
+    src: "/main/slogan-traffic.jpg",
+    alt: "숲 사이로 이어지는 고속도로",
+    caption: "출퇴근은 더 편리하게,",
+    position: "self-start md:absolute md:left-0 md:top-[9%] md:w-[42%]",
+  },
+  {
+    src: "/main/slogan-education.jpg",
+    alt: "가로수길 옆 학교로 걸어가는 아이들",
+    caption: "학교와 교육환경은 더 안심되게,",
+    position: "self-end md:absolute md:right-0 md:top-0 md:w-[42%]",
+  },
+  {
+    src: "/main/slogan-life.jpg",
+    alt: "쇼핑몰과 조경 광장이 있는 생활 거리",
+    caption: "도심의 주요 생활권은 더 가깝게,",
+    position: "self-start md:absolute md:left-[27%] md:top-[56%] md:w-[42%]",
+  },
+] as const;
+
+function revealStyle(delay: number, y: string): CSSProperties {
+  return { "--reveal-delay": `${delay}s`, "--reveal-y": y } as CSSProperties;
 }
 
 /** 은은한 그리드·잎사귀 느낌 패턴 (타일) */
@@ -97,7 +102,7 @@ function SloganGrainPattern({ className }: { className?: string }) {
 export function SloganSection() {
   return (
     <section
-      className="relative overflow-hidden px-8 py-16 md:px-8 md:py-24 lg:py-32"
+      className="relative flex flex-col justify-center overflow-hidden px-6 pt-20 pb-28 md:min-h-dvh md:px-8 md:pt-24 md:pb-32 lg:px-10"
       aria-labelledby="slogan-heading"
     >
       {/* 베이스 그라데이션 — 크림·베이지 톤을 줄이고 연한 뉴트럴 그레이지 */}
@@ -121,42 +126,70 @@ export function SloganSection() {
       {/* 하단 실루엣 */}
       <SloganBackdropSilhouette className="pointer-events-none absolute -bottom-px left-1/2 min-w-[1200px] -translate-x-1/2 text-[#1a3329] md:min-w-full" />
 
-      <div className="relative z-10 mx-auto max-w-4xl text-center mt-[-2rem] md:mt-[-4rem]">
-        <FadeInUp>
-          <div className="mx-auto mb-8 flex flex-col items-center gap-5 md:mb-10">
-            <SloganTopOrnament className="h-6 w-[min(100%,20rem)] text-[#c6a667]" />
-            <p className="text-[10px] font-semibold uppercase tracking-[0.42em] text-[#1a3329]/55 md:text-[11px]">
-              Urban Forest Residence
-            </p>
-          </div>
-        </FadeInUp>
+      <RevealGroup
+        threshold={0.15}
+        className="relative z-10 mx-auto grid max-w-[1440px] items-center gap-20 md:px-2 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-28 lg:px-4 xl:gap-36"
+      >
+        {/* 왼쪽: 교통·교육·생활 이미지 콜라주 */}
+        <div className="flex flex-col gap-10 md:relative md:mx-auto md:block md:aspect-[10/9] md:w-full md:max-w-3xl">
+          {lifeCuts.map((cut, i) => (
+            <figure key={cut.src} className={`w-[82%] ${cut.position}`}>
+              <div
+                className="reveal-up relative aspect-[4/3] overflow-hidden rounded-sm shadow-[0_24px_48px_-24px_rgba(26,20,16,0.45)]"
+                style={revealStyle(i * 0.35, "56px")}
+              >
+                <Image
+                  src={cut.src}
+                  alt={cut.alt}
+                  fill
+                  sizes="(min-width: 1024px) 24vw, (min-width: 768px) 40vw, 82vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption
+                className="reveal-up mt-3 break-keep font-serif text-[0.9375rem] text-neutral-700 md:mt-4 md:text-base"
+                style={revealStyle(i * 0.35 + 0.2, "16px")}
+              >
+                {cut.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
 
-        <FadeInUp delay={0.08}>
+        {/* 오른쪽: 메인 카피 */}
+        <div className="text-right font-serif text-[#3f141b]">
+          <p
+            className="reveal-up break-keep text-lg md:text-2xl"
+            style={revealStyle(1.1, "20px")}
+          >
+            집이 갖춰야 할 모든 것을 넘어
+          </p>
           <h2
             id="slogan-heading"
-            className="break-keep font-serif text-[1.65rem] font-medium leading-[1.45] tracking-tight text-balance sm:text-3xl md:text-4xl md:leading-[1.4] lg:text-[2.65rem] lg:leading-[1.38]"
+            className="reveal-up mt-3 break-keep text-[1.75rem] font-bold leading-[1.35] tracking-tight text-balance md:mt-4 md:text-4xl lg:text-[2.5rem]"
+            style={revealStyle(1.3, "24px")}
           >
-            <SloganShimmerText />
+            삶이 원하는 모든 것을 담았습니다.
           </h2>
-        </FadeInUp>
-
-        <FadeInUp delay={0.2} className="mt-8 md:mt-6">
-          <div className="mx-auto max-w-2xl  px-4 py-8 backdrop-blur-[2px] md:px-10 md:py-4">
-            <p className="text-sm leading-[1.85] text-neutral-600 md:text-base break-keep">
-              프라이빗 가든과 세련된 볼륨감, 그리고 여유로운 동선.
-              <br className="hidden md:block" />
-              하이엔드 라이프스타일을 완성하는 타운하우스의 철학을 담았습니다.
+          <div
+            className="reveal-up mt-8 space-y-5 break-keep text-[0.9375rem] leading-[1.9] text-neutral-600 md:mt-10 md:text-base"
+            style={revealStyle(1.5, "16px")}
+          >
+            <p>
+              출퇴근은 더 편리하게,
+              <br />
+              도심의 주요 생활권은 더 가깝게,
+              <br />
+              학교와 교육환경은 더 안심되게.
+            </p>
+            <p>
+              집이 갖춰야 할 모든 것을 넘어
+              <br />
+              삶이 원하는 모든 것을 담았습니다.
             </p>
           </div>
-        </FadeInUp>
-
-        <FadeInUp delay={0.28} className="mt-8 md:mt-10">
-          <div
-            className="mx-auto h-px w-24 bg-linear-to-r from-transparent via-[#c6a667]/80 to-transparent md:w-32"
-            aria-hidden
-          />
-        </FadeInUp>
-      </div>
+        </div>
+      </RevealGroup>
     </section>
   );
 }

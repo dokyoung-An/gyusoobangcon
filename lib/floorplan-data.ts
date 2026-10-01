@@ -2,6 +2,9 @@
 
 export type FloorPlanTypeId = "A" | "B" | "C" | "D" | "E";
 
+/** 평면안내 페이지 전용 타입까지 포함 (인테리어·문의폼은 FloorPlanTypeId만 사용) */
+export type UnitTypeId = FloorPlanTypeId | "S" | "NA";
+
 /** 파일 접미사: 1B=지하1층, 1F=1층, 2F=2층, 3F=3층 */
 export type FloorFileCode = "1B" | "1F" | "2F" | "3F";
 
@@ -27,16 +30,18 @@ export type FloorImages = {
   iso?: Partial<Record<FloorFileCode, string | null>>;
 };
 
-export type FloorPlanTypeConfig = {
-  id: FloorPlanTypeId;
+export type FloorPlanTypeConfig<Id extends UnitTypeId = FloorPlanTypeId> = {
+  id: Id;
   tabLabel: string;
   unitCode: string;
   households: string;
-  /** 평면 안내 상단 카드용 외관 참고 이미지 (`public` 기준 경로) */
-  exteriorSrc: string;
+  /** 평면 안내 상단 카드용 외관 참고 이미지 (`public` 기준 경로), null이면 준비 중 표시 */
+  exteriorSrc: string | null;
   /** 건축·토지 등 그룹별 행 — 평면안내 Unit Plan 표에 그대로 반영 */
   unitPlan: readonly UnitPlanSection[];
   images?: FloorImages;
+  /** 층 표기 덮어쓰기 (기본은 FLOOR_LEVELS_META의 label) */
+  floorLabels?: Partial<Record<FloorFileCode, string>>;
 };
 
 export const FLOOR_LEVELS_META = [
@@ -52,21 +57,21 @@ export const PLAN_2D_FLOORS = FLOOR_LEVELS_4;
 export const ISO_FLOORS = FLOOR_LEVELS_4;
 
 export function defaultPlan2dPath(
-  typeId: FloorPlanTypeId,
+  typeId: UnitTypeId,
   code: FloorFileCode
 ): string {
   return `/floorplan/TOP_${typeId}_${code}.png`;
 }
 
 export function defaultIsoPath(
-  typeId: FloorPlanTypeId,
+  typeId: UnitTypeId,
   code: FloorFileCode
 ): string {
   return encodeURI(`/iso/iso_${typeId}-${code} 01.png`);
 }
 
 export function resolvePlan2dSrc(
-  cfg: FloorPlanTypeConfig,
+  cfg: FloorPlanTypeConfig<UnitTypeId>,
   code: FloorFileCode
 ): string | null {
   const o = cfg.images?.plan2d?.[code];
@@ -76,7 +81,7 @@ export function resolvePlan2dSrc(
 }
 
 export function resolveIsoSrc(
-  cfg: FloorPlanTypeConfig,
+  cfg: FloorPlanTypeConfig<UnitTypeId>,
   code: FloorFileCode
 ): string | null {
   const o = cfg.images?.iso?.[code];
@@ -222,3 +227,84 @@ export const FLOOR_PLAN_TYPES: readonly FloorPlanTypeConfig[] = [
     ],
   },
 ] as const;
+
+/** 이미지가 null인 층은 화면에서 숨김 */
+const PENDING_FLOOR_IMAGES: Record<FloorFileCode, null> = {
+  "1B": null,
+  "1F": null,
+  "2F": null,
+  "3F": null,
+};
+
+/** 평면안내 페이지 탭 목록 (A~E + S·NA) */
+export const FLOORPLAN_PAGE_TYPES: readonly FloorPlanTypeConfig<UnitTypeId>[] = [
+  ...FLOOR_PLAN_TYPES,
+  {
+    id: "S",
+    tabLabel: "S Type",
+    unitCode: "S-1",
+    households: "-",
+    exteriorSrc: "/exterior/ex_S-1.jpg",
+    unitPlan: [
+      {
+        category: "건축",
+        rows: [
+          { label: "전용면적", value: "139.12㎡" },
+          { label: "지하1층", value: "95.22㎡" },
+          { label: "1층면적", value: "43.90㎡" },
+        ],
+      },
+      {
+        category: "토지",
+        rows: [
+          { label: "전용면적", value: "200㎡~" },
+          { label: "공용면적", value: "66㎡~" },
+          { label: "분양면적", value: "266㎡~" },
+        ],
+      },
+    ],
+    images: {
+      plan2d: PENDING_FLOOR_IMAGES,
+      iso: {
+        ...PENDING_FLOOR_IMAGES,
+        "1B": "/iso/iso_S-1B.webp",
+        "1F": "/iso/iso_S-1F.webp",
+      },
+    },
+    floorLabels: { "1F": "지상 1층" },
+  },
+  {
+    id: "NA",
+    tabLabel: "NA Type",
+    unitCode: "NA-1",
+    households: "-",
+    exteriorSrc: "/exterior/ex_NA-1.jpg",
+    unitPlan: [
+      {
+        category: "건축",
+        rows: [
+          { label: "전용면적", value: "182.61㎡" },
+          { label: "지하1층", value: "113.79㎡" },
+          { label: "1층면적", value: "66.82㎡" },
+        ],
+      },
+      {
+        category: "토지",
+        rows: [
+          { label: "전용면적", value: "233㎡~" },
+          { label: "공용면적", value: "76㎡~" },
+          { label: "분양면적", value: "309㎡~" },
+        ],
+      },
+    ],
+    images: {
+      plan2d: PENDING_FLOOR_IMAGES,
+      iso: {
+        ...PENDING_FLOOR_IMAGES,
+        "1B": "/iso/iso_NA-1B.webp",
+        "1F": "/iso/iso_NA-1F.webp",
+      },
+    },
+    floorLabels: { "1F": "지상 1층" },
+  },
+];

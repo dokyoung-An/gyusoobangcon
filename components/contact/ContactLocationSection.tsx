@@ -7,7 +7,10 @@ export function ContactLocationSection() {
   const loc = CONTACT_LOCATION;
 
   return (
-    <section className="border-b border-neutral-200/90 bg-white pb-12 pt-2 md:pb-16">
+    <section
+      id="location"
+      className="scroll-mt-28 border-b border-neutral-200/90 bg-white pb-12 pt-2 md:pb-16"
+    >
       <h2 className="font-serif text-2xl font-semibold tracking-tight text-[#1a1a1a] md:text-3xl">
         위치안내
       </h2>

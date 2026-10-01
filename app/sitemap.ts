@@ -26,6 +26,7 @@ const PUBLIC_PATHS: {
   { path: "/modelhouse", changeFrequency: "monthly", priority: 0.85 },
   { path: "/promotion-video", changeFrequency: "monthly", priority: 0.85 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.95 },
+  { path: "/directions", changeFrequency: "monthly", priority: 0.9 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

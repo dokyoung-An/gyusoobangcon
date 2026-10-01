@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navItems, type NavItem } from "@/lib/site";
+import { navItems, siteConfig, type NavItem } from "@/lib/site";
 import { Logo } from "./Logo";
+
+const telDisplay = siteConfig.company.tel.replace(/-/g, ".");
+const telHref = `tel:${siteConfig.company.tel.replace(/[^0-9+]/g, "")}`;
 
 function isDropdownActive(pathname: string, item: Extract<NavItem, { kind: "dropdown" }>) {
   return item.items.some((sub) => pathname === sub.href);
@@ -16,18 +19,18 @@ function isLinkActive(pathname: string, href: string) {
   return pathname === href;
 }
 
-function MobileNav({ pathname }: { pathname: string }) {
+function MobileNav({ pathname, light }: { pathname: string; light: boolean }) {
   const [open, setOpen] = useState(false);
   /** 열린 드롭다운 라벨(프리미엄·세대안내 등 각각 분리) */
   const [expandedDropdown, setExpandedDropdown] = useState<string | null>(null);
 
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         type="button"
         aria-label="메뉴"
         aria-expanded={open}
-        className="relative z-[60] rounded-full p-2 text-white"
+        className={`relative z-[60] rounded-full p-2 ${light ? "text-[#3f141b]" : "text-white"}`}
         onClick={() => setOpen((v) => !v)}
       >
         {open ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -115,6 +118,13 @@ function MobileNav({ pathname }: { pathname: string }) {
                   </div>
                 );
               })}
+              <a
+                href={telHref}
+                className="flex items-center gap-2 py-4 text-base font-semibold text-white"
+              >
+                <Phone className="size-4 text-[#c6a667]" aria-hidden />
+                {telDisplay}
+              </a>
             </nav>
           </motion.div>
         )}
@@ -140,31 +150,34 @@ export function Header() {
     setOpenDropdownLabel(null);
   }, [pathname]);
 
-  const isHome = pathname === "/" || pathname === "/home";
-  const solidBar = !isHome || scrolled;
-  const barBg = solidBar
-    ? "bg-[#0f1f1a]/95 shadow-sm backdrop-blur-md"
-    : "bg-transparent";
+  /** 홈: 히어로 위에 반투명 흰 바탕으로 겹치고, 스크롤하면 불투명. 그 외 페이지는 어두운 GNB */
+  const light = pathname === "/" || pathname === "/home";
+  const barBg = light
+    ? scrolled
+      ? "bg-white shadow-sm"
+      : "bg-white/55 backdrop-blur-md"
+    : "bg-[#0f1f1a]/95 shadow-sm backdrop-blur-md";
 
   const linkClass = (active: boolean) =>
-    `rounded-full px-3 py-2 text-base font-medium transition-colors ${
-      solidBar
+    `rounded-full px-2.5 py-2 text-[0.9375rem] font-medium transition-colors ${
+      light
         ? active
+          ? "text-[#3f141b] font-semibold"
+          : "text-black hover:text-[#3f141b]"
+        : active
           ? "bg-white/10 text-[#c6a667]"
           : "text-white/90 hover:text-[#c6a667]"
-        : active
-          ? "bg-white/15 text-white"
-          : "text-white/95 hover:text-[#f0e6c8]"
     }`;
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${barBg}`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4 md:px-8 lg:px-10">
-        <Logo />
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-6 py-4 md:px-8 lg:px-10">
+        <Logo tone={light ? "light" : "dark"} />
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-6 xl:flex">
+        <nav className="flex items-center">
           {navItems.map((item) => {
             if (item.kind === "link") {
               const active = isLinkActive(pathname, item.href);
@@ -190,17 +203,12 @@ export function Header() {
               >
                 <button
                   type="button"
-                  className={`${linkClass(parentActive)} inline-flex cursor-default items-center gap-1`}
+                  className={linkClass(parentActive)}
                   aria-expanded={menuOpen}
                   aria-haspopup="true"
+                  onFocus={() => setOpenDropdownLabel(item.label)}
                 >
                   {item.label}
-                  <ChevronDown
-                    className={`size-4 opacity-80 transition-transform ${
-                      menuOpen ? "rotate-180" : ""
-                    }`}
-                    aria-hidden
-                  />
                 </button>
                 <AnimatePresence>
                   {menuOpen && (
@@ -211,17 +219,27 @@ export function Header() {
                       transition={{ duration: 0.2 }}
                       className="absolute left-0 top-full z-[60] min-w-[12rem] pt-1"
                     >
-                      <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0f1f1a]/98 py-1 shadow-lg backdrop-blur-md">
+                      <div
+                        className={`overflow-hidden rounded-xl border py-1 shadow-lg backdrop-blur-md ${
+                          light
+                            ? "border-neutral-200 bg-white"
+                            : "border-white/10 bg-[#0f1f1a]/98"
+                        }`}
+                      >
                         {item.items.map((sub) => {
                           const active = pathname === sub.href;
                           return (
                             <Link
                               key={sub.href}
                               href={sub.href}
-                              className={`block px-4 py-2.5 text-base transition-colors ${
-                                active
-                                  ? "bg-white/10 text-[#c6a667]"
-                                  : "text-white/90 hover:bg-white/5 hover:text-[#c6a667]"
+                              className={`block px-4 py-2.5 text-[0.9375rem] transition-colors ${
+                                light
+                                  ? active
+                                    ? "bg-[#3f141b]/5 text-[#3f141b]"
+                                    : "text-black hover:bg-[#3f141b]/5 hover:text-[#3f141b]"
+                                  : active
+                                    ? "bg-white/10 text-[#c6a667]"
+                                    : "text-white/90 hover:bg-white/5 hover:text-[#c6a667]"
                               }`}
                             >
                               {sub.label}
@@ -237,7 +255,25 @@ export function Header() {
           })}
         </nav>
 
-        <MobileNav key={pathname} pathname={pathname} />
+        <div className="flex shrink-0 items-center gap-6">
+          <span
+            className={`h-5 w-px ${light ? "bg-black/30" : "bg-white/30"}`}
+            aria-hidden
+          />
+          <a
+            href={telHref}
+            aria-label={`대표번호 ${siteConfig.company.tel} 전화 연결`}
+            className={`flex items-center gap-2 text-xl font-bold tracking-tight ${
+              light ? "text-[#3f141b]" : "text-white"
+            }`}
+          >
+            <Phone className="size-5" strokeWidth={2.25} aria-hidden />
+            {telDisplay}
+          </a>
+        </div>
+        </div>
+
+        <MobileNav key={pathname} pathname={pathname} light={light} />
       </div>
     </header>
   );

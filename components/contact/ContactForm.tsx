@@ -75,7 +75,7 @@ export function ContactForm() {
   }
 
   return (
-    <section className="mt-14 md:mt-16">
+    <section id="register" className="mt-14 scroll-mt-28 md:mt-16">
       <h2 className="font-serif text-xl font-semibold text-[#1a3329] md:text-2xl">
         상담 접수
       </h2>

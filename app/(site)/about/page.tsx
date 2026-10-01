@@ -56,7 +56,7 @@ export default function AboutPage() {
             </p>
 
             <h1 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[#1a3329] md:mt-5 md:text-4xl lg:text-[2.75rem]">
-              {projectDisplayName}
+              수지 드림 더 힐 2차
             </h1>
 
             <div className="mt-5 space-y-4 md:mt-6 md:space-y-5">
@@ -88,7 +88,7 @@ export default function AboutPage() {
             </div>
 
             <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-neutral-600 md:mt-6 md:text-base break-keep">
-              {siteConfig.name}이 선보이는 {projectDisplayName}은(는) 검증된
+              {siteConfig.name}이 선보이는 수지 드림 더 힐 2차는 검증된
               1차 단지의 흐름 위에서,<br/> 2차 분양으로 완성도를 더해갑니다.
             </p>
 
@@ -133,7 +133,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-10 xl:gap-12">
                 <div className="relative aspect-[16/10] min-h-[200px] w-full overflow-hidden rounded-2xl bg-[#1a3329]/5 shadow-lg shadow-[#1a3329]/5 md:rounded-3xl lg:aspect-auto lg:min-h-[min(22rem,52vh)] lg:h-full">
                   <Image
-                    src="/main/main.png"
+                    src="/about/new.jpg"
                     alt={`${projectDisplayName} 단지 조감`}
                     fill
                     className="object-cover"

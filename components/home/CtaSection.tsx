@@ -27,10 +27,10 @@ export function CtaSection() {
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
               href="/contact"
-              className="group inline-flex items-center justify-center gap-2 rounded-full border border-[#c6a667]/50 bg-[#c6a667] px-10 py-4 text-sm font-semibold text-[#1a1a1a] shadow-lg shadow-black/20 transition-colors hover:bg-[#c6a667]/90 md:text-base"
+              className="group inline-flex items-center justify-center gap-3 rounded-full border border-[#c6a667]/50 bg-[#c6a667] px-15 py-6 text-[1.3125rem] font-semibold text-[#1a1a1a] shadow-lg shadow-black/20 transition-colors hover:bg-[#c6a667]/90 md:text-2xl"
             >
-              상담 문의하기
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5 md:size-5" />
+              관심고객등록
+              <ArrowRight className="size-6 transition-transform group-hover:translate-x-1 md:size-7.5" />
             </Link>
           </motion.div>
         </FadeInUp>

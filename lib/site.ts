@@ -67,7 +67,7 @@ export type NavItem =
 export const navItems: readonly NavItem[] = [
   {
     kind: "dropdown",
-    label: "사업 소개",
+    label: "사업소개",
     items: [
       { href: "/about/company", label: "회사소개" },
       { href: "/about", label: "사업소개" },
@@ -93,7 +93,8 @@ export const navItems: readonly NavItem[] = [
       { href: "/floorplan/interior", label: "인테리어" },
     ],
   },
-  { kind: "link", href: "/modelhouse", label: "사이버 모델하우스" },
+  { kind: "link", href: "/modelhouse", label: "사이버모델하우스" },
   { kind: "link", href: "/promotion-video", label: "홍보영상" },
-  { kind: "link", href: "/contact", label: "상담 문의" },
+  { kind: "link", href: "/directions", label: "오시는길" },
+  { kind: "link", href: "/contact", label: "관심고객등록" },
 ] as const;

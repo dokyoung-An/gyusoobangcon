@@ -1,31 +1,39 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import NextImage from "next/image";
 import {
   FLOOR_LEVELS_META,
-  FLOOR_PLAN_TYPES,
+  FLOORPLAN_PAGE_TYPES,
   resolveIsoSrc,
   resolvePlan2dSrc,
-  type FloorPlanTypeId,
+  type UnitTypeId,
 } from "@/lib/floorplan-data";
 import { FadeInUp } from "@/components/ui/FadeInUp";
 
 type LightboxState = { src: string; alt: string; title: string };
-type FloorPlanCurrent = (typeof FLOOR_PLAN_TYPES)[number];
+type FloorPlanCurrent = (typeof FLOORPLAN_PAGE_TYPES)[number];
 
 type FloorPlanGuideContextValue = {
-  activeId: FloorPlanTypeId;
-  setActiveId: (id: FloorPlanTypeId) => void;
+  activeId: UnitTypeId;
+  setActiveId: (id: UnitTypeId) => void;
   current: FloorPlanCurrent;
   lightbox: LightboxState | null;
   setLightbox: (state: LightboxState | null) => void;
 };
 
-const FloorPlanGuideContext = createContext<FloorPlanGuideContextValue | null>(null);
+const FloorPlanGuideContext = createContext<FloorPlanGuideContextValue | null>(
+  null,
+);
 
 function useFloorPlanGuideContext() {
   const ctx = useContext(FloorPlanGuideContext);
@@ -36,16 +44,18 @@ function useFloorPlanGuideContext() {
 }
 
 export function FloorPlanGuideProvider({ children }: { children: ReactNode }) {
-  const [activeId, setActiveId] = useState<FloorPlanTypeId>("A");
+  const [activeId, setActiveId] = useState<UnitTypeId>("A");
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
 
   const current =
-    FLOOR_PLAN_TYPES.find((t) => t.id === activeId) ?? FLOOR_PLAN_TYPES[0];
+    FLOORPLAN_PAGE_TYPES.find((t) => t.id === activeId) ??
+    FLOORPLAN_PAGE_TYPES[0]!;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const cfg =
-      FLOOR_PLAN_TYPES.find((t) => t.id === activeId) ?? FLOOR_PLAN_TYPES[0];
+      FLOORPLAN_PAGE_TYPES.find((t) => t.id === activeId) ??
+      FLOORPLAN_PAGE_TYPES[0]!;
     const urls: string[] = [];
     for (let i = 2; i < FLOOR_LEVELS_META.length; i++) {
       const code = FLOOR_LEVELS_META[i]!.code;
@@ -157,7 +167,7 @@ function FloorPlanImageLightbox({
         </motion.div>
       ) : null}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 }
 
@@ -170,7 +180,9 @@ function FloorImageCard({
   placeholderHint,
   onExpand,
   priority = false,
+  dark = false,
 }: {
+  dark?: boolean;
   label: string;
   caption: string;
   src: string | null;
@@ -188,16 +200,21 @@ function FloorImageCard({
 
   const showImage = Boolean(src) && !loadFailed;
   const expandable = Boolean(showImage && onExpand);
+  const surface = dark ? "bg-[#545555]/60" : "bg-white";
 
   return (
-    <div className={`relative overflow-hidden rounded-2xl bg-white ${expandable ? "cursor-zoom-in" : ""}`}>
+    <div
+      className={`relative overflow-hidden rounded-2xl ${surface} ${expandable ? "cursor-zoom-in" : ""}`}
+    >
       <div className="absolute left-3 top-3 z-10 rounded-md bg-[#1a3329] px-3 py-1.5 text-xs font-semibold tracking-wide text-white shadow-md">
         {label}
       </div>
-      <div className={`relative w-full bg-white pt-12 ${aspectClassName}`}>
+      <div className={`relative w-full pt-12 ${aspectClassName}`}>
         {showImage ? (
           <>
-            <div className="absolute inset-0 z-0 p-1 md:p-2">
+            <div
+              className={`absolute inset-0 z-0 ${dark ? "px-6 pb-6 pt-14 md:px-12 md:pb-10 md:pt-16" : "p-1 md:p-2"}`}
+            >
               <div className="relative h-full w-full">
                 <NextImage
                   src={src!}
@@ -230,8 +247,14 @@ function FloorImageCard({
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
             <div className="h-px w-16 bg-[#c6a667]/60" aria-hidden />
-            <p className="text-sm font-medium text-[#1a3329]/85">{caption}</p>
-            <p className="max-w-[14rem] text-xs leading-relaxed text-neutral-500">
+            <p
+              className={`text-sm font-medium ${dark ? "text-white/85" : "text-[#1a3329]/85"}`}
+            >
+              {caption}
+            </p>
+            <p
+              className={`max-w-[14rem] text-xs leading-relaxed ${dark ? "text-white/55" : "text-neutral-500"}`}
+            >
               {src
                 ? "이미지를 불러오지 못했습니다. 경로·파일명을 확인해 주세요."
                 : placeholderHint}
@@ -255,8 +278,8 @@ export function FloorPlanTopSection() {
           role="tablist"
           aria-label="평형 타입 선택"
         >
-          <div className="grid grid-cols-5 divide-x divide-[#1a3329]/10">
-            {FLOOR_PLAN_TYPES.map((t) => {
+          <div className="flex divide-x divide-[#1a3329]/10 overflow-x-auto">
+            {FLOORPLAN_PAGE_TYPES.map((t) => {
               const on = t.id === activeId;
               return (
                 <button
@@ -267,7 +290,7 @@ export function FloorPlanTopSection() {
                   id={`tab-${t.id}`}
                   aria-controls={`panel-${t.id}`}
                   onClick={() => setActiveId(t.id)}
-                  className={`py-3.5 text-center text-xs font-semibold transition-colors sm:text-sm ${
+                  className={`min-w-[4.75rem] flex-1 shrink-0 whitespace-nowrap py-3.5 text-center text-xs font-semibold transition-colors sm:text-sm ${
                     on
                       ? "bg-[#1a3329] text-[#e8dfd0]"
                       : "bg-white text-neutral-600 hover:bg-neutral-50 hover:text-[#1a3329]"
@@ -291,37 +314,48 @@ export function FloorPlanTopSection() {
           className="mt-6 space-y-6"
         >
           <div className="flex flex-col">
-            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Exterior</h2>
+            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">
+              Exterior
+            </h2>
             <div className="mt-4 flex min-h-0 flex-1 flex-col">
-              <div className="relative w-full cursor-zoom-in overflow-hidden rounded-xl aspect-[16/10] min-h-[min(68vw,420px)]">
-                <NextImage
-                  src={current.exteriorSrc}
-                  alt={`${current.tabLabel} 외관 참고 이미지`}
-                  fill
-                  className="object-cover object-contain"
-                  sizes="(max-width: 1200px) calc(100vw - 4rem), 1152px"
-                  quality={75}
-                />
-                <button
-                  type="button"
-                  className="absolute inset-0 z-[1] bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c6a667]"
-                  aria-label={`${current.tabLabel} 외관 참고 이미지 크게 보기`}
-                  onClick={() =>
-                    setLightbox({
-                      src: current.exteriorSrc,
-                      alt: `${current.tabLabel} 외관 참고 이미지`,
-                      title: `${current.tabLabel} · Exterior`,
-                    })
-                  }
-                />
-              </div>
+              {current.exteriorSrc ? (
+                <div className="relative w-full cursor-zoom-in overflow-hidden rounded-xl aspect-[16/10] min-h-[min(68vw,420px)]">
+                  <NextImage
+                    src={current.exteriorSrc}
+                    alt={`${current.tabLabel} 외관 참고 이미지`}
+                    fill
+                    className="object-cover object-contain"
+                    sizes="(max-width: 1200px) calc(100vw - 4rem), 1152px"
+                    quality={75}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-0 z-[1] bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c6a667]"
+                    aria-label={`${current.tabLabel} 외관 참고 이미지 크게 보기`}
+                    onClick={() =>
+                      setLightbox({
+                        src: current.exteriorSrc!,
+                        alt: `${current.tabLabel} 외관 참고 이미지`,
+                        title: `${current.tabLabel} · Exterior`,
+                      })
+                    }
+                  />
+                </div>
+              ) : (
+                <div className="flex w-full flex-col items-center justify-center gap-2 rounded-xl bg-[#f0ebe2]/70 aspect-[16/10] min-h-[min(68vw,420px)]">
+                  <div className="h-px w-16 bg-[#c6a667]/60" aria-hidden />
+                  <p className="text-sm font-medium text-[#1a3329]/80">
+                    {current.tabLabel} 외관 이미지 준비 중
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
-
-
           <div className="rounded-2xl border border-neutral-200/90 bg-white p-5 shadow-sm md:p-6">
-            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">Unit Plan</h2>
+            <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-[#1a3329]/80">
+              Unit Plan
+            </h2>
             <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200/80">
               <table className="w-full border-collapse text-center text-sm">
                 <tbody className="divide-y divide-neutral-200/90">
@@ -337,10 +371,14 @@ export function FloorPlanTopSection() {
                             {section.category}
                           </th>
                         ) : null}
-                        <td className="bg-white/95 px-3 py-2.5 text-[11px] font-medium text-neutral-600 sm:px-4 sm:text-xs">{row.label}</td>
-                        <td className="bg-white/95 px-3 py-2.5 text-center text-sm font-semibold tabular-nums text-[#1a3329] sm:px-4">{row.value}</td>
+                        <td className="bg-white/95 px-3 py-2.5 text-[11px] font-medium text-neutral-600 sm:px-4 sm:text-xs">
+                          {row.label}
+                        </td>
+                        <td className="bg-white/95 px-3 py-2.5 text-center text-sm font-semibold tabular-nums text-[#1a3329] sm:px-4">
+                          {row.value}
+                        </td>
                       </tr>
-                    ))
+                    )),
                   )}
                 </tbody>
               </table>
@@ -354,6 +392,16 @@ export function FloorPlanTopSection() {
 
 export function FloorPlanBottomSection() {
   const { current, setLightbox } = useFloorPlanGuideContext();
+  const labelOf = (m: (typeof FLOOR_LEVELS_META)[number]) =>
+    current.floorLabels?.[m.code] ?? m.label;
+  const planFloors = FLOOR_LEVELS_META.flatMap((m) => {
+    const src = resolvePlan2dSrc(current, m.code);
+    return src ? [{ ...m, label: labelOf(m), src }] : [];
+  });
+  const isoFloors = FLOOR_LEVELS_META.flatMap((m) => {
+    const src = resolveIsoSrc(current, m.code);
+    return src ? [{ ...m, label: labelOf(m), src }] : [];
+  });
 
   return (
     <section className="bg-white pb-2 pt-2 md:pt-4">
@@ -369,74 +417,96 @@ export function FloorPlanBottomSection() {
           transition={{ duration: 0.65, ease: [0.33, 1, 0.68, 1] }}
           className="space-y-10 md:space-y-14"
         >
-          <section aria-labelledby="heading-2d">
-            <div className="mb-5 flex items-end justify-between gap-4 border-b border-[#1a3329]/10 pb-3">
-              <h2 id="heading-2d" className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl">
-                평면도 <span className="text-sm font-normal text-neutral-500">(2D)</span>
-              </h2>
-              <span className="hidden text-xs text-neutral-500 sm:inline">
-                {current.tabLabel} · 층별 4면
-              </span>
-            </div>
-            <p className="mb-5 max-w-2xl text-sm leading-relaxed text-neutral-600">
-              지하 1층, 1·2·3층 도면을 동일 그리드로 배치해 층간 관계를 바로
-              비교할 수 있습니다. 이미지를 누르면 화면 중앙에서 크게 볼 수
-              있습니다.
-            </p>
-            <div className="grid gap-5 grid-cols-1 sm:gap-6 lg:gap-8">
-              {FLOOR_LEVELS_META.map(({ label, code }, i) => {
-                const src = resolvePlan2dSrc(current, code);
-                return (
-                  <FadeInUp key={code} delay={0.05 * i}>
-                    <FloorImageCard
-                      label={label}
-                      caption={`${current.unitCode} ${label} 평면도`}
-                      src={src}
-                      alt={`${current.tabLabel} ${label} 평면도`}
-                      aspectClassName="aspect-[4/3] md:aspect-[5/3]"
-                      placeholderHint="lib/floorplan-data.ts에서 images.plan2d 또는 기본 경로 public/floorplan/TOP_{타입}_{층}.png 를 확인하세요."
-                      onExpand={setLightbox}
-                      priority={i < 2}
-                    />
-                  </FadeInUp>
-                );
-              })}
-            </div>
-          </section>
-
-          <div className="h-px bg-gradient-to-r from-transparent via-[#1a3329]/15 to-transparent" />
-
-          <section aria-labelledby="heading-iso">
-            <div className="mb-5 border-b border-[#1a3329]/10 pb-3">
-              <h2 id="heading-iso" className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl">
-                아이소메트릭 <span className="text-sm font-normal text-neutral-500">(3D 투시)</span>
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-600">
-                층별 공간감을 한눈에 파악할 수 있도록 지하 1층부터 3층까지
-                4면을 배치했습니다. 실제 마감·가구 배치는 준공 기준에 따릅니다.
-                이미지를 누르면 확대해서 볼 수 있습니다.
+          {planFloors.length > 0 ? (
+            <section aria-labelledby="heading-2d">
+              <div className="mb-5 flex items-end justify-between gap-4 border-b border-[#1a3329]/10 pb-3">
+                <h2
+                  id="heading-2d"
+                  className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl"
+                >
+                  평면도{" "}
+                  <span className="text-sm font-normal text-neutral-500">
+                    (2D)
+                  </span>
+                </h2>
+                <span className="hidden text-xs text-neutral-500 sm:inline">
+                  {current.tabLabel} · 층별 {planFloors.length}면
+                </span>
+              </div>
+              <p className="mb-5 max-w-2xl text-sm leading-relaxed text-neutral-600">
+                {planFloors.map((f) => f.label).join(", ")} 도면을 동일 그리드로
+                배치해 층간 관계를 바로 비교할 수 있습니다. 이미지를 누르면 화면
+                중앙에서 크게 볼 수 있습니다.
               </p>
-            </div>
-            <div className="grid gap-5 grid-cols-1 sm:gap-6 lg:gap-8">
-              {FLOOR_LEVELS_META.map(({ label, code }, i) => {
-                const src = resolveIsoSrc(current, code);
-                return (
-                  <FadeInUp key={`iso-${code}`} delay={0.06 * i}>
-                    <FloorImageCard
-                      label={label}
-                      caption={`${current.unitCode} ${label} 아이소`}
-                      src={src}
-                      alt={`${current.tabLabel} ${label} 아이소메트릭`}
-                      aspectClassName="aspect-[5/4] md:aspect-[4/3]"
-                      placeholderHint="lib/floorplan-data.ts에서 images.iso 또는 기본 경로 public/iso/iso_{타입}-{층} 01.png 를 확인하세요."
-                      onExpand={setLightbox}
-                      priority={i < 2}
-                    />
-                  </FadeInUp>
-                );
-              })}
-            </div>
-          </section>
+              <div className="grid gap-5 grid-cols-1 sm:gap-6 lg:gap-8">
+                {planFloors.map(({ label, code, src }, i) => {
+                  return (
+                    <FadeInUp key={code} delay={0.05 * i}>
+                      <FloorImageCard
+                        dark
+                        label={label}
+                        caption={`${current.unitCode} ${label} 평면도`}
+                        src={src}
+                        alt={`${current.tabLabel} ${label} 평면도`}
+                        aspectClassName="aspect-[4/3] md:aspect-[5/3]"
+                        placeholderHint="평면도 이미지 준비 중입니다."
+                        onExpand={setLightbox}
+                        priority={i < 2}
+                      />
+                    </FadeInUp>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
+
+          {isoFloors.length > 0 ? (
+            <>
+              {planFloors.length > 0 ? (
+                <div className="h-px bg-gradient-to-r from-transparent via-[#1a3329]/15 to-transparent" />
+              ) : null}
+
+              <section aria-labelledby="heading-iso">
+                <div className="mb-5 border-b border-[#1a3329]/10 pb-3">
+                  <h2
+                    id="heading-iso"
+                    className="font-serif text-lg font-semibold text-[#1a3329] md:text-xl"
+                  >
+                    아이소메트릭{" "}
+                    <span className="text-sm font-normal text-neutral-500">
+                      (3D 투시)
+                    </span>
+                  </h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-600">
+                    층별 공간감을 한눈에 파악할 수 있도록{" "}
+                    {isoFloors.map((f) => f.label).join(", ")}{" "}
+                    {isoFloors.length}
+                    면을 배치했습니다. 실제 마감·가구 배치는 준공 기준에
+                    따릅니다. 이미지를 누르면 확대해서 볼 수 있습니다.
+                  </p>
+                </div>
+                <div className="grid gap-5 grid-cols-1 sm:gap-6 lg:gap-8">
+                  {isoFloors.map(({ label, code, src }, i) => {
+                    return (
+                      <FadeInUp key={`iso-${code}`} delay={0.06 * i}>
+                        <FloorImageCard
+                          dark
+                          label={label}
+                          caption={`${current.unitCode} ${label} 아이소`}
+                          src={src}
+                          alt={`${current.tabLabel} ${label} 아이소메트릭`}
+                          aspectClassName="aspect-[5/4] md:aspect-[4/3]"
+                          placeholderHint="아이소메트릭 이미지 준비 중입니다."
+                          onExpand={setLightbox}
+                          priority={i < 2}
+                        />
+                      </FadeInUp>
+                    );
+                  })}
+                </div>
+              </section>
+            </>
+          ) : null}
         </motion.div>
       </AnimatePresence>
     </section>
@@ -445,7 +515,12 @@ export function FloorPlanBottomSection() {
 
 export function FloorPlanGuideLightbox() {
   const { lightbox, setLightbox } = useFloorPlanGuideContext();
-  return <FloorPlanImageLightbox state={lightbox} onClose={() => setLightbox(null)} />;
+  return (
+    <FloorPlanImageLightbox
+      state={lightbox}
+      onClose={() => setLightbox(null)}
+    />
+  );
 }
 
 export function FloorPlanGuide() {
@@ -457,5 +532,3 @@ export function FloorPlanGuide() {
     </FloorPlanGuideProvider>
   );
 }
-
-
