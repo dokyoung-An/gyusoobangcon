@@ -49,7 +49,7 @@ export const siteConfig = {
     email: "info@gyusoobang.co.kr",
   },
   developer: {
-    name: "동광주태주식회사",
+    name: "동광주택주식회사",
     ceo: "이정주",
     bizNo: "126-81-35149",
   },
