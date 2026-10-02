@@ -133,7 +133,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-10 xl:gap-12">
                 <div className="relative aspect-[16/10] min-h-[200px] w-full overflow-hidden rounded-2xl bg-[#1a3329]/5 shadow-lg shadow-[#1a3329]/5 md:rounded-3xl lg:aspect-auto lg:min-h-[min(22rem,52vh)] lg:h-full">
                   <Image
-                    src="/about/new.jpg"
+                    src="/main/jo-web.jpg"
                     alt={`${projectDisplayName} 단지 조감`}
                     fill
                     className="object-cover"
