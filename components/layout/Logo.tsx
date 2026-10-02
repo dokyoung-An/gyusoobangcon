@@ -52,7 +52,7 @@ export function Logo({ className = "", tone = "dark" }: LogoProps) {
             light ? "text-[#3f141b]" : "text-white"
           }`}
         >
-          DREAM THE HILL Ⅱ
+          DREAM THE HILL <span className="tracking-[-0.06em]">II</span>
         </span>
         <span
           className={`${cinzel.className} mt-1 whitespace-nowrap text-center text-[0.5rem] tracking-[0.28em] md:text-[0.5625rem] ${
