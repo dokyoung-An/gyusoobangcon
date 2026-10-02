@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import localFont from "next/font/local";
 import { ArrowRight, ChevronDown, NotebookPen } from "lucide-react";
 import { OpeningBadge } from "./OpeningBadge";
+
+const heroTitleFont = localFont({
+  src: "../../app/fonts/WavvePADO-Regular.woff2",
+  weight: "400",
+  display: "swap",
+});
 
 const textShadow =
   "[text-shadow:0_2px_18px_rgb(0_0_0_/_0.45),0_1px_6px_rgb(0_0_0_/_0.35)]";
@@ -41,26 +48,26 @@ export function HeroSection() {
 
       <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col justify-start px-6 pb-48 pt-36 md:h-full md:justify-center md:px-10 md:pb-32 md:pt-32 lg:px-16">
         <div className={`break-keep text-left ${textShadow}`}>
-          <div className="max-w-xl">
+          <div className="inline-block max-w-full rounded-md bg-[#3f141b]/90 px-5 py-6 md:px-10 md:py-9">
             <p className="text-[0.625rem] font-medium uppercase tracking-[0.35em] text-white/85 md:text-xs">
               Urban Forest Residence
             </p>
-            <h1 className="mt-4 font-serif text-[1.875rem] font-semibold leading-[1.25] tracking-tight text-white md:mt-5 md:text-5xl lg:text-[3.5rem]">
-              집을 사는 시대에서
+            <h1
+              className={`${heroTitleFont.className} mt-4 text-[1.875rem] leading-[1.2] tracking-tight text-white md:mt-5 md:text-5xl lg:text-[3.5rem]`}
+            >
+              <span className="text-[0.8em]">집을 사는 시대에서-</span>
               <br />
-              <span className="text-[#e3c79a]">삶을 사는 시대로</span>
+              삶을 사는 시대로.
             </h1>
-            <p className="mt-6 font-serif text-[0.9375rem] leading-relaxed text-white/90 md:text-lg">
-              도심의 편리함과 자연의 여유가 만나는
-              <br />
-              삶의 완성을 담은 라이프엔드 주거공간, 수지 드림 더 힐 2차
-            </p>
-            <div className="mt-6 h-px w-12 bg-white/60" aria-hidden />
-            <p className="mt-6 font-serif text-xs leading-relaxed text-white/75 md:text-sm">
-              출퇴근은 더 편리하게, 생활은 더 가깝게,
-              <br />
-              아이들의 꿈은 더 크게 자라는 도심 속 단독주택 타운하우스
-            </p>
+            <Image
+              src="/main/hero-wordmark-white.png"
+              alt="하이엔드를 넘어 삶의 완성을 담은 LIFE-END 하우스, SUJI DREAM THE HILL Ⅱ 수지 드림 더 힐 2차"
+              width={1314}
+              height={277}
+              preload
+              sizes="(min-width: 768px) 20rem, 13rem"
+              className="mx-auto mt-6 block h-auto w-[13rem] md:mt-8 md:w-[20rem]"
+            />
           </div>
 
           <ul className="mt-10 grid max-w-3xl grid-cols-2 gap-x-4 gap-y-5 md:mt-12 md:flex md:gap-8">

@@ -147,7 +147,7 @@ export function SloganSection() {
                 />
               </div>
               <figcaption
-                className="reveal-up mt-3 break-keep font-serif text-[0.9375rem] text-neutral-700 md:mt-4 md:text-base"
+                className="reveal-up mt-3 break-keep font-serif text-[1.1rem] text-neutral-700 md:mt-4 md:text-[1.17rem]"
                 style={revealStyle(i * 0.35 + 0.2, "16px")}
               >
                 {cut.caption}
@@ -175,13 +175,6 @@ export function SloganSection() {
             className="reveal-up mt-8 space-y-5 break-keep text-[0.9375rem] leading-[1.9] text-neutral-600 md:mt-10 md:text-base"
             style={revealStyle(1.5, "16px")}
           >
-            <p>
-              출퇴근은 더 편리하게,
-              <br />
-              도심의 주요 생활권은 더 가깝게,
-              <br />
-              학교와 교육환경은 더 안심되게.
-            </p>
             <p>
               집이 갖춰야 할 모든 것을 넘어
               <br />
