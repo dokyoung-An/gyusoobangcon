@@ -41,8 +41,8 @@ export function OpeningBadge({ className = "" }: OpeningBadgeProps) {
           aria-hidden
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center leading-tight">
-          <span className="text-[0.6875rem] font-bold md:text-sm">샘플하우스</span>
-          <span className="mt-0.5 text-lg font-extrabold tracking-[0.12em] md:text-2xl">
+          <span className="text-[7px] font-bold md:text-sm">샘플하우스</span>
+          <span className="text-[11px] font-extrabold tracking-[0.08em] md:mt-0.5 md:text-2xl md:tracking-[0.12em]">
             OPEN
           </span>
         </div>

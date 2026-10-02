@@ -26,10 +26,10 @@ export function Logo({ className = "", tone = "dark" }: LogoProps) {
     >
       <div className="flex items-center gap-1.5">
         <Image
-          src="/gulogomi.png"
+          src="/main/logo-mark.png"
           alt=""
-          width={36}
-          height={30}
+          width={170}
+          height={120}
           preload
           className="h-[30px] w-auto shrink-0"
         />

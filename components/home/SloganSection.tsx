@@ -171,16 +171,6 @@ export function SloganSection() {
           >
             삶이 원하는 모든 것을 담았습니다.
           </h2>
-          <div
-            className="reveal-up mt-8 space-y-5 break-keep text-[0.9375rem] leading-[1.9] text-neutral-600 md:mt-10 md:text-base"
-            style={revealStyle(1.5, "16px")}
-          >
-            <p>
-              집이 갖춰야 할 모든 것을 넘어
-              <br />
-              삶이 원하는 모든 것을 담았습니다.
-            </p>
-          </div>
         </div>
       </RevealGroup>
     </section>
