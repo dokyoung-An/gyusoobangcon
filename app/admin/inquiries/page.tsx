@@ -14,8 +14,9 @@ type SearchParams = {
 export default async function AdminInquiriesPage({
   searchParams,
 }: {
-  searchParams?: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const { page: rawPage } = await searchParams;
   const c = await cookies();
   if (!verifyAdminSession(c.get(COOKIE_NAME)?.value)) {
     redirect("/admin/login");
@@ -25,8 +26,7 @@ export default async function AdminInquiriesPage({
 
   const pageSize = 10;
   const currentPage = (() => {
-    const raw = searchParams?.page;
-    const n = raw ? Number(raw) : 1;
+    const n = rawPage ? Number(rawPage) : 1;
     if (!Number.isFinite(n) || n < 1) return 1;
     return Math.floor(n);
   })();
