@@ -4,6 +4,7 @@ import { siteConfig } from "@/lib/site";
 
 export function Footer() {
   const { company, developer } = siteConfig;
+  const telDisplay = company.tel.replace(/-/g, ".");
 
   return (
     <footer className="border-t border-white/10 bg-[#0a1411] text-white/80">
@@ -34,6 +35,7 @@ export function Footer() {
                 <li>{company.name}</li>
                 <li>대표자명 : {company.ceo}</li>
                 <li>사업자등록번호 : {company.bizNo}</li>
+                <li>대표번호 : {telDisplay}</li>
               </ul>
             </div>
             <div className="sm:border-l sm:border-white/15 sm:pl-10">
@@ -44,6 +46,7 @@ export function Footer() {
                 <li>{developer.name}</li>
                 <li>대표자명 : {developer.ceo}</li>
                 <li>사업자등록번호 : {developer.bizNo}</li>
+                <li>대표번호 : {telDisplay}</li>
               </ul>
             </div>
           </div>
