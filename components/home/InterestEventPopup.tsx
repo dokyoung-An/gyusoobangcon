@@ -78,10 +78,12 @@ export function InterestEventPopup() {
           aria-label="관심고객등록 바로가기"
         >
           <Image
-            src="/popup/interest-event.jpg"
+            src="/main/pop.png"
             alt="관심고객등록 이벤트. 2026년 11월 29일까지 등록 시 스타벅스 커피교환권 30명 추첨"
-            width={690}
-            height={1024}
+            width={1544}
+            height={2290}
+            sizes="380px"
+            quality={85}
             priority
             className="h-auto max-h-[calc(100dvh-7.5rem)] w-full object-contain"
           />

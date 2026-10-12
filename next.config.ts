@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     /** 모바일·태블릿에 맞춘 기본 변형 폭 (불필요하게 큰 원본 전송 방지) */
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2560],
     imageSizes: [32, 48, 64, 96, 128, 256, 384],
     /** AVIF는 첫 요청 시 서버 변환이 느려 히어로가 늦게 뜨므로 WebP만 사용 */
     formats: ["image/webp"],

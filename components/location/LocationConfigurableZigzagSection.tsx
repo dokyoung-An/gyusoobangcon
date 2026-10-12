@@ -16,6 +16,8 @@ export type LocationZigzagRow = {
   /** 이미지 비율 유지용(세로 높이 자동 계산). */
   imageW?: number;
   imageH?: number;
+  sizes?: string;
+  imageQuality?: number;
   titleBefore?: string;
   titleHighlight?: string;
   description?: string;
@@ -28,6 +30,8 @@ function MainImagePane({
   imageContain = false,
   imageW,
   imageH,
+  sizes = "(max-width: 768px) 100vw, 50vw",
+  quality = 75,
 }: {
   src: string;
   alt: string;
@@ -35,6 +39,8 @@ function MainImagePane({
   imageContain?: boolean;
   imageW?: number;
   imageH?: number;
+  sizes?: string;
+  quality?: number;
 }) {
   const w = imageW ?? 1200;
   const h = imageH ?? 800;
@@ -49,11 +55,11 @@ function MainImagePane({
         width={w}
         height={h}
         className={imageContain ? "h-auto w-full object-contain" : "h-auto w-full object-cover"}
-        sizes="(max-width: 768px) 100vw, 50vw"
+        sizes={sizes}
         priority={eager}
         loading={eager ? "eager" : "lazy"}
         fetchPriority={eager ? "high" : "auto"}
-        quality={75}
+        quality={quality}
       />
     </div>
   );
@@ -201,6 +207,8 @@ export function LocationConfigurableZigzagSection({
                         imageContain={row.imageContain}
                         imageW={row.imageW}
                         imageH={row.imageH}
+                        sizes={row.sizes}
+                        quality={row.imageQuality}
                       />
                       <EditorialContentBlock row={row} />
                     </>
@@ -214,6 +222,8 @@ export function LocationConfigurableZigzagSection({
                         imageContain={row.imageContain}
                         imageW={row.imageW}
                         imageH={row.imageH}
+                        sizes={row.sizes}
+                        quality={row.imageQuality}
                       />
                     </>
                   )
@@ -225,6 +235,8 @@ export function LocationConfigurableZigzagSection({
                     imageContain={row.imageContain}
                     imageW={row.imageW}
                     imageH={row.imageH}
+                    sizes={row.sizes}
+                    quality={row.imageQuality}
                   />
                 ) : (
                   <EditorialContentBlock row={row} />
