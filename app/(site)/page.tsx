@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
+import { InterestEventPopup } from "@/components/home/InterestEventPopup";
 import { SloganSection } from "@/components/home/SloganSection";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { CtaSection } from "@/components/home/CtaSection";
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <InterestEventPopup />
       <HeroSection />
       <SloganSection />
       <FeaturesSection />

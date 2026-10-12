@@ -281,9 +281,9 @@ const donghoLayoutRows: readonly LocationZigzagRow[] = [
     key: "dongho-layout",
     imageLeft: true,
     accent: "#3d5a80",
-    mainImage: "/batch/batch.webp",
-    imageW: 2560,
-    imageH: 1280,
+    mainImage: "/batch/dongho-layout.jpg",
+    imageW: 1024,
+    imageH: 576,
     imageContain: true,
   },
 ];

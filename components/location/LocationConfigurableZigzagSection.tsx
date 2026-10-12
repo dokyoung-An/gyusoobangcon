@@ -199,6 +199,8 @@ export function LocationConfigurableZigzagSection({
                         alt={`${row.englishLines?.join(" ") ?? "단지 소개"} 관련 이미지`}
                         eager={index < 2}
                         imageContain={row.imageContain}
+                        imageW={row.imageW}
+                        imageH={row.imageH}
                       />
                       <EditorialContentBlock row={row} />
                     </>
@@ -210,6 +212,8 @@ export function LocationConfigurableZigzagSection({
                         alt={`${row.englishLines?.join(" ") ?? "단지 소개"} 관련 이미지`}
                         eager={index < 2}
                         imageContain={row.imageContain}
+                        imageW={row.imageW}
+                        imageH={row.imageH}
                       />
                     </>
                   )
@@ -219,6 +223,8 @@ export function LocationConfigurableZigzagSection({
                     alt={`${row.englishLines?.join(" ") ?? "단지 소개"} 관련 이미지`}
                     eager={index < 2}
                     imageContain={row.imageContain}
+                    imageW={row.imageW}
+                    imageH={row.imageH}
                   />
                 ) : (
                   <EditorialContentBlock row={row} />
