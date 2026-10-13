@@ -3,10 +3,7 @@ import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { openGraphImagePath } from "@/lib/images";
-import {
-  getNaverWcsInflowDomain,
-  NAVER_WCS_ACCOUNT_ID,
-} from "@/lib/naver-wcs";
+import { NAVER_WCS_ACCOUNT_ID } from "@/lib/naver-wcs";
 
 const notoSerif = Noto_Serif_KR({
   weight: ["400", "600", "700"],
@@ -92,7 +89,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const naverWa = JSON.stringify(NAVER_WCS_ACCOUNT_ID);
-  const naverInflow = JSON.stringify(getNaverWcsInflowDomain());
 
   return (
     <html lang="ko" className="h-full scroll-smooth">
@@ -136,25 +132,18 @@ if(s){s.addEventListener('load',track,{once:true});}
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
           crossOrigin="anonymous"
         />
-        {/* 네이버 WCS PV: inflow(1차도메인) + wcs_do() 1회 — 동기 로드는 첫 화면 렌더를 막으므로 비동기로 불러온 뒤 실행 */}
+        {/* 네이버 GFA */}
+        <script type="text/javascript" src="https://wcs.naver.net/wcslog.js" />
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: `(function(){
-var s=document.createElement("script");
-s.async=true;
-s.src="https://wcs.naver.net/wcslog.js";
-s.onload=function(){
-if (!window.wcs_add) window.wcs_add={};
-window.wcs_add["wa"] = ${naverWa};
-if (!window._nasa) window._nasa={};
+            __html: `if (!wcs_add) var wcs_add={};
+wcs_add["wa"] = ${naverWa};
+if (!_nasa) var _nasa={};
 if(window.wcs){
-wcs.inflow(${naverInflow});
+wcs.inflow();
 wcs_do();
-}
-};
-document.head.appendChild(s);
-})();`,
+}`,
           }}
         />
       </head>
