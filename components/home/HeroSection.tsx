@@ -48,16 +48,16 @@ export function HeroSection() {
 
       <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col justify-start px-6 pb-48 pt-36 md:h-full md:justify-center md:px-10 md:pb-32 md:pt-32 lg:px-16">
         <div className={`break-keep text-left ${textShadow}`}>
+          <p className="mb-4 block w-fit rounded-full bg-white px-5 py-2.5 text-lg font-bold leading-none text-[#3f141b] shadow-[0_8px_24px_rgb(0_0_0_/_0.28)] [text-shadow:none] md:mb-5 md:px-7 md:py-3 md:text-2xl">
+            수지 지가상승률 최상위권!
+          </p>
           <div className="inline-block max-w-full rounded-md bg-[#3f141b]/90 px-5 py-6 md:px-10 md:py-9">
-            <p className="text-[0.625rem] font-medium uppercase tracking-[0.35em] text-white/85 md:text-xs">
-              Urban Forest Residence
-            </p>
             <h1
-              className={`${heroTitleFont.className} mt-4 text-[1.875rem] leading-[1.2] tracking-tight text-white md:mt-5 md:text-5xl lg:text-[3.5rem]`}
+              className={`${heroTitleFont.className} text-[1.65rem] leading-[1.25] tracking-tight text-white md:text-[2.35rem] lg:text-[2.85rem]`}
             >
-              <span className="text-[0.8em]">집을 사는 시대에서-</span>
+              수지의 가치가 오를수록,
               <br />
-              삶을 사는 시대로.
+              드림 더 힐의 가치는 더 높아집니다.
             </h1>
             <Image
               src="/main/hero-wordmark-white.png"
