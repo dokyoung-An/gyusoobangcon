@@ -51,7 +51,7 @@ export function HeroSection() {
           <p className="mb-4 block w-fit rounded-full bg-white px-5 py-2.5 text-lg font-bold leading-none text-[#3f141b] shadow-[0_8px_24px_rgb(0_0_0_/_0.28)] [text-shadow:none] md:mb-5 md:px-7 md:py-3 md:text-2xl">
             수지 지가상승률 최상위권!
           </p>
-          <div className="inline-block max-w-full rounded-md bg-[#3f141b]/90 px-5 py-6 md:px-10 md:py-9">
+          <div className="inline-block max-w-full rounded-md bg-[#3f141b]/70 px-5 py-6 md:px-10 md:py-9">
             <h1
               className={`${heroTitleFont.className} text-[1.65rem] leading-[1.25] tracking-tight text-white md:text-[2.35rem] lg:text-[2.85rem]`}
             >
